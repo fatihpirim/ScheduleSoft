@@ -17,6 +17,7 @@ public class MainApplication extends Application {
         stage.setScene(scene);
         stage.show();
         System.out.println("test");
+        System.out.println("changed made in dev");
     }
 
     public static void main(String[] args) {
