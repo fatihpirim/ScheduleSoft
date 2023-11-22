@@ -1,6 +1,6 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.helper.JDBC;
+import com.example.schedulesoft.util.Database;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,6 +14,6 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        welcomeText.setText(JDBC.connectionStatus);
+        welcomeText.setText(Database.connectionStatus);
     }
 }

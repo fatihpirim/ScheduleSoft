@@ -1,11 +1,11 @@
-package com.example.schedulesoft.helper;
+package com.example.schedulesoft.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public abstract class JDBC {
+public abstract class Database {
 
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";

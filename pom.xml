@@ -68,7 +68,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.helloworldjfxtemplate/com.example.schedulesoft.MainApplication
+                                com.example.helloworldjfxtemplate/com.example.schedulesoft.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
