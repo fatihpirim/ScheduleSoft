@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/Home.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         stage.setMinHeight(700);
