@@ -16,6 +16,7 @@ public class MainApplication extends Application {
         stage.setTitle("Main View!");
         stage.setScene(scene);
         stage.show();
+        System.out.println("test");
     }
 
     public static void main(String[] args) {
