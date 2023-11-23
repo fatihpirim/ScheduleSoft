@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerFormController">
    <left>
-      <Pane prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: lime;" BorderPane.alignment="CENTER" />
+       <fx:include source="SideNavBar.fxml" />
    </left>
    <right>
-      <Pane prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: lime;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: lime;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="localeLabel" alignment="TOP_RIGHT" layoutX="109.0" layoutY="14.0" prefHeight="26.0" prefWidth="71.0" style="-fx-background-color: beige;" text="EN">
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children></Pane>
    </right>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="formTitlePane" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: pink;">
+            <Pane fx:id="formTitlePane" prefHeight="101.0" prefWidth="600.0" style="-fx-background-color: pink;">
                <children>
-                  <Label fx:id="formTitleLabel" layoutX="14.0" layoutY="31.0" prefHeight="39.0" prefWidth="165.0" text="Add Customer">
+                  <Label fx:id="formTitleLabel" layoutX="14.0" layoutY="31.0" prefHeight="39.0" prefWidth="270.0" text="Add/Edit Customer">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
             </Pane>
-            <GridPane prefWidth="600.0">
+            <GridPane hgap="10.0" prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: cyan;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,10 +54,132 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
+               <children>
+                  <TextField fx:id="firstNameField" prefWidth="295.0" GridPane.rowIndex="1" />
+                  <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="firstNameLabel" prefHeight="17.0" prefWidth="295.0" text="First Name" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="lastNameLabel" prefHeight="17.0" prefWidth="348.0" text="Last Name" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </GridPane>
+            <GridPane hgap="10.0" prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: yellow;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TextField fx:id="addressFIeld" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
+                  <Label fx:id="addressLabel" prefHeight="17.0" prefWidth="649.0" text="Address" GridPane.valignment="BOTTOM" />
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </GridPane>
+            <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: khaki;">
+               <children>
+                  <GridPane hgap="10.0" prefWidth="600.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="postalCodeFIeld" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
+                        <Label fx:id="postalCodeLabel" prefHeight="17.0" prefWidth="649.0" text="Postal Code" GridPane.valignment="BOTTOM" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </GridPane>
+                  <Pane prefHeight="100.0" prefWidth="593.0" HBox.hgrow="NEVER" />
+               </children>
+            </HBox>
+            <GridPane hgap="10.0" prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: lavender;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="countryLabel" prefHeight="17.0" prefWidth="295.0" text="Country" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="stateLabel" prefHeight="17.0" prefWidth="348.0" text="State" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                  <ComboBox fx:id="countryComboBox" prefHeight="25.0" prefWidth="159.0" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="stateComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </GridPane>
+            <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: lightskyblue;">
+               <children>
+                  <GridPane hgap="10.0" prefWidth="600.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="phoneNumberField" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
+                        <Label fx:id="phoneNumberLabel" prefHeight="17.0" prefWidth="649.0" text="Phone Number" GridPane.valignment="BOTTOM" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </GridPane>
+                  <Pane prefHeight="60.0" prefWidth="683.0" HBox.hgrow="NEVER" />
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: thistle;">
+               <children>
+                  <GridPane hgap="10.0" prefWidth="600.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="customerIdField" editable="false" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
+                        <Label fx:id="customerIdLabel" prefHeight="17.0" prefWidth="649.0" text="Customer ID" GridPane.valignment="BOTTOM" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </GridPane>
+                  <Pane prefHeight="60.0" prefWidth="683.0" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets bottom="50.0" />
+                     </HBox.margin>
+                  </Pane>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: springgreen;">
+               <children>
+                  <Button fx:id="cancelButton" layoutX="14.0" layoutY="160.0" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="111.0" text="Cancel" />
+                  <Button fx:id="saveButton" layoutX="477.0" layoutY="160.0" mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" prefWidth="110.0" text="Save" />
+               </children>
+            </Pane>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </center>
 </BorderPane>
