@@ -13,17 +13,21 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/Home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/CustomerTable.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        stage.setMinHeight(700);
-        stage.setHeight(700);
+        stage.setMinWidth(1100);
+        stage.setMinHeight(800);
 
-        stage.setMinWidth(1000);
-        stage.setWidth(1000);
+        stage.setWidth(1100);
+        stage.setHeight(800);
+
+
 
         stage.setScene(scene);
         stage.show();
+
+        System.out.println("Height:" + stage.getHeight());
     }
 
     public static void main(String[] args) {

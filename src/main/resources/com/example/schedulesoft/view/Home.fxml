@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.HomeController">
+<BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.HomeController">
    <left>
       <fx:include source="SideNavBar.fxml" />
    </left>
@@ -16,4 +16,7 @@
          </children>
       </VBox>
    </center>
+   <bottom>
+      <Pane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
