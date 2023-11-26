@@ -15,7 +15,7 @@
          <children>
             <VBox prefWidth="600.0" style="-fx-background-color: orange;" HBox.hgrow="NEVER">
                <children>
-                  <Label prefHeight="40.0" text="Customers">
+                  <Label prefHeight="40.0" text="%customers">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -38,17 +38,17 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: turquoise;" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAdd" text="Add">
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAdd" text="%add">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEdit" text="Edit">
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEdit" text="%edit">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDelete" text="Delete" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDelete" text="%delete" />
          </children>
       </HBox>
       <VBox prefHeight="550.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS">
@@ -58,13 +58,13 @@
          <children>
             <TableView fx:id="customerTable" prefHeight="550.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn prefWidth="49.0" text="ID" />
-                <TableColumn prefWidth="115.0" text="Name" />
-                  <TableColumn prefWidth="213.0" text="Address" />
-                  <TableColumn prefWidth="88.0" text="Postal Code" />
-                  <TableColumn prefWidth="93.0" text="Country" />
-                  <TableColumn prefWidth="97.0" text="State" />
-                  <TableColumn prefWidth="134.0" text="Phone" />
+                <TableColumn prefWidth="49.0" text="%id" />
+                <TableColumn prefWidth="115.0" text="%name" />
+                  <TableColumn prefWidth="213.0" text="%address" />
+                  <TableColumn prefWidth="88.0" text="%postal_code" />
+                  <TableColumn prefWidth="93.0" text="%country" />
+                  <TableColumn prefWidth="97.0" text="%state" />
+                  <TableColumn prefWidth="134.0" text="%phone" />
               </columns>
             </TableView>
          </children>

@@ -14,14 +14,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.AppointmentFormController">
    <children>
         <VBox prefHeight="700.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
             <children>
                 <Pane fx:id="formTitlePane" prefHeight="101.0" prefWidth="600.0" style="-fx-background-color: pink;" VBox.vgrow="NEVER">
                     <children>
-                        <Label fx:id="formTitleLabel" layoutX="14.0" layoutY="31.0" prefHeight="39.0" prefWidth="270.0" text="Add/Edit Appointment">
+                        <Label fx:id="formTitleLabel" layoutX="14.0" layoutY="31.0" prefHeight="39.0" prefWidth="270.0" text="%appointment">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -43,7 +42,7 @@
                             </rowConstraints>
                             <children>
                                 <TextField fx:id="titleField" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
-                                <Label fx:id="titleLabel" prefHeight="17.0" prefWidth="649.0" text="Title" GridPane.valignment="BOTTOM" />
+                                <Label fx:id="titleLabel" prefHeight="17.0" prefWidth="649.0" text="%title" GridPane.valignment="BOTTOM" />
                             </children>
                             <padding>
                                 <Insets left="10.0" right="10.0" />
@@ -62,7 +61,7 @@
                     </rowConstraints>
                     <children>
                         <TextField fx:id="descriptionField" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
-                        <Label fx:id="descriptionLabel" prefHeight="17.0" prefWidth="649.0" text="Description" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="descriptionLabel" prefHeight="17.0" prefWidth="649.0" text="%description" GridPane.valignment="BOTTOM" />
                     </children>
                     <padding>
                         <Insets left="10.0" right="10.0" />
@@ -80,8 +79,8 @@
                     <children>
                         <TextField fx:id="locationField" prefWidth="295.0" GridPane.rowIndex="1" />
                         <TextField fx:id="typeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="locationLabel" prefHeight="17.0" prefWidth="295.0" text="Location" GridPane.valignment="BOTTOM" />
-                        <Label fx:id="typeLabel" prefHeight="17.0" prefWidth="348.0" text="Type" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="locationLabel" prefHeight="17.0" prefWidth="295.0" text="%location" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="typeLabel" prefHeight="17.0" prefWidth="348.0" text="%type" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                     </children>
                     <padding>
                         <Insets left="10.0" right="10.0" />
@@ -98,7 +97,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label fx:id="contactLabel" prefHeight="17.0" prefWidth="649.0" text="Contact" GridPane.valignment="BOTTOM" />
+                                <Label fx:id="contactLabel" prefHeight="17.0" prefWidth="649.0" text="%contact" GridPane.valignment="BOTTOM" />
                               <ComboBox fx:id="contactComboBox" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1" />
                             </children>
                             <padding>
@@ -118,8 +117,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="startDateLabel" prefHeight="17.0" prefWidth="295.0" text="Start Date" GridPane.valignment="BOTTOM" />
-                        <Label fx:id="startTimeLabel" prefHeight="17.0" prefWidth="348.0" text="Start Time" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="startDateLabel" prefHeight="17.0" prefWidth="295.0" text="%start_date" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="startTimeLabel" prefHeight="17.0" prefWidth="348.0" text="%start_time" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <ComboBox fx:id="startHourComboBox" prefHeight="25.0" prefWidth="70.0" />
@@ -147,8 +146,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="endDateLabel" prefHeight="17.0" prefWidth="295.0" text="End Date" GridPane.valignment="BOTTOM" />
-                  <Label fx:id="endTimeLabel" prefHeight="17.0" prefWidth="348.0" text="End Time" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="endDateLabel" prefHeight="17.0" prefWidth="295.0" text="%end_date" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="endTimeLabel" prefHeight="17.0" prefWidth="348.0" text="%end_time" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <ComboBox fx:id="endHourComboBox" prefHeight="25.0" prefWidth="70.0" />
@@ -168,7 +167,7 @@
             </GridPane>
             <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: olive;" VBox.vgrow="NEVER">
                <children>
-                  <GridPane hgap="10.0" prefHeight="60.0" prefWidth="326.0">
+                  <GridPane hgap="10.0" prefHeight="60.0" prefWidth="326.0" HBox.hgrow="ALWAYS">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -177,14 +176,14 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label fx:id="customerIdLabel" prefHeight="17.0" prefWidth="649.0" text="Customer ID" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="customerIdLabel" prefHeight="17.0" prefWidth="649.0" text="%customer_id" GridPane.valignment="BOTTOM" />
                         <ComboBox fx:id="customerIdComboBox" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1" />
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </GridPane>
-                  <GridPane hgap="10.0" prefHeight="60.0" prefWidth="341.0">
+                  <GridPane hgap="10.0" prefHeight="60.0" prefWidth="341.0" HBox.hgrow="ALWAYS">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -193,7 +192,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label fx:id="userIdLabel" prefHeight="17.0" prefWidth="649.0" text="User ID" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="userIdLabel" prefHeight="17.0" prefWidth="649.0" text="%user_id" GridPane.valignment="BOTTOM" />
                         <ComboBox fx:id="userIdComboBox" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1" />
                      </children>
                      <padding>
@@ -214,7 +213,7 @@
                             </rowConstraints>
                             <children>
                                 <TextField fx:id="appointmentIdField" editable="false" prefHeight="25.0" prefWidth="197.0" GridPane.rowIndex="1" />
-                                <Label fx:id="appointmentIdLabel" prefHeight="17.0" prefWidth="649.0" text="Appointment ID" GridPane.valignment="BOTTOM" />
+                                <Label fx:id="appointmentIdLabel" prefHeight="17.0" prefWidth="649.0" text="%appointment_id" GridPane.valignment="BOTTOM" />
                             </children>
                             <padding>
                                 <Insets left="10.0" right="10.0" />
@@ -234,7 +233,7 @@
                <children>
                   <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: lavender;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="111.0" text="Cancel" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="111.0" text="%cancel" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -242,7 +241,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: pink;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" prefWidth="92.0" text="Save" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" prefWidth="92.0" text="%save" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

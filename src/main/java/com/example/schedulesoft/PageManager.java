@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import com.example.schedulesoft.enums.View;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class PageManager {
 
@@ -24,7 +26,11 @@ public class PageManager {
         }
 
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(PageManager.class.getResource(page.getFileName())));
+
+            Locale locale = new Locale("fr");
+            ResourceBundle rb = ResourceBundle.getBundle("com.example.schedulesoft.UI", locale);
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(PageManager.class.getResource(page.getFileName())), rb);
 
             PageManager.pageContainer.setRoot(root);
 

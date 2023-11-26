@@ -6,7 +6,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
 public class PanelManager {
@@ -26,7 +28,10 @@ public class PanelManager {
 
         try {
 
-            Node child = FXMLLoader.load(Objects.requireNonNull(PanelManager.class.getResource(panel.getFileName())));
+            Locale locale = new Locale("fr");
+            ResourceBundle rb = ResourceBundle.getBundle("com.example.schedulesoft.UI", locale);
+
+            Node child = FXMLLoader.load(Objects.requireNonNull(PanelManager.class.getResource(panel.getFileName())), rb);
 
             HBox.setHgrow(child, Priority.ALWAYS);
             VBox.setVgrow(child, Priority.ALWAYS);

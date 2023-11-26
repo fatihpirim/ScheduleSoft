@@ -13,14 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerFormController">
    <children>
       <VBox prefHeight="700.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
          <children>
             <Pane fx:id="formTitlePane" prefHeight="101.0" prefWidth="600.0" style="-fx-background-color: pink;">
                <children>
-                  <Label fx:id="formTitleLabel" layoutX="14.0" layoutY="31.0" prefHeight="39.0" prefWidth="270.0" text="Add/Edit Customer">
+                  <Label fx:id="formTitleLabel" layoutX="14.0" layoutY="31.0" prefHeight="39.0" prefWidth="270.0" text="%customer">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -42,8 +41,8 @@
                <children>
                   <TextField fx:id="firstNameField" prefWidth="295.0" GridPane.rowIndex="1" />
                   <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="firstNameLabel" prefHeight="17.0" prefWidth="295.0" text="First Name" GridPane.valignment="BOTTOM" />
-                  <Label fx:id="lastNameLabel" prefHeight="17.0" prefWidth="348.0" text="Last Name" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="firstNameLabel" prefHeight="17.0" prefWidth="295.0" text="%first_name" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="lastNameLabel" prefHeight="17.0" prefWidth="348.0" text="%last_name" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -59,7 +58,7 @@
                </rowConstraints>
                <children>
                   <TextField fx:id="addressFIeld" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
-                  <Label fx:id="addressLabel" prefHeight="17.0" prefWidth="649.0" text="Address" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="addressLabel" prefHeight="17.0" prefWidth="649.0" text="%address" GridPane.valignment="BOTTOM" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -77,7 +76,7 @@
                      </rowConstraints>
                      <children>
                         <TextField fx:id="postalCodeFIeld" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
-                        <Label fx:id="postalCodeLabel" prefHeight="17.0" prefWidth="649.0" text="Postal Code" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="postalCodeLabel" prefHeight="17.0" prefWidth="649.0" text="%postal_code" GridPane.valignment="BOTTOM" />
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
@@ -96,8 +95,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="countryLabel" prefHeight="17.0" prefWidth="295.0" text="Country" GridPane.valignment="BOTTOM" />
-                  <Label fx:id="stateLabel" prefHeight="17.0" prefWidth="348.0" text="State" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="countryLabel" prefHeight="17.0" prefWidth="295.0" text="%country" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="stateLabel" prefHeight="17.0" prefWidth="348.0" text="%state" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                   <ComboBox fx:id="countryComboBox" prefHeight="25.0" prefWidth="159.0" GridPane.rowIndex="1" />
                   <ComboBox fx:id="stateComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
@@ -117,7 +116,7 @@
                      </rowConstraints>
                      <children>
                         <TextField fx:id="phoneNumberField" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
-                        <Label fx:id="phoneNumberLabel" prefHeight="17.0" prefWidth="649.0" text="Phone Number" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="phoneNumberLabel" prefHeight="17.0" prefWidth="649.0" text="%phone_number" GridPane.valignment="BOTTOM" />
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
@@ -138,7 +137,7 @@
                      </rowConstraints>
                      <children>
                         <TextField fx:id="customerIdField" editable="false" prefHeight="25.0" prefWidth="498.0" GridPane.rowIndex="1" />
-                        <Label fx:id="customerIdLabel" prefHeight="17.0" prefWidth="649.0" text="Customer ID" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="customerIdLabel" prefHeight="17.0" prefWidth="649.0" text="%customer_id" GridPane.valignment="BOTTOM" />
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
@@ -158,7 +157,7 @@
                <children>
                   <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: lavender;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="111.0" text="Cancel" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="111.0" text="%cancel" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -166,7 +165,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: pink;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" prefWidth="92.0" text="Save" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" prefWidth="92.0" text="%save" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
