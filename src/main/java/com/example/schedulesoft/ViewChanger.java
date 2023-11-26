@@ -12,6 +12,7 @@ import java.util.Objects;
 public class ViewChanger {
 
     private static Pane parent;
+    private static View currentView;
 
     public static void setParent(Pane parent) {
         ViewChanger.parent = parent;
@@ -24,6 +25,11 @@ public class ViewChanger {
             return;
         }
 
+        if(ViewChanger.currentView != null && ViewChanger.currentView.equals(view)) {
+            System.out.println("Same view. No change.");
+            return;
+        }
+
         try {
 
             Node child = FXMLLoader.load(Objects.requireNonNull(ViewChanger.class.getResource(view.getFileName())));
@@ -33,6 +39,8 @@ public class ViewChanger {
 
             parent.getChildren().clear();
             parent.getChildren().add(child);
+
+            ViewChanger.currentView = view;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
