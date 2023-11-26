@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,66 +14,57 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+
+<VBox prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.LoginController">
+   <children>
+      <HBox prefHeight="100.0" style="-fx-background-color: lavender;" VBox.vgrow="NEVER" />
+      <HBox prefHeight="500.0" style="-fx-background-color: lavender;">
          <children>
-            <Pane fx:id="logoPane" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: red;" HBox.hgrow="NEVER" />
-            <Pane prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS" />
-            <Pane fx:id="userZonePane" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: gray;" HBox.hgrow="NEVER" />
+            <VBox prefWidth="200.0" style="-fx-background-color: violet;" HBox.hgrow="ALWAYS" />
+            <VBox prefWidth="600.0" style="-fx-background-color: beige;" HBox.hgrow="NEVER">
+               <children>
+                  <Pane fx:id="loginTitlePane" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: beige;" VBox.vgrow="NEVER">
+                     <children>
+                        <Label fx:id="loginTitleLabel" alignment="CENTER" layoutX="187.0" layoutY="23.0" prefHeight="54.0" prefWidth="186.0" text="LOG IN">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+      
+                  <TextFlow fx:id="authErrorTextFLow" prefHeight="50.0" prefWidth="360.0" style="-fx-background-color: pink;" VBox.vgrow="NEVER" />
+      
+                  <GridPane prefWidth="360.0" style="-fx-background-color: cyan;" VBox.vgrow="NEVER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="usernameField" prefWidth="360.0" GridPane.rowIndex="1" />
+                        <Label fx:id="usernameLabel" text="Username" />
+                        <Label fx:id="passwordLabel" text="Password" GridPane.rowIndex="2" />
+                        <PasswordField fx:id="passwordField" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" prefHeight="32.0" prefWidth="668.0" text="Login" VBox.vgrow="NEVER">
+                     <VBox.margin>
+                        <Insets bottom="40.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox prefWidth="200.0" style="-fx-background-color: violet;" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-   </top>
-   <left>
-      <Pane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: lime;" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <Pane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: lime;" BorderPane.alignment="CENTER" />
-   </right>
-   <bottom>
-      <Pane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: orange;" BorderPane.alignment="CENTER" />
-   </bottom>
-   <center>
-      <VBox prefHeight="500.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane fx:id="loginTitlePane" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: beige;" VBox.vgrow="NEVER">
-               <children>
-                  <Label fx:id="loginTitleLabel" alignment="CENTER" layoutX="87.0" layoutY="23.0" prefHeight="54.0" prefWidth="186.0" text="LOG IN">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-
-            <TextFlow fx:id="authErrorTextFLow" prefHeight="50.0" prefWidth="360.0" style="-fx-background-color: pink;" VBox.vgrow="NEVER" />
-
-            <GridPane prefWidth="360.0" style="-fx-background-color: cyan;" VBox.vgrow="NEVER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TextField fx:id="usernameField" prefWidth="360.0" GridPane.rowIndex="1" />
-                  <Label fx:id="usernameLabel" text="Username" />
-                  <Label fx:id="passwordLabel" text="Password" GridPane.rowIndex="2" />
-                  <PasswordField fx:id="passwordField" GridPane.rowIndex="3" />
-               </children>
-            </GridPane>
-            <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="448.0" text="Login" VBox.vgrow="NEVER">
-               <VBox.margin>
-                  <Insets bottom="40.0" top="20.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-      </VBox>
-   </center>
-</BorderPane>
+      <HBox prefHeight="100.0" style="-fx-background-color: lavender;" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

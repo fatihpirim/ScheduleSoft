@@ -4,19 +4,23 @@ import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.util.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 // https://www.baeldung.com/java-dto-pattern
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/Home.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(View.Login.getFileName())));
+        Scene scene = new Scene(root);
+
+        PageManager.setPageContainer(scene);
 
         stage.setMinWidth(1100);
         stage.setMinHeight(800);

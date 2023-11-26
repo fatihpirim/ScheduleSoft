@@ -1,6 +1,6 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.ViewChanger;
+import com.example.schedulesoft.PanelManager;
 import com.example.schedulesoft.enums.View;
 import javafx.fxml.FXML;
 
@@ -10,7 +10,7 @@ public class AppointmentTableController {
     private void onAdd() {
         System.out.println("Clicked Add (appointment)");
 
-        ViewChanger.changeViewTo(View.AppointmentForm);
+        PanelManager.changePanelTo(View.AppointmentForm);
     }
 
     @FXML

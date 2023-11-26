@@ -4,7 +4,9 @@ public enum View {
     CustomerTable("view/CustomerTable.fxml"),
     AppointmentTable("view/AppointmentTable.fxml"),
     CustomerForm("view/CustomerForm.fxml"),
-    AppointmentForm("view/AppointmentForm.fxml");
+    AppointmentForm("view/AppointmentForm.fxml"),
+    Home("view/Home.fxml"),
+    Login("view/Login.fxml");
 
     private String fileName;
 
