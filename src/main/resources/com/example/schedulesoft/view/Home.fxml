@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.HomeController">
-   <left>
+
+<HBox prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.HomeController">
+   <children>
       <fx:include source="SideNavBar.fxml" />
-   </left>
-   <center>
-      <VBox prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER">
+      <HBox style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
          <children>
-            <Pane fx:id="titlePane" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: blue;" VBox.vgrow="NEVER" />
-            <Pane fx:id="dashboardPanel" prefHeight="600.0" prefWidth="200.0" />
+            <VBox style="-fx-background-color: orange;" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox fx:id="homeScreen" style="-fx-background-color: s;" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
-   </center>
-   <bottom>
-      <Pane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
-   </bottom>
-</BorderPane>
+      </HBox>
+   </children>
+</HBox>

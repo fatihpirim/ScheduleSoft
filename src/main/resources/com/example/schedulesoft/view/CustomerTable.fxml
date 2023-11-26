@@ -9,75 +9,65 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerTableController">
+<VBox style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerTableController">
    <children>
-      <HBox VBox.vgrow="ALWAYS">
+      <HBox prefHeight="100.0" VBox.vgrow="NEVER">
          <children>
-            <fx:include source="SideNavBar.fxml" HBox.hgrow="NEVER" />
-            <VBox prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS">
+            <VBox prefWidth="600.0" style="-fx-background-color: orange;" HBox.hgrow="NEVER">
                <children>
-                  <HBox prefHeight="100.0" VBox.vgrow="NEVER">
-                     <children>
-                        <VBox prefWidth="600.0" style="-fx-background-color: orange;" HBox.hgrow="NEVER">
-                           <children>
-                              <Label prefHeight="40.0" text="Customers">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <HBox alignment="TOP_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label fx:id="zoneIDLabel" alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="143.0" text="CA" HBox.hgrow="NEVER">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: turquoise;" VBox.vgrow="NEVER">
-                     <children>
-                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAdd" text="Add">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEdit" text="Edit">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDelete" text="Delete" />
-                     </children>
-                  </HBox>
-                  <VBox prefHeight="550.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <children>
-                        <TableView fx:id="customerTable" prefHeight="550.0" VBox.vgrow="ALWAYS">
-                          <columns>
-                            <TableColumn prefWidth="49.0" text="ID" />
-                            <TableColumn prefWidth="115.0" text="Name" />
-                              <TableColumn prefWidth="213.0" text="Address" />
-                              <TableColumn prefWidth="88.0" text="Postal Code" />
-                              <TableColumn prefWidth="93.0" text="Country" />
-                              <TableColumn prefWidth="97.0" text="State" />
-                              <TableColumn prefWidth="134.0" text="Phone" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </VBox>
+                  <Label prefHeight="40.0" text="Customers">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
+            <HBox alignment="TOP_RIGHT" prefWidth="200.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="zoneIDLabel" alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="143.0" text="CA" HBox.hgrow="NEVER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
          </children>
       </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: turquoise;" VBox.vgrow="NEVER">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAdd" text="Add">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEdit" text="Edit">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDelete" text="Delete" />
+         </children>
+      </HBox>
+      <VBox prefHeight="550.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <children>
+            <TableView fx:id="customerTable" prefHeight="550.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn prefWidth="49.0" text="ID" />
+                <TableColumn prefWidth="115.0" text="Name" />
+                  <TableColumn prefWidth="213.0" text="Address" />
+                  <TableColumn prefWidth="88.0" text="Postal Code" />
+                  <TableColumn prefWidth="93.0" text="Country" />
+                  <TableColumn prefWidth="97.0" text="State" />
+                  <TableColumn prefWidth="134.0" text="Phone" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </VBox>
