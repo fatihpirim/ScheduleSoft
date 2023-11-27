@@ -2,6 +2,7 @@ package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.PageManager;
 import com.example.schedulesoft.PanelManager;
+import com.example.schedulesoft.UserAuth;
 import com.example.schedulesoft.enums.View;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -38,10 +39,15 @@ public class SideNavBarController implements Initializable {
     }
 
     @FXML
-    private void onLogout(Event event) {
+    private void onLogout(Event event) throws Exception {
         System.out.println("Clicked logout");
 
-        PageManager.changePageTo(View.Login);
+        boolean userIsDeauthenticated = UserAuth.deauthenticate();
+
+        if (userIsDeauthenticated) {
+            PageManager.changePageTo(View.Login);
+        }
+
     }
 
 

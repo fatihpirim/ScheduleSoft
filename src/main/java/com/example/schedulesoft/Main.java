@@ -20,7 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Locale locale = new Locale("fr");
+        Locale locale = new Locale("en");
         ResourceBundle rb = ResourceBundle.getBundle("com.example.schedulesoft.UI", locale);
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(View.Login.getFileName())), rb);
@@ -37,7 +37,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        System.out.println("Height:" + stage.getHeight());
     }
 
     public static void main(String[] args) {

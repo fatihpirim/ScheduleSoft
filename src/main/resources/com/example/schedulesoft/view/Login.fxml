@@ -32,7 +32,7 @@
                      </children>
                   </Pane>
       
-                  <TextFlow fx:id="authErrorTextFLow" prefHeight="50.0" prefWidth="360.0" style="-fx-background-color: pink;" VBox.vgrow="NEVER" />
+                  <TextFlow fx:id="errorTextFlow" prefHeight="50.0" prefWidth="360.0" style="-fx-background-color: pink;" visible="false" VBox.vgrow="NEVER" />
       
                   <GridPane prefWidth="360.0" style="-fx-background-color: cyan;" VBox.vgrow="NEVER">
                     <columnConstraints>
