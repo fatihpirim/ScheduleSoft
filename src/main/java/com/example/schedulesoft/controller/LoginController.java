@@ -1,14 +1,12 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.PageManager;
-import com.example.schedulesoft.SessionHolder;
-import com.example.schedulesoft.UserAuth;
-import com.example.schedulesoft.UserSession;
+import com.example.schedulesoft.*;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.exception.UsernameNotFoundException;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -29,11 +27,15 @@ public class LoginController implements Initializable {
     @FXML
     TextFlow errorTextFlow;
 
+    @FXML
+    Label zoneIdLabel;
+
     private ResourceBundle rb;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.rb = resourceBundle;
+        zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
     }
 
     @FXML

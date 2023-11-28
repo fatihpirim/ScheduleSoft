@@ -24,7 +24,7 @@
             </VBox>
             <HBox alignment="TOP_RIGHT" prefWidth="200.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="zoneIDLabel1" alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="143.0" text="CA" HBox.hgrow="NEVER">
+                  <Label fx:id="zoneIdLabel" alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="143.0" text="zone id" HBox.hgrow="NEVER">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

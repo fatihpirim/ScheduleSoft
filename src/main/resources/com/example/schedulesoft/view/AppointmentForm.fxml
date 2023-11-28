@@ -253,7 +253,7 @@
         </VBox>
       <VBox alignment="TOP_RIGHT" prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: yellow;" HBox.hgrow="NEVER">
          <children>
-                <Label fx:id="zoneIDLabel" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="71.0" text="CA">
+                <Label fx:id="zoneIdLabel" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="180.0" text="zoned id">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>

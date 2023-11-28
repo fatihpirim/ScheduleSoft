@@ -16,7 +16,22 @@
 
 <VBox prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.LoginController">
    <children>
-      <HBox prefHeight="100.0" style="-fx-background-color: lavender;" VBox.vgrow="NEVER" />
+      <HBox prefHeight="100.0" style="-fx-background-color: lavender;" VBox.vgrow="NEVER">
+         <children>
+            <VBox prefWidth="800.0" HBox.hgrow="NEVER" />
+            <VBox alignment="TOP_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="zoneIdLabel" text="zone id">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children></HBox>
       <HBox prefHeight="500.0" style="-fx-background-color: lavender;">
          <children>
             <VBox prefWidth="200.0" style="-fx-background-color: violet;" HBox.hgrow="ALWAYS" />
