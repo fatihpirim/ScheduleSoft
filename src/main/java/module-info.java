@@ -1,4 +1,4 @@
-module com.example.helloworldjfxtemplate {
+module com.example.schedulesoft {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;

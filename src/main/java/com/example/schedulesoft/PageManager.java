@@ -27,10 +27,7 @@ public class PageManager {
 
         try {
 
-            Locale locale = new Locale("en");
-            ResourceBundle rb = ResourceBundle.getBundle("com.example.schedulesoft.UI", locale);
-
-            Parent root = FXMLLoader.load(Objects.requireNonNull(PageManager.class.getResource(page.getFileName())), rb);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(PageManager.class.getResource(page.getFileName())), AppConfig.getResourceBundle());
 
             PageManager.pageContainer.setRoot(root);
 

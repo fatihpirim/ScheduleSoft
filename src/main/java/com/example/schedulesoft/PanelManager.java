@@ -28,10 +28,7 @@ public class PanelManager {
 
         try {
 
-            Locale locale = new Locale("en");
-            ResourceBundle rb = ResourceBundle.getBundle("com.example.schedulesoft.UI", locale);
-
-            Node child = FXMLLoader.load(Objects.requireNonNull(PanelManager.class.getResource(panel.getFileName())), rb);
+            Node child = FXMLLoader.load(Objects.requireNonNull(PanelManager.class.getResource(panel.getFileName())), AppConfig.getResourceBundle());
 
             HBox.setHgrow(child, Priority.ALWAYS);
             VBox.setVgrow(child, Priority.ALWAYS);

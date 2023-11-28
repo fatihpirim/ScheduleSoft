@@ -7,23 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.ResourceBundle;
-
-// https://www.baeldung.com/java-dto-pattern
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
 
-        Locale locale = new Locale("en");
-        ResourceBundle rb = ResourceBundle.getBundle("com.example.schedulesoft.UI", locale);
-
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(View.Login.getFileName())), rb);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(View.Login.getFileName())), AppConfig.getResourceBundle());
         Scene scene = new Scene(root);
 
         PageManager.setPageContainer(scene);
