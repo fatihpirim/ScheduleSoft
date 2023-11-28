@@ -1,18 +1,19 @@
 package com.example.schedulesoft.model;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class User {
 
     private int id;
-    private String username;
-    private String password;
-    private LocalDateTime createdOn;
-    private String createdBy;
-    private LocalDateTime lastUpdated;
-    private String lastUpdatedBy;
+    private final String username;
+    private final String password;
+    private final ZonedDateTime createdOn;
+    private final String createdBy;
+    private final ZonedDateTime lastUpdated;
+    private final String lastUpdatedBy;
 
-    public User(String username, String password, LocalDateTime createdOn, String createdBy, LocalDateTime lastUpdated, String lastUpdatedBy) {
+    public User(String username, String password, ZonedDateTime createdOn, String createdBy, ZonedDateTime lastUpdated, String lastUpdatedBy) {
         this.username = username;
         this.password = password;
         this.createdOn = createdOn;
@@ -37,7 +38,7 @@ public class User {
         return password;
     }
 
-    public LocalDateTime getCreatedOn() {
+    public ZonedDateTime getCreatedOn() {
         return createdOn;
     }
 
@@ -45,7 +46,7 @@ public class User {
         return createdBy;
     }
 
-    public LocalDateTime getLastUpdated() {
+    public ZonedDateTime getLastUpdated() {
         return lastUpdated;
     }
 

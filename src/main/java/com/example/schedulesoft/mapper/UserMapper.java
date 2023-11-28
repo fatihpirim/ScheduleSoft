@@ -7,6 +7,8 @@ import com.example.schedulesoft.model.User;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class UserMapper {
 
@@ -19,9 +21,9 @@ public class UserMapper {
         int id = user.getId();
         String username = user.getUsername();
         String password = user.getPassword();
-        Timestamp createdOn = Timestamp.valueOf(user.getCreatedOn());
+        Timestamp createdOn = Timestamp.valueOf(user.getCreatedOn().toLocalDateTime());
         String createdBy = user.getCreatedBy();
-        Timestamp lastUpdated = Timestamp.valueOf(user.getLastUpdated());
+        Timestamp lastUpdated = Timestamp.valueOf(user.getLastUpdated().toLocalDateTime());
         String lastUpdatedBy = user.getLastUpdatedBy();
 
         return new UserDTO(id, username, password, createdOn, createdBy, lastUpdated, lastUpdatedBy);
@@ -32,9 +34,9 @@ public class UserMapper {
         int id = userDTO.getId();
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
-        LocalDateTime createdOn = userDTO.getCreatedOn().toLocalDateTime();
+        ZonedDateTime createdOn = userDTO.getCreatedOn().toLocalDateTime().atZone(ZoneId.of("UTC"));
         String createdBy = userDTO.getCreatedBy();
-        LocalDateTime lastUpdated = userDTO.getLastUpdated().toLocalDateTime();
+        ZonedDateTime lastUpdated = userDTO.getLastUpdated().toLocalDateTime().atZone(ZoneId.of("UTC"));
         String lastUpdatedBy = userDTO.getLastUpdatedBy();
 
         User user = new User(username, password, createdOn, createdBy, lastUpdated, lastUpdatedBy);

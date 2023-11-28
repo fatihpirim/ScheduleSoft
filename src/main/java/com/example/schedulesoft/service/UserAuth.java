@@ -1,5 +1,7 @@
-package com.example.schedulesoft;
+package com.example.schedulesoft.service;
 
+import com.example.schedulesoft.SessionHolder;
+import com.example.schedulesoft.UserSession;
 import com.example.schedulesoft.dao.UserDAO;
 import com.example.schedulesoft.dto.UserDTO;
 import com.example.schedulesoft.exception.UsernameNotFoundException;

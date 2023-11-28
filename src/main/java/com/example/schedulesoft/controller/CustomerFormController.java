@@ -1,6 +1,7 @@
 package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.AppConfig;
+import com.example.schedulesoft.service.CustomerService;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,8 @@ public class CustomerFormController implements Initializable {
 
     private ResourceBundle rb;
 
+    private final CustomerService customerService = new CustomerService();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.rb = resourceBundle;
@@ -25,10 +28,16 @@ public class CustomerFormController implements Initializable {
     @FXML
     private void onSave(Event event) {
         System.out.println("Clicked Save");
+
+        // check if all forms are valid
+        // customerService.save()
     }
 
     @FXML
     private void onCancel(Event event) {
         System.out.println("Clicked Cancel");
+
+        // Throw warning "are you sure you want to exit without saving?"
+        // Change view to customer table
     }
 }

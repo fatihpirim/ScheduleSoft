@@ -5,9 +5,11 @@ import com.example.schedulesoft.exception.UsernameNotFoundException;
 import com.example.schedulesoft.util.Database;
 
 import java.sql.*;
+import java.util.List;
 
-public class UserDAO {
+public class UserDAO implements ReadOnlyDAO<UserDTO> {
 
+    @Override
     public UserDTO getById(int id) {
         String query = "SELECT * FROM client_schedule.users WHERE User_Id = ?";
 
@@ -62,4 +64,9 @@ public class UserDAO {
         }
     }
 
+    @Override
+    public List<UserDTO> getAll() throws SQLException {
+        // implement later
+        return null;
+    }
 }
