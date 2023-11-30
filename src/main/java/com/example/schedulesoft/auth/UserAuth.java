@@ -6,7 +6,7 @@ import com.example.schedulesoft.dao.UserDAO;
 import com.example.schedulesoft.dto.UserDTO;
 import com.example.schedulesoft.exception.UsernameNotFoundException;
 import com.example.schedulesoft.mapper.UserMapper;
-import com.example.schedulesoft.model.User;
+import com.example.schedulesoft.domain.User;
 
 public class UserAuth {
 

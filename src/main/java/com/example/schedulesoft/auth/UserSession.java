@@ -1,6 +1,6 @@
 package com.example.schedulesoft;
 
-import com.example.schedulesoft.model.User;
+import com.example.schedulesoft.domain.User;
 import java.util.Objects;
 
 public class UserSession {
