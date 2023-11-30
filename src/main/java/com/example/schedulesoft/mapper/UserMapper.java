@@ -1,21 +1,19 @@
 package com.example.schedulesoft.mapper;
 
 import com.example.schedulesoft.dto.UserDTO;
-import com.example.schedulesoft.exception.UserIdNullException;
-import com.example.schedulesoft.model.User;
+import com.example.schedulesoft.exception.InvalidIdException;
+import com.example.schedulesoft.domain.User;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class UserMapper {
 
-    public static UserDTO toDto(User user) throws UserIdNullException {
+    public static UserDTO toDto(User user) throws InvalidIdException {
 
-        if(user.getId() == 0) {
-            throw new UserIdNullException();
+        if(user.getId() == 0) { // and int is 0 by default -> id is 0 by default
+            throw new InvalidIdException();
         }
 
         int id = user.getId();

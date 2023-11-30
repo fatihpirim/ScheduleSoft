@@ -1,4 +1,4 @@
-package com.example.schedulesoft;
+package com.example.schedulesoft.auth;
 
 public class SessionHolder {
 

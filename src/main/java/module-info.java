@@ -11,5 +11,9 @@ module com.example.schedulesoft {
     opens com.example.schedulesoft.controller to javafx.fxml;
     exports com.example.schedulesoft.service;
     opens com.example.schedulesoft.service to javafx.fxml;
+    exports com.example.schedulesoft.util;
+    opens com.example.schedulesoft.util to javafx.fxml;
+    exports com.example.schedulesoft.auth;
+    opens com.example.schedulesoft.auth to javafx.fxml;
 
 }

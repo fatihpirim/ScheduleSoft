@@ -1,8 +1,10 @@
 package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.*;
+import com.example.schedulesoft.auth.SessionHolder;
 import com.example.schedulesoft.enums.View;
-import com.example.schedulesoft.service.UserAuth;
+import com.example.schedulesoft.auth.UserAuth;
+import com.example.schedulesoft.util.AppConfig;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

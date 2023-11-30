@@ -58,13 +58,13 @@
          <children>
             <TableView fx:id="customerTable" prefHeight="550.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn prefWidth="49.0" text="%id" />
-                <TableColumn prefWidth="115.0" text="%name" />
-                  <TableColumn prefWidth="213.0" text="%address" />
-                  <TableColumn prefWidth="88.0" text="%postal_code" />
-                  <TableColumn prefWidth="93.0" text="%country" />
-                  <TableColumn prefWidth="97.0" text="%state" />
-                  <TableColumn prefWidth="134.0" text="%phone" />
+                <TableColumn fx:id="idCol" prefWidth="49.0" text="%id" />
+                <TableColumn fx:id="nameCol" prefWidth="115.0" text="%name" />
+                  <TableColumn fx:id="addressCol" prefWidth="213.0" text="%address" />
+                  <TableColumn fx:id="postalCodeCol" prefWidth="88.0" text="%postal_code" />
+                  <TableColumn fx:id="countryCol" prefWidth="93.0" text="%country" />
+                  <TableColumn fx:id="divisionCol" prefWidth="97.0" text="%state" />
+                  <TableColumn fx:id="phoneCol" prefWidth="134.0" text="%phone" />
               </columns>
             </TableView>
          </children>

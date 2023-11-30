@@ -1,4 +1,4 @@
-package com.example.schedulesoft;
+package com.example.schedulesoft.auth;
 
 import com.example.schedulesoft.domain.User;
 import java.util.Objects;

@@ -1,6 +1,6 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.AppConfig;
+import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.PanelManager;
 import com.example.schedulesoft.enums.View;
 import javafx.fxml.FXML;

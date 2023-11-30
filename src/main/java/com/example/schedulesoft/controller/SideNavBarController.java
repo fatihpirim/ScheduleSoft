@@ -2,7 +2,7 @@ package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.PageManager;
 import com.example.schedulesoft.PanelManager;
-import com.example.schedulesoft.service.UserAuth;
+import com.example.schedulesoft.auth.UserAuth;
 import com.example.schedulesoft.enums.View;
 import javafx.event.Event;
 import javafx.fxml.FXML;

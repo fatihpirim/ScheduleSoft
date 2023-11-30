@@ -1,6 +1,6 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.AppConfig;
+import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.service.CustomerService;
 import javafx.event.Event;
 import javafx.fxml.FXML;

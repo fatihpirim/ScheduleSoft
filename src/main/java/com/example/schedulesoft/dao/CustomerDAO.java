@@ -2,6 +2,7 @@ package com.example.schedulesoft.dao;
 
 import com.example.schedulesoft.dto.CustomerDTO;
 import com.example.schedulesoft.util.Database;
+import javafx.beans.property.IntegerProperty;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
 
     @Override
-    public CustomerDTO getById(int id) throws SQLException {
+    public CustomerDTO getById(int id)  {
 
         String query = "SELECT * FROM client_schedule.customers WHERE Customer_ID = ?";
 
@@ -43,7 +44,7 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
     }
 
     @Override
-    public List<CustomerDTO> getAll() throws SQLException {
+    public List<CustomerDTO> getAll() {
 
         String query = "SELECT * FROM client_schedule.customers";
 
@@ -70,11 +71,14 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
             }
 
             return customerDTOs;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public int insert(CustomerDTO customerDTO) throws SQLException {
+    public int insert(CustomerDTO customerDTO) {
 
         String query = "INSERT INTO client_schedule.customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -98,7 +102,7 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
     }
 
     @Override
-    public int update(CustomerDTO customerDTO) throws SQLException {
+    public int update(CustomerDTO customerDTO)  {
 
         String query = "UPDATE client_schedule.customers SET Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Create_Date = ?, Created_By = ?, Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
 
@@ -118,13 +122,14 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
             ps.setInt(11, customerDTO.getId());
 
             return ps.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public int delete(CustomerDTO customerDTO) throws SQLException {
+    public int delete(CustomerDTO customerDTO) {
 
         String query = "DELETE FROM client_schedule.customers WHERE Customer_ID = ?";
 

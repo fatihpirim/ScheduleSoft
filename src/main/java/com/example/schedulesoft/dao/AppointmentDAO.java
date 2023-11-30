@@ -1,6 +1,7 @@
 package com.example.schedulesoft.dao;
 
 import com.example.schedulesoft.dto.AppointmentDTO;
+import javafx.beans.property.IntegerProperty;
 
 import java.sql.SQLException;
 import java.util.List;

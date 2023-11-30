@@ -1,6 +1,7 @@
 package com.example.schedulesoft;
 
 import com.example.schedulesoft.enums.View;
+import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.util.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

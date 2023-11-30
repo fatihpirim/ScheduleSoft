@@ -1,10 +1,7 @@
 package com.example.schedulesoft.mapper;
 
 import com.example.schedulesoft.dto.AppointmentDTO;
-import com.example.schedulesoft.model.Appointment;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import com.example.schedulesoft.domain.Appointment;
 
 public class AppointmentMapper {
 

@@ -1,14 +1,13 @@
 package com.example.schedulesoft;
 
+import com.example.schedulesoft.util.AppConfig;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import com.example.schedulesoft.enums.View;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class PageManager {
 

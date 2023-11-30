@@ -1,4 +1,4 @@
-package com.example.schedulesoft.model;
+package com.example.schedulesoft.domain;
 
 import javafx.beans.property.*;
 

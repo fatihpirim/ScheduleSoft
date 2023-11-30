@@ -1,6 +1,5 @@
-package com.example.schedulesoft.model;
+package com.example.schedulesoft.domain;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class User {

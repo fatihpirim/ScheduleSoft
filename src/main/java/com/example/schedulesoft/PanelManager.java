@@ -1,14 +1,13 @@
 package com.example.schedulesoft;
 
 import com.example.schedulesoft.enums.View;
+import com.example.schedulesoft.util.AppConfig;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 
 public class PanelManager {

@@ -1,4 +1,4 @@
-package com.example.schedulesoft;
+package com.example.schedulesoft.util;
 
 import com.example.schedulesoft.exception.UnsupportedLanguageException;
 
