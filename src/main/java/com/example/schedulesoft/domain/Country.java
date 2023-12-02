@@ -4,33 +4,21 @@ import javafx.beans.property.*;
 
 import java.time.ZonedDateTime;
 
-public class Customer {
-
+public class Country {
     private final IntegerProperty id;
     private final StringProperty name;
-    private final StringProperty address;
-    private final StringProperty postalCode;
-    private final StringProperty phoneNumber;
     private final Property<ZonedDateTime> createdOn;
     private final StringProperty createdBy;
     private final Property<ZonedDateTime> lastUpdated;
     private final StringProperty lastUpdatedBy;
-    private final IntegerProperty divisionId;
 
-
-    public Customer(String name, String address, String postalCode, String phoneNumber, ZonedDateTime createdOn, String createdBy, ZonedDateTime lastUpdated,
-                    String lastUpdatedBy, Integer divisionId) {
-
+    public Country(String name, ZonedDateTime createdOn, String createdBy, ZonedDateTime lastUpdated, String lastUpdatedBy) {
         this.id = new SimpleIntegerProperty(0);
         this.name = new SimpleStringProperty(name);
-        this.address = new SimpleStringProperty(address);
-        this.postalCode = new SimpleStringProperty(postalCode);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);
         this.createdOn = new SimpleObjectProperty<>(createdOn);
         this.createdBy = new SimpleStringProperty(createdBy);
         this.lastUpdated = new SimpleObjectProperty<>(lastUpdated);
         this.lastUpdatedBy = new SimpleStringProperty(lastUpdatedBy);
-        this.divisionId = new SimpleIntegerProperty(divisionId);
     }
 
     public int getId() {
@@ -55,42 +43,6 @@ public class Customer {
 
     public void setName(String name) {
         this.name.set(name);
-    }
-
-    public String getAddress() {
-        return address.get();
-    }
-
-    public StringProperty addressProperty() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address.set(address);
-    }
-
-    public String getPostalCode() {
-        return postalCode.get();
-    }
-
-    public StringProperty postalCodeProperty() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode.set(postalCode);
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber.get();
-    }
-
-    public StringProperty phoneNumberProperty() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber.set(phoneNumber);
     }
 
     public ZonedDateTime getCreatedOn() {
@@ -139,33 +91,5 @@ public class Customer {
 
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy.set(lastUpdatedBy);
-    }
-
-    public int getDivisionId() {
-        return divisionId.get();
-    }
-
-    public IntegerProperty divisionIdProperty() {
-        return divisionId;
-    }
-
-    public void setDivisionId(int divisionId) {
-        this.divisionId.set(divisionId);
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name=" + name +
-                ", address=" + address +
-                ", postalCode=" + postalCode +
-                ", phoneNumber=" + phoneNumber +
-                ", createdOn=" + createdOn +
-                ", createdBy=" + createdBy +
-                ", lastUpdated=" + lastUpdated +
-                ", lastUpdatedBy=" + lastUpdatedBy +
-                ", divisionId=" + divisionId +
-                '}';
     }
 }

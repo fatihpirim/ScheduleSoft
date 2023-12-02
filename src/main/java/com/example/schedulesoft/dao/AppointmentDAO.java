@@ -8,27 +8,27 @@ import java.util.List;
 
 public class AppointmentDAO implements ReadWriteDAO<AppointmentDTO> {
     @Override
-    public AppointmentDTO getById(int id) throws SQLException {
+    public AppointmentDTO getById(int id) {
         return null;
     }
 
     @Override
-    public List<AppointmentDTO> getAll() throws SQLException {
+    public List<AppointmentDTO> getAll() {
         return null;
     }
 
     @Override
-    public int insert(AppointmentDTO appointmentDTO) throws SQLException {
+    public int insert(AppointmentDTO appointmentDTO) {
         return 0;
     }
 
     @Override
-    public int update(AppointmentDTO appointmentDTO) throws SQLException {
+    public int update(AppointmentDTO appointmentDTO)  {
         return 0;
     }
 
     @Override
-    public int delete(AppointmentDTO appointmentDTO) throws SQLException {
+    public int delete(AppointmentDTO appointmentDTO) {
         return 0;
     }
 }

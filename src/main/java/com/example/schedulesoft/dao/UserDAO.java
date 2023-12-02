@@ -65,7 +65,7 @@ public class UserDAO implements ReadOnlyDAO<UserDTO> {
     }
 
     @Override
-    public List<UserDTO> getAll() throws SQLException {
+    public List<UserDTO> getAll() {
         // implement later
         return null;
     }

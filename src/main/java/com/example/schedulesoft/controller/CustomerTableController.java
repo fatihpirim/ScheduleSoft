@@ -90,6 +90,8 @@ public class CustomerTableController implements Initializable {
             deleteButton.setVisible(true);
 
         });
+
+        System.out.println(customerModel.getCustomers());
     }
 
     @FXML

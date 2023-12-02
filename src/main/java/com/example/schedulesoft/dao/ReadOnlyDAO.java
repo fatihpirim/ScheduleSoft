@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface ReadOnlyDAO<T> {
 
-    T getById(int id) throws SQLException;
+    T getById(int id) ;
 
-    List<T> getAll() throws SQLException;
+    List<T> getAll() ;
 
 }
