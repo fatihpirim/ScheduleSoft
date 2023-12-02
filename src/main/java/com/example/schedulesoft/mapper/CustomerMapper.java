@@ -28,7 +28,6 @@ public class CustomerMapper {
     public static Customer toCustomer(CustomerDTO customerDTO) {
 
         int id = customerDTO.getId();
-        System.out.println("The id being set: " + id);
         String name = customerDTO.getName();
         String address = customerDTO.getAddress();
         String postalCode = customerDTO.getPostalCode();

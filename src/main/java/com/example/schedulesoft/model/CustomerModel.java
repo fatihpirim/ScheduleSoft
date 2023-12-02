@@ -25,10 +25,6 @@ public class CustomerModel {
         return instance;
     }
 
-    public static void setInstance(CustomerModel instance) {
-        CustomerModel.instance = instance;
-    }
-
     public Customer getSelectedCustomer() {
         return selectedCustomer.get();
     }
@@ -51,6 +47,13 @@ public class CustomerModel {
 
     public void setCustomers(ArrayList<Customer> customers) {
         this.customers = FXCollections.observableArrayList(customers);
+    }
+
+    public boolean removeSelectedCustomer() {
+
+        Customer customer = getSelectedCustomer();
+        setSelectedCustomer(null);
+        return customers.remove(customer);
     }
 
 }

@@ -6,16 +6,16 @@ import java.time.ZonedDateTime;
 
 public class Customer {
 
-    private IntegerProperty id;
-    private StringProperty name;
-    private StringProperty address;
-    private StringProperty postalCode;
-    private StringProperty phoneNumber;
-    private Property<ZonedDateTime> createdOn;
-    private StringProperty createdBy;
-    private Property<ZonedDateTime> lastUpdated;
-    private StringProperty lastUpdatedBy;
-    private IntegerProperty divisionId;
+    private final IntegerProperty id;
+    private final StringProperty name;
+    private final StringProperty address;
+    private final StringProperty postalCode;
+    private final StringProperty phoneNumber;
+    private final Property<ZonedDateTime> createdOn;
+    private final StringProperty createdBy;
+    private final Property<ZonedDateTime> lastUpdated;
+    private final StringProperty lastUpdatedBy;
+    private final IntegerProperty divisionId;
 
 
     public Customer(String name, String address, String postalCode, String phoneNumber, ZonedDateTime createdOn, String createdBy, ZonedDateTime lastUpdated,
@@ -53,12 +53,20 @@ public class Customer {
         return name;
     }
 
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
     public String getAddress() {
         return address.get();
     }
 
     public StringProperty addressProperty() {
         return address;
+    }
+
+    public void setAddress(String address) {
+        this.address.set(address);
     }
 
     public String getPostalCode() {
@@ -69,12 +77,20 @@ public class Customer {
         return postalCode;
     }
 
+    public void setPostalCode(String postalCode) {
+        this.postalCode.set(postalCode);
+    }
+
     public String getPhoneNumber() {
         return phoneNumber.get();
     }
 
     public StringProperty phoneNumberProperty() {
         return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber.set(phoneNumber);
     }
 
     public ZonedDateTime getCreatedOn() {
@@ -85,12 +101,20 @@ public class Customer {
         return createdOn;
     }
 
+    public void setCreatedOn(ZonedDateTime createdOn) {
+        this.createdOn.setValue(createdOn);
+    }
+
     public String getCreatedBy() {
         return createdBy.get();
     }
 
     public StringProperty createdByProperty() {
         return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy.set(createdBy);
     }
 
     public ZonedDateTime getLastUpdated() {
@@ -101,6 +125,10 @@ public class Customer {
         return lastUpdated;
     }
 
+    public void setLastUpdated(ZonedDateTime lastUpdated) {
+        this.lastUpdated.setValue(lastUpdated);
+    }
+
     public String getLastUpdatedBy() {
         return lastUpdatedBy.get();
     }
@@ -109,11 +137,19 @@ public class Customer {
         return lastUpdatedBy;
     }
 
+    public void setLastUpdatedBy(String lastUpdatedBy) {
+        this.lastUpdatedBy.set(lastUpdatedBy);
+    }
+
     public int getDivisionId() {
         return divisionId.get();
     }
 
     public IntegerProperty divisionIdProperty() {
         return divisionId;
+    }
+
+    public void setDivisionId(int divisionId) {
+        this.divisionId.set(divisionId);
     }
 }

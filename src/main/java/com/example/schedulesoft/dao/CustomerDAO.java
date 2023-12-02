@@ -135,7 +135,7 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
 
         try (PreparedStatement ps = Database.connection.prepareStatement(query)) {
 
-            ps.setInt(0, customerDTO.getId());
+            ps.setInt(1, customerDTO.getId());
 
             return ps.executeUpdate();
         } catch (SQLException e) {
