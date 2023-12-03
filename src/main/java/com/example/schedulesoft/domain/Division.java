@@ -4,21 +4,23 @@ import javafx.beans.property.*;
 
 import java.time.ZonedDateTime;
 
-public class Country {
+public class Division {
     private final IntegerProperty id;
     private final StringProperty name;
     private final Property<ZonedDateTime> createdOn;
     private final StringProperty createdBy;
     private final Property<ZonedDateTime> lastUpdated;
     private final StringProperty lastUpdatedBy;
+    private final IntegerProperty countryId;
 
-    public Country(String name, ZonedDateTime createdOn, String createdBy, ZonedDateTime lastUpdated, String lastUpdatedBy) {
+    public Division(String name, ZonedDateTime createdOn, String createdBy, ZonedDateTime lastUpdated, String lastUpdatedBy, int countryId) {
         this.id = new SimpleIntegerProperty(0);
         this.name = new SimpleStringProperty(name);
         this.createdOn = new SimpleObjectProperty<>(createdOn);
         this.createdBy = new SimpleStringProperty(createdBy);
         this.lastUpdated = new SimpleObjectProperty<>(lastUpdated);
         this.lastUpdatedBy = new SimpleStringProperty(lastUpdatedBy);
+        this.countryId = new SimpleIntegerProperty(countryId);
     }
 
     public int getId() {
@@ -91,6 +93,18 @@ public class Country {
 
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy.set(lastUpdatedBy);
+    }
+
+    public int getCountryId() {
+        return countryId.get();
+    }
+
+    public IntegerProperty countryIdProperty() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId.set(countryId);
     }
 
     @Override

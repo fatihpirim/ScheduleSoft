@@ -1,6 +1,10 @@
 package com.example.schedulesoft.controller;
 
+import com.example.schedulesoft.domain.Country;
+import com.example.schedulesoft.domain.Division;
 import com.example.schedulesoft.model.CustomerModel;
+import com.example.schedulesoft.service.CountryService;
+import com.example.schedulesoft.service.DivisionService;
 import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.PanelManager;
 import com.example.schedulesoft.enums.View;
@@ -63,6 +67,9 @@ public class CustomerTableController implements Initializable {
 
     private final CustomerService customerService = new CustomerService();
     private final CustomerModel customerModel = CustomerModel.getInstance();
+
+    private final CountryService countryService = new CountryService();
+    private final DivisionService divisionService = new DivisionService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -146,13 +153,19 @@ public class CustomerTableController implements Initializable {
         });
 
         countryCol.setCellValueFactory(customer -> {
-            String country = "country"; // implement later
-            return new SimpleStringProperty(country);
+            int divisionId = customer.getValue().getDivisionId();
+            Division division = divisionService.getDivisionById(divisionId);
+            int countryId = division.getCountryId();
+            Country country = countryService.getCountryById(countryId);
+
+            return new SimpleStringProperty(country.getName());
         });
 
         divisionCol.setCellValueFactory(customer -> {
-            String division = "division";
-            return new SimpleStringProperty(division);
+            int divisionId = customer.getValue().getDivisionId();
+            Division division = divisionService.getDivisionById(divisionId);
+
+            return new SimpleStringProperty(division.getName());
         });
 
         phoneCol.setCellValueFactory(customer -> {

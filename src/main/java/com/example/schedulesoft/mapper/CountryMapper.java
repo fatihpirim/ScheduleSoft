@@ -1,11 +1,11 @@
 package com.example.schedulesoft.mapper;
 
 import com.example.schedulesoft.domain.Country;
-import com.example.schedulesoft.domain.Customer;
 import com.example.schedulesoft.dto.CountryDTO;
-import com.example.schedulesoft.dto.CustomerDTO;
 
 import java.sql.Timestamp;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class CountryMapper {
 
@@ -21,5 +21,18 @@ public class CountryMapper {
         return new CountryDTO(id, name, createDate, createdBy, lastUpdate, lastUpdatedBy);
     }
 
+    public static Country toCountry(CountryDTO countryDTO) {
 
+        int id = countryDTO.getId();
+        String name = countryDTO.getName();
+        ZonedDateTime createdOn = countryDTO.getCreatedOn().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        String createdBy = countryDTO.getCreatedBy();
+        ZonedDateTime lastUpdated = countryDTO.getLastUpdated().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        String lastUpdatedBy = countryDTO.getLastUpdatedBy();
+
+        Country country = new Country(name, createdOn, createdBy, lastUpdated, lastUpdatedBy);
+        country.setId(id);
+
+        return country;
+    }
 }

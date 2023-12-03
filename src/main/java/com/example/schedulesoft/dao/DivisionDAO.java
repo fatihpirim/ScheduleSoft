@@ -1,16 +1,17 @@
 package com.example.schedulesoft.dao;
 
 import com.example.schedulesoft.dto.CountryDTO;
+import com.example.schedulesoft.dto.DivisionDTO;
 import com.example.schedulesoft.util.Database;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryDAO implements ReadOnlyDAO<CountryDTO>{
+public class DivisionDAO implements ReadOnlyDAO<DivisionDTO> {
     @Override
-    public CountryDTO getById(int id)  {
-        String query = "SELECT * FROM client_schedule.countries WHERE Country_ID = ?";
+    public DivisionDTO getById(int id) {
+        String query = "SELECT * FROM client_schedule.first_level_divisions WHERE Division_ID = ?";
 
         try (PreparedStatement ps = Database.connection.prepareStatement(query)) {
 
@@ -18,13 +19,14 @@ public class CountryDAO implements ReadOnlyDAO<CountryDTO>{
 
             try(ResultSet rs = ps.executeQuery()) {
                 if(rs.next()) {
-                    String country = rs.getString("Country");
+                    String division = rs.getString("Division");
                     Timestamp createdOn = rs.getTimestamp("Create_Date");
                     String createdBy = rs.getString("Created_By");
                     Timestamp lastUpdated = rs.getTimestamp("Last_Update");
                     String lastUpdatedBy = rs.getString("Last_Updated_By");
+                    int countryId = rs.getInt("Country_ID");
 
-                    return new CountryDTO(id, country, createdOn, createdBy, lastUpdated, lastUpdatedBy);
+                    return new DivisionDTO(id, division, createdOn, createdBy, lastUpdated, lastUpdatedBy, countryId);
                 }
             }
 
@@ -35,27 +37,28 @@ public class CountryDAO implements ReadOnlyDAO<CountryDTO>{
     }
 
     @Override
-    public List<CountryDTO> getAll()  {
-        String query = "SELECT * FROM client_schedule.countries";
+    public List<DivisionDTO> getAll()  {
+        String query = "SELECT * FROM client_schedule.first_level_divisions";
 
         try (Statement stmt = Database.connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
 
-            List<CountryDTO> countryDTOs = new ArrayList<>();
+            List<DivisionDTO> divisionDTOs = new ArrayList<>();
 
             while(rs.next()) {
-                int id = rs.getInt("Country_ID");
-                String country = rs.getString("Country");
+                int id = rs.getInt("Division_ID");
+                String division = rs.getString("Division");
                 Timestamp createdOn = rs.getTimestamp("Create_Date");
                 String createdBy = rs.getString("Created_By");
                 Timestamp lastUpdated = rs.getTimestamp("Last_Update");
                 String lastUpdatedBy = rs.getString("Last_Updated_By");
+                int countryId = rs.getInt("Country_ID");
 
-                CountryDTO countryDTO = new CountryDTO(id, country, createdOn, createdBy, lastUpdated, lastUpdatedBy);
+                DivisionDTO divisionDTO = new DivisionDTO(id, division, createdOn, createdBy, lastUpdated, lastUpdatedBy, countryId);
 
-                countryDTOs.add(countryDTO);
+                divisionDTOs.add(divisionDTO);
             }
 
-            return countryDTOs;
+            return divisionDTOs;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

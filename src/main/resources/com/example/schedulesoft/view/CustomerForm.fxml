@@ -98,7 +98,7 @@
                   <Label fx:id="countryLabel" prefHeight="17.0" prefWidth="295.0" text="%country" GridPane.valignment="BOTTOM" />
                   <Label fx:id="stateLabel" prefHeight="17.0" prefWidth="348.0" text="%state" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                   <ComboBox fx:id="countryComboBox" prefHeight="25.0" prefWidth="159.0" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="regionComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="divisionComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />

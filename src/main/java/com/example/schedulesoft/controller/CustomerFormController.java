@@ -2,11 +2,17 @@ package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.PanelManager;
 import com.example.schedulesoft.auth.SessionHolder;
+import com.example.schedulesoft.domain.Country;
 import com.example.schedulesoft.domain.Customer;
+import com.example.schedulesoft.domain.Division;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.model.CustomerModel;
+import com.example.schedulesoft.service.CountryService;
+import com.example.schedulesoft.service.DivisionService;
 import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.service.CustomerService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +23,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CustomerFormController implements Initializable {
@@ -36,9 +43,9 @@ public class CustomerFormController implements Initializable {
     @FXML
     TextField postalCodeField;
     @FXML
-    ComboBox<String> countryComboBox;
+    ComboBox<Country> countryComboBox;
     @FXML
-    ComboBox<String> regionComboBox;
+    ComboBox<Division> divisionComboBox;
     @FXML
     TextField phoneNumberField;
     @FXML
@@ -48,6 +55,9 @@ public class CustomerFormController implements Initializable {
     private final CustomerModel customerModel = CustomerModel.getInstance();
 
     private final boolean customerIsSelected = customerModel.getSelectedCustomer() != null;
+
+    private final CountryService countryService = new CountryService();
+    private final DivisionService divisionService = new DivisionService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,13 +69,47 @@ public class CustomerFormController implements Initializable {
         if(customerIsSelected) {
             firstNameField.setText(selectedCustomer.getName().split(" ", 2)[0]);
             lastNameField.setText(selectedCustomer.getName().split(" ", 2)[1]);
+
             addressField.setText(selectedCustomer.getAddress());
             postalCodeField.setText(selectedCustomer.getPostalCode());
-            countryComboBox.setValue("country"); // temporary
-            regionComboBox.setValue("region"); // temporary
+
             phoneNumberField.setText(selectedCustomer.getPhoneNumber());
             customerIdField.setText(String.valueOf(selectedCustomer.getId()));
+
+            int customerDivisionId = selectedCustomer.getDivisionId();
+            Division customerDivision = divisionService.getDivisionById(customerDivisionId);
+            int customerDivisionCountryId = customerDivision.getCountryId();
+            Country customerCountry = countryService.getCountryById(customerDivisionCountryId);
+
+            ObservableList<Country> countryOptions = FXCollections.observableArrayList(countryService.getAllCountries());
+            countryComboBox.setItems(countryOptions);
+            countryComboBox.setValue(customerCountry);
+
+            ObservableList<Division> divisionOptions = FXCollections.observableArrayList(divisionService.getAllDivisionsByCountryId(customerDivisionCountryId));
+            divisionComboBox.setItems(divisionOptions);
+            divisionComboBox.setValue(customerDivision);
+        } else {
+            ObservableList<Country> countryOptions = FXCollections.observableArrayList(countryService.getAllCountries());
+            countryComboBox.setItems(countryOptions);
+            Country defaultCountry = countryOptions.get(0);
+            countryComboBox.setValue(defaultCountry);
+            int defaultCountryId = defaultCountry.getId();
+
+            ObservableList<Division> divisionOptions = FXCollections.observableArrayList(divisionService.getAllDivisionsByCountryId(defaultCountryId));
+            divisionComboBox.setItems(divisionOptions);
+            Division defaultDivision = divisionOptions.get(0);
+            divisionComboBox.setValue(defaultDivision);
         }
+
+
+        countryComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldCountry, newCountry) -> {
+            int newCountryId = newCountry.getId();
+            ObservableList<Division> divisionOptions = FXCollections.observableArrayList(divisionService.getAllDivisionsByCountryId(newCountryId));
+            divisionComboBox.setItems(divisionOptions);
+            Division newDivision = divisionOptions.get(0);
+            divisionComboBox.setValue(newDivision);
+
+        });
     }
 
     @FXML
@@ -86,8 +130,8 @@ public class CustomerFormController implements Initializable {
         String createdBy = SessionHolder.getInstance().getSession().getUser().getUsername();
         ZonedDateTime lastUpdated = ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC);
         String lastUpdatedBy = SessionHolder.getInstance().getSession().getUser().getUsername();
-        int divisionId = 29; // DEFAULT CHANGE LATER AFTER IMPLEMENTATION
-
+        int divisionId = divisionComboBox.getValue().getId();
+        System.out.println("DIVISION IS SAVED: " + divisionId);
         if(customerIsSelected) {
             //
             // UPDATE CUSTOMER
@@ -98,9 +142,9 @@ public class CustomerFormController implements Initializable {
             selectedCustomer.setAddress(address);
             selectedCustomer.setPostalCode(postalCode);
             selectedCustomer.setPhoneNumber(phoneNumber);
-            selectedCustomer.setLastUpdated(lastUpdated); // set last updated to current time with offset to UTC
-            selectedCustomer.setLastUpdatedBy(lastUpdatedBy); // set last updated by to the logged-in user
-            // set the division id based on the country/region ** not yet implemented
+            selectedCustomer.setLastUpdated(lastUpdated);
+            selectedCustomer.setLastUpdatedBy(lastUpdatedBy);
+            selectedCustomer.setDivisionId(divisionId);
 
             boolean customerWasSaved = customerService.saveCustomer(selectedCustomer);
             if(customerWasSaved) {
@@ -131,6 +175,9 @@ public class CustomerFormController implements Initializable {
         customerModel.setSelectedCustomer(null);
         PanelManager.changePanelTo(View.CustomerTable);
     }
+
+
+
 
     private void validateFirstName() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
