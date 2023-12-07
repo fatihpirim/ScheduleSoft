@@ -51,4 +51,9 @@ public class Contact  {
     public void setEmail(String email) {
         this.email.set(email);
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

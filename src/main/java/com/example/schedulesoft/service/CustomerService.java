@@ -1,7 +1,9 @@
 package com.example.schedulesoft.service;
 
 import com.example.schedulesoft.dao.CustomerDAO;
+import com.example.schedulesoft.domain.Country;
 import com.example.schedulesoft.dto.CustomerDTO;
+import com.example.schedulesoft.mapper.CountryMapper;
 import com.example.schedulesoft.mapper.CustomerMapper;
 import com.example.schedulesoft.domain.Customer;
 
@@ -61,6 +63,12 @@ public class CustomerService {
             System.out.println("Customer was unable to be deleted");
             return false;
         }
+
+    }
+
+    public Customer getCustomerById(int id) {
+
+        return CustomerMapper.toCustomer(customerDAO.getById(id));
 
     }
 

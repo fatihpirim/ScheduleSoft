@@ -130,7 +130,7 @@
                         <ComboBox fx:id="startMinuteComboBox" prefHeight="25.0" prefWidth="70.0" />
                      </children>
                   </HBox>
-                  <DatePicker fx:id="startDateField" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="startDatePicker" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1" />
                     </children>
                     <padding>
                         <Insets left="10.0" right="10.0" />
@@ -159,7 +159,7 @@
                         <ComboBox fx:id="endMinuteComboBox" prefHeight="25.0" prefWidth="70.0" />
                      </children>
                   </HBox>
-                  <DatePicker fx:id="endDateField" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="endDatePicker" prefWidth="200.0" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />

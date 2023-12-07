@@ -75,7 +75,7 @@ public class AppointmentTableController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
-        setCellValueFactoryOfColumns(); // method extraction
+        setCellValueFactoryOfColumns();
 
         appointmentModel.setAppointments(appointmentService.getAllAppointments());
 
