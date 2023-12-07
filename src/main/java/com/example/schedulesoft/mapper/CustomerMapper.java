@@ -32,9 +32,9 @@ public class CustomerMapper {
         String address = customerDTO.getAddress();
         String postalCode = customerDTO.getPostalCode();
         String phoneNumber = customerDTO.getPhone();
-        ZonedDateTime createdOn = customerDTO.getCreateDate().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime createdOn = customerDTO.getCreateDate().toInstant().atZone(ZoneId.of("UTC"));
         String createdBy = customerDTO.getCreatedBy();
-        ZonedDateTime lastUpdated = customerDTO.getLastUpdate().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime lastUpdated = customerDTO.getLastUpdate().toInstant().atZone(ZoneId.of("UTC"));
         String lastUpdatedBy = customerDTO.getLastUpdatedBy();
         int divisionId = customerDTO.getDivisionId();
 

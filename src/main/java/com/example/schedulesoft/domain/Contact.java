@@ -1,18 +1,54 @@
 package com.example.schedulesoft.domain;
 
-import com.example.schedulesoft.dao.ReadOnlyDAO;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-import java.sql.SQLException;
-import java.util.List;
+public class Contact  {
+    private final IntegerProperty id;
+    private final StringProperty name;
+    private final StringProperty email;
 
-public class Contact implements ReadOnlyDAO {
-    @Override
-    public Object getById(int id)  {
-        return null;
+    public Contact(String name, String email) {
+        this.id = new SimpleIntegerProperty(0);
+        this.name = new SimpleStringProperty(name);
+        this.email = new SimpleStringProperty(email);
     }
 
-    @Override
-    public List getAll() {
-        return null;
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public StringProperty nameProperty() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public String getEmail() {
+        return email.get();
+    }
+
+    public StringProperty emailProperty() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
     }
 }

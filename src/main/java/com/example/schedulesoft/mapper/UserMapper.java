@@ -32,9 +32,9 @@ public class UserMapper {
         int id = userDTO.getId();
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
-        ZonedDateTime createdOn = userDTO.getCreatedOn().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime createdOn = userDTO.getCreatedOn().toInstant().atZone(ZoneId.of("UTC"));
         String createdBy = userDTO.getCreatedBy();
-        ZonedDateTime lastUpdated = userDTO.getLastUpdated().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime lastUpdated = userDTO.getLastUpdated().toInstant().atZone(ZoneId.of("UTC"));
         String lastUpdatedBy = userDTO.getLastUpdatedBy();
 
         User user = new User(username, password, createdOn, createdBy, lastUpdated, lastUpdatedBy);

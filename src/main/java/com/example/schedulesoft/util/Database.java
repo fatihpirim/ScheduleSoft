@@ -21,9 +21,16 @@ public abstract class Database {
     public static String connectionStatus;
 
     public static void getConnection() {
+
+        java.util.Properties connectionProps = new java.util.Properties();
+        connectionProps.put("user", userName);
+        connectionProps.put("password", password);
+        connectionProps.put("useLegacyDatetimeCode", "false"); // Disable legacy datetime code
+        connectionProps.put("serverTimezone", "UTC"); // Set server timezone to UTC
+
         try {
             Class.forName(driver); // Locate Driver
-            connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
+            connection = DriverManager.getConnection(jdbcUrl, connectionProps); // reference Connection object
             connectionStatus = "Database Connection successful!";
         }
         catch(ClassNotFoundException e) {

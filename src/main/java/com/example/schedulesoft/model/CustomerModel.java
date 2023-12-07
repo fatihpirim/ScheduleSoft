@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class CustomerModel {
 
-    private static CustomerModel instance = new CustomerModel();
+    private static final CustomerModel instance = new CustomerModel();
 
     private final ObjectProperty<Customer> selectedCustomer = new SimpleObjectProperty<>(null);
 

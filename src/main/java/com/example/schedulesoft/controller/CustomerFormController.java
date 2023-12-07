@@ -126,9 +126,9 @@ public class CustomerFormController implements Initializable {
         String address = addressField.getText();
         String postalCode = postalCodeField.getText();
         String phoneNumber = phoneNumberField.getText();
-        ZonedDateTime createdOn = ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC);
+        ZonedDateTime createdOn = ZonedDateTime.now();
         String createdBy = SessionHolder.getInstance().getSession().getUser().getUsername();
-        ZonedDateTime lastUpdated = ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC);
+        ZonedDateTime lastUpdated = ZonedDateTime.now();
         String lastUpdatedBy = SessionHolder.getInstance().getSession().getUser().getUsername();
         int divisionId = divisionComboBox.getValue().getId();
         System.out.println("DIVISION IS SAVED: " + divisionId);

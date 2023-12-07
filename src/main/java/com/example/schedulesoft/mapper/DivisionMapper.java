@@ -23,9 +23,9 @@ public class DivisionMapper {
     public static Division toDivision(DivisionDTO divisionDTO) {
         int id = divisionDTO.getId();
         String name = divisionDTO.getName();
-        ZonedDateTime createdOn = divisionDTO.getCreatedOn().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime createdOn = divisionDTO.getCreatedOn().toInstant().atZone(ZoneId.of("UTC"));
         String createdBy = divisionDTO.getCreatedBy();
-        ZonedDateTime lastUpdated = divisionDTO.getLastUpdated().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime lastUpdated = divisionDTO.getLastUpdated().toInstant().atZone(ZoneId.of("UTC"));
         String lastUpdatedBy = divisionDTO.getLastUpdatedBy();
         int countryId = divisionDTO.getCountryId();
 

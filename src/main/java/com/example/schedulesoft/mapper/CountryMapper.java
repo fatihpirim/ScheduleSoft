@@ -25,9 +25,9 @@ public class CountryMapper {
 
         int id = countryDTO.getId();
         String name = countryDTO.getName();
-        ZonedDateTime createdOn = countryDTO.getCreatedOn().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime createdOn = countryDTO.getCreatedOn().toInstant().atZone(ZoneId.of("UTC"));
         String createdBy = countryDTO.getCreatedBy();
-        ZonedDateTime lastUpdated = countryDTO.getLastUpdated().toLocalDateTime().atZone(ZoneId.of("UTC"));
+        ZonedDateTime lastUpdated = countryDTO.getLastUpdated().toInstant().atZone(ZoneId.of("UTC"));
         String lastUpdatedBy = countryDTO.getLastUpdatedBy();
 
         Country country = new Country(name, createdOn, createdBy, lastUpdated, lastUpdatedBy);
