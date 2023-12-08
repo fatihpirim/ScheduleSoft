@@ -10,18 +10,21 @@ import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.model.CustomerModel;
 import com.example.schedulesoft.service.*;
 import com.example.schedulesoft.util.AppConfig;
+import com.example.schedulesoft.util.Schedule;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class AppointmentFormController implements Initializable {
 
@@ -73,6 +76,9 @@ public class AppointmentFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
+        disableWeekendOnDatePicker(startDatePicker);
+        disableWeekendOnDatePicker(endDatePicker);
+
         Appointment selectedAppointment = appointmentModel.getSelectedAppointment();
 
         if(appointmentIsSelected) {
@@ -89,6 +95,7 @@ public class AppointmentFormController implements Initializable {
             LocalDate startDate = startDateTime.toLocalDate();
             startDatePicker.setValue(startDate);
             startHourComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("H")));
+
             startMinuteComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("mm")));
 
             ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
@@ -105,6 +112,15 @@ public class AppointmentFormController implements Initializable {
         } else {
 
         }
+
+        setHourOptions(startHourComboBox);
+        setMinuteOptions(startMinuteComboBox);
+
+        setHourOptions(endHourComboBox);
+        setMinuteOptions(endMinuteComboBox);
+
+
+
     }
 
     @FXML
@@ -119,5 +135,39 @@ public class AppointmentFormController implements Initializable {
         appointmentModel.setSelectedAppointment(null);
         PanelManager.changePanelTo(View.AppointmentTable);
 
+    }
+
+    private void disableWeekendOnDatePicker(DatePicker datePicker) {
+
+        datePicker.setDayCellFactory(new Callback<>() {
+            @Override
+            public DateCell call(DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item.getDayOfWeek() == DayOfWeek.SATURDAY || item.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    private void setHourOptions(ComboBox<String> hourComboBox ) {
+        hourComboBox.setItems(Schedule.getBusinessHours("08:00", "22:00").stream()
+                // convert offset-time (business hour) to a zoned-date-time at users time zone
+                .map(time -> time.atDate(java.time.LocalDate.now()).atZoneSameInstant(ZoneId.systemDefault()))
+                // convert zoned-date-time (business hour) into a formatted string
+                .map(offsetTime -> offsetTime.format(DateTimeFormatter.ofPattern("H")))
+                // collect into a list
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
+    }
+
+    private void setMinuteOptions(ComboBox<String> minuteComboBox) {
+        minuteComboBox.getItems().addAll("00", "15", "30", "45");
     }
 }
