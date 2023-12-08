@@ -1,10 +1,7 @@
 package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.PanelManager;
-import com.example.schedulesoft.domain.Appointment;
-import com.example.schedulesoft.domain.Contact;
-import com.example.schedulesoft.domain.Customer;
-import com.example.schedulesoft.domain.User;
+import com.example.schedulesoft.domain.*;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.model.CustomerModel;
@@ -76,49 +73,45 @@ public class AppointmentFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
-        disableWeekendOnDatePicker(startDatePicker);
-        disableWeekendOnDatePicker(endDatePicker);
-
-        Appointment selectedAppointment = appointmentModel.getSelectedAppointment();
-
         if(appointmentIsSelected) {
 
-            titleField.setText(selectedAppointment.getTitle());
-            descriptionField.setText(selectedAppointment.getDescription());
-            locationField.setText(selectedAppointment.getLocation());
-            typeField.setText(selectedAppointment.getType());
-
-            Contact contact = contactService.getContactById(selectedAppointment.getContactId());
-            contactComboBox.setValue(contact);
-
-            ZonedDateTime startDateTime = selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault());
-            LocalDate startDate = startDateTime.toLocalDate();
-            startDatePicker.setValue(startDate);
-            startHourComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("H")));
-
-            startMinuteComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("mm")));
-
-            ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
-            LocalDate endDate = endDateTime.toLocalDate();
-            endDatePicker.setValue(endDate);
-            endHourComboBox.setValue(endDateTime.format(DateTimeFormatter.ofPattern("H")));
-            endMinuteComboBox.setValue(endDateTime.format(DateTimeFormatter.ofPattern("mm")));
-
-            customerIdComboBox.setValue(selectedAppointment.getCustomerId());
-            userIdComboBox.setValue(selectedAppointment.getUserId());
-
-            appointmentIdField.setText(String.valueOf(selectedAppointment.getId()));
+            populateFields();
 
         } else {
 
         }
 
+        // Fetch contacts from database and set as the options in the contact-combo-box
+        contactComboBox.setItems(contactService.getAllContacts().stream()
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
+
+        // Disables the dates before the minimum date in the appointment start-date date picker
+        disableDatesAfterMaxDate(startDatePicker, endDatePicker.getValue());
+
+        // Disables the dates after the maximum date in the appointment start-date date picker
+        disableDatesBeforeMinDate(endDatePicker, startDatePicker.getValue());
+
+        // Listens to changes in the appointment start time and disables dates accordingly
+        startDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> disableDatesBeforeMinDate(endDatePicker, startDatePicker.getValue()));
+
+        // Listens to changes in the appointment end time and disables dates accordingly
+        endDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> disableDatesAfterMaxDate(startDatePicker, endDatePicker.getValue()));
+
         setHourOptions(startHourComboBox);
+
         setMinuteOptions(startMinuteComboBox);
 
         setHourOptions(endHourComboBox);
+
         setMinuteOptions(endMinuteComboBox);
 
+        customerIdComboBox.setItems(customerService.getAllCustomers().stream()
+                .map(Customer::getId)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
+
+        userIdComboBox.setItems(userService.getAllUsers().stream()
+                .map(User::getId)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
 
 
     }
@@ -137,22 +130,61 @@ public class AppointmentFormController implements Initializable {
 
     }
 
-    private void disableWeekendOnDatePicker(DatePicker datePicker) {
+    private void populateFields() {
 
-        datePicker.setDayCellFactory(new Callback<>() {
+        Appointment selectedAppointment = appointmentModel.getSelectedAppointment();
+
+        titleField.setText(selectedAppointment.getTitle());
+        descriptionField.setText(selectedAppointment.getDescription());
+        locationField.setText(selectedAppointment.getLocation());
+        typeField.setText(selectedAppointment.getType());
+
+        Contact contact = contactService.getContactById(selectedAppointment.getContactId());
+        contactComboBox.setValue(contact);
+
+        ZonedDateTime startDateTime = selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault());
+        LocalDate startDate = startDateTime.toLocalDate();
+        startDatePicker.setValue(startDate);
+        startHourComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("H")));
+
+        startMinuteComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("mm")));
+
+        ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
+        LocalDate endDate = endDateTime.toLocalDate();
+        endDatePicker.setValue(endDate);
+        endHourComboBox.setValue(endDateTime.format(DateTimeFormatter.ofPattern("H")));
+        endMinuteComboBox.setValue(endDateTime.format(DateTimeFormatter.ofPattern("mm")));
+
+        customerIdComboBox.setValue(selectedAppointment.getCustomerId());
+        userIdComboBox.setValue(selectedAppointment.getUserId());
+
+        appointmentIdField.setText(String.valueOf(selectedAppointment.getId()));
+    }
+
+    private void disableDatesBeforeMinDate(DatePicker datePicker, LocalDate minDate) {
+        datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
-            public DateCell call(DatePicker param) {
-                return new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
 
-                        if (item.getDayOfWeek() == DayOfWeek.SATURDAY || item.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                            setDisable(true);
-                            setStyle("-fx-background-color: #ffc0cb;");
-                        }
-                    }
-                };
+                if (date.isBefore(minDate) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #D3D3D380;");
+                }
+            }
+        });
+    }
+
+    private void disableDatesAfterMaxDate(DatePicker datePicker, LocalDate maxDate) {
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+                if (date.isAfter(maxDate) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #D3D3D380;");
+                }
             }
         });
     }

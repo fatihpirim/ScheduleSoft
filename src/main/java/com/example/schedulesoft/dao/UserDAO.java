@@ -1,10 +1,12 @@
 package com.example.schedulesoft.dao;
 
+import com.example.schedulesoft.dto.ContactDTO;
 import com.example.schedulesoft.dto.UserDTO;
 import com.example.schedulesoft.exception.UsernameNotFoundException;
 import com.example.schedulesoft.util.Database;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements ReadOnlyDAO<UserDTO> {
@@ -66,7 +68,31 @@ public class UserDAO implements ReadOnlyDAO<UserDTO> {
 
     @Override
     public List<UserDTO> getAll() {
-        // implement later
-        return null;
+        String query = "SELECT * FROM client_schedule.users";
+
+        try (Statement stmt = Database.connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+
+            List<UserDTO> userDTOs = new ArrayList<>();
+
+            while(rs.next()) {
+                int id = rs.getInt("User_ID");
+                String username = rs.getString("User_Name");
+                String password = rs.getString("Password");
+                Timestamp createdOn = rs.getTimestamp ("Create_Date");
+                String createdBy = rs.getString("Created_By");
+                Timestamp lastUpdated = rs.getTimestamp("Last_Update");
+                String lastUpdatedBy = rs.getString("Last_Updated_By");
+
+                UserDTO userDTO = new UserDTO(id, username, password, createdOn, createdBy, lastUpdated, lastUpdatedBy);
+
+                userDTOs.add(userDTO);
+            }
+
+            return userDTOs;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }
