@@ -118,16 +118,18 @@ public class AppointmentFormController implements Initializable {
         // Listens to changes in end hour
         endHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartHourOptions());
 
-        // Sets the items in the END minute combo box
+        // Sets the items in the end minute combo box
         setEndMinuteOptions();
 
-        // Listens to change in start minute and updates end minute options
+        // Listens to change in end minute and updates start minute options
         endMinuteComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartMinuteOptions());
 
+        // Sets the items in the customer id combo box
         customerIdComboBox.setItems(customerService.getAllCustomers().stream()
                 .map(Customer::getId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
 
+        // Sets the items in the user id combo box
         userIdComboBox.setItems(userService.getAllUsers().stream()
                 .map(User::getId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
@@ -138,6 +140,11 @@ public class AppointmentFormController implements Initializable {
     @FXML
     private void onSave(Event event) {
         System.out.println("Clicked Save");
+
+        boolean allFormsAreValid = validateAllForms();
+        if(!allFormsAreValid) {
+            return;
+        }
     }
 
     @FXML
@@ -249,6 +256,73 @@ public class AppointmentFormController implements Initializable {
     private void setMinuteOptions(ComboBox<String> minuteComboBox) {
         minuteComboBox.getItems().addAll();
     }
+
+    private void validateTextField(TextField textField, String textFieldName) throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        if(textField.getText().length() > 49) {
+            errorMessage.append(textFieldName).append(" is too long\n");
+        }
+        if(textField.getText().isEmpty()) {
+            errorMessage.append(textFieldName).append(" is empty\n");
+        }
+
+        if(!errorMessage.isEmpty()) {
+            throw new Exception(errorMessage.toString());
+        }
+    }
+
+    private void validateContact() throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        if(contactComboBox.getValue() == null) {
+            errorMessage.append("Contact is empty\n");
+        }
+        if(!errorMessage.isEmpty()) {
+            throw new Exception(errorMessage.toString());
+        }
+    }
+
+
+    private boolean validateAllForms() {
+
+        StringBuilder errorMessage = new StringBuilder();
+
+        try {
+            validateTextField(titleField, "Title");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateTextField(descriptionField, "Description");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateTextField(locationField, "Location");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateTextField(typeField, "Type");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateContact();
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+
+
+        System.out.println(errorMessage);
+
+        return errorMessage.toString().isEmpty();
+    }
+
 
 
 }

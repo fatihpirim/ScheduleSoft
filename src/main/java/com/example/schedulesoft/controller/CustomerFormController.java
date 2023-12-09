@@ -176,9 +176,6 @@ public class CustomerFormController implements Initializable {
         PanelManager.changePanelTo(View.CustomerTable);
     }
 
-
-
-
     private void validateFirstName() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(firstNameField.getText().length() > 24) {
