@@ -18,8 +18,11 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.time.*;
+import java.time.chrono.ChronoZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -97,13 +100,29 @@ public class AppointmentFormController implements Initializable {
         // Listens to changes in the appointment end time and disables dates accordingly
         endDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> disableDatesAfterMaxDate(startDatePicker, endDatePicker.getValue()));
 
-        setHourOptions(startHourComboBox);
+        // Sets the items in the start hour combo box
+        setStartHourOptions();
 
-        setMinuteOptions(startMinuteComboBox);
+        // Listens to changes in start hour and updates end hour options
+        startHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndHourOptions());
 
-        setHourOptions(endHourComboBox);
+        // Sets the items in the start minute combo box
+        setStartMinuteOptions();
 
-        setMinuteOptions(endMinuteComboBox);
+        // Listens to change in start minute and updates end minute options
+        startMinuteComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndMinuteOptions());
+
+        // Sets the items in the end hour combo box
+        setEndHourOptions();
+
+        // Listens to changes in end hour
+        endHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartHourOptions());
+
+        // Sets the items in the END minute combo box
+        setEndMinuteOptions();
+
+        // Listens to change in start minute and updates end minute options
+        endMinuteComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartMinuteOptions());
 
         customerIdComboBox.setItems(customerService.getAllCustomers().stream()
                 .map(Customer::getId)
@@ -189,17 +208,48 @@ public class AppointmentFormController implements Initializable {
         });
     }
 
-    private void setHourOptions(ComboBox<String> hourComboBox ) {
-        hourComboBox.setItems(Schedule.getBusinessHours("08:00", "22:00").stream()
+    private void setStartHourOptions() {
+        startHourComboBox.setItems(Schedule.getBusinessHours("08:00", "22:00").stream()
                 // convert offset-time (business hour) to a zoned-date-time at users time zone
-                .map(time -> time.atDate(java.time.LocalDate.now()).atZoneSameInstant(ZoneId.systemDefault()))
+                .map(ot -> ot.atDate(java.time.LocalDate.now()).atZoneSameInstant(ZoneId.systemDefault()))
                 // convert zoned-date-time (business hour) into a formatted string
-                .map(offsetTime -> offsetTime.format(DateTimeFormatter.ofPattern("H")))
+                .map(zdt -> zdt.format(DateTimeFormatter.ofPattern("H")))
+                // filter through only hours that are after before end hour
+                .filter(startStr -> endHourComboBox.getValue() == null || Integer.parseInt(startStr) <= Integer.parseInt(endHourComboBox.getValue()))
                 // collect into a list
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
     }
 
-    private void setMinuteOptions(ComboBox<String> minuteComboBox) {
-        minuteComboBox.getItems().addAll("00", "15", "30", "45");
+    private void setEndHourOptions() {
+        endHourComboBox.setItems(Schedule.getBusinessHours("08:00", "22:00").stream()
+                // convert offset-time (business hour) to a zoned-date-time at users time zone
+                .map(ot -> ot.atDate(java.time.LocalDate.now()).atZoneSameInstant(ZoneId.systemDefault()))
+                // convert zoned-date-time (business hour) into a formatted string
+                .map(zdt -> zdt.format(DateTimeFormatter.ofPattern("H")))
+                // filter through only hours that are after start hour
+                .filter(endStr -> startHourComboBox.getValue() == null || Integer.parseInt(endStr) >= Integer.parseInt(startHourComboBox.getValue()))
+                // collect into a list
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
     }
+
+    private void setStartMinuteOptions() {
+        List<String> minutes = Arrays.asList("00", "15", "30", "45");
+        startMinuteComboBox.setItems(minutes.stream()
+                .filter(startMin -> endMinuteComboBox.getValue() == null || Integer.parseInt(startMin) <= Integer.parseInt(endMinuteComboBox.getValue()))
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
+    }
+
+    private void setEndMinuteOptions() {
+        List<String> minutes = Arrays.asList("00", "15", "30", "45");
+        endMinuteComboBox.setItems(minutes.stream()
+                .filter(endMin -> startMinuteComboBox.getValue() == null || Integer.parseInt(endMin) >= Integer.parseInt(startMinuteComboBox.getValue()))
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
+    }
+
+    private void setMinuteOptions(ComboBox<String> minuteComboBox) {
+        minuteComboBox.getItems().addAll();
+    }
+
+
 }
+
