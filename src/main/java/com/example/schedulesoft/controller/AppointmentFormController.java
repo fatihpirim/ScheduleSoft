@@ -20,10 +20,7 @@ import java.net.URL;
 import java.time.*;
 import java.time.chrono.ChronoZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AppointmentFormController implements Initializable {
@@ -104,7 +101,12 @@ public class AppointmentFormController implements Initializable {
         setStartHourOptions();
 
         // Listens to changes in start hour and updates end hour options
-        startHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndHourOptions());
+        startHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> {
+            // String selectedEndMinute = endMinuteComboBox.getValue();
+            setEndHourOptions();
+            // endMinuteComboBox.setValue(selectedEndMinute)
+            setStartMinuteOptions();
+        });
 
         // Sets the items in the start minute combo box
         setStartMinuteOptions();
@@ -116,7 +118,12 @@ public class AppointmentFormController implements Initializable {
         setEndHourOptions();
 
         // Listens to changes in end hour
-        endHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartHourOptions());
+        endHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> {
+            String selectedStartMinute = startMinuteComboBox.getValue();
+            setStartHourOptions();
+            startMinuteComboBox.setValue(selectedStartMinute);
+            // setEndMinuteOptions();
+        });
 
         // Sets the items in the end minute combo box
         setEndMinuteOptions();
@@ -192,8 +199,7 @@ public class AppointmentFormController implements Initializable {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-
-                if (date.isBefore(minDate) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                if ((minDate != null && date.isBefore(minDate)) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
                     setDisable(true);
                     setStyle("-fx-background-color: #D3D3D380;");
                 }
@@ -206,8 +212,7 @@ public class AppointmentFormController implements Initializable {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-
-                if (date.isAfter(maxDate) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                if ((maxDate != null && date.isAfter(maxDate)) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
                     setDisable(true);
                     setStyle("-fx-background-color: #D3D3D380;");
                 }
@@ -240,21 +245,25 @@ public class AppointmentFormController implements Initializable {
     }
 
     private void setStartMinuteOptions() {
-        List<String> minutes = Arrays.asList("00", "15", "30", "45");
+        ObservableList<String> minutes = FXCollections.observableArrayList(Arrays.asList("00", "15", "30", "45"));
+
+        boolean necessaryFieldsAreEmpty = endHourComboBox.getValue() == null || endMinuteComboBox.getValue() == null || startHourComboBox.getValue() == null;
+
+        LocalTime endTime = LocalTime.of(Integer.parseInt(endHourComboBox.getValue() != null ? endHourComboBox.getValue() : "0"),
+                Integer.parseInt(endMinuteComboBox.getValue() != null ? endMinuteComboBox.getValue() : "00"));
+
         startMinuteComboBox.setItems(minutes.stream()
-                .filter(startMin -> endMinuteComboBox.getValue() == null || Integer.parseInt(startMin) <= Integer.parseInt(endMinuteComboBox.getValue()))
+                .filter(minute -> startHourComboBox.getValue() != null)
+//                .peek(minute -> System.out.println("EndHOURValue = " + endHourComboBox.getValue() + "\nEndMINUTEValue = " + endMinuteComboBox.getValue()+ "\nStartHOURValue = " + startHourComboBox.getValue()))
+                .filter(minute -> (necessaryFieldsAreEmpty) || LocalTime.of(Integer.parseInt(startHourComboBox.getValue()) , Integer.parseInt(minute)).isBefore(endTime) ||
+                        LocalTime.of(Integer.parseInt(startHourComboBox.getValue()) , Integer.parseInt(minute)).equals(endTime))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
     }
 
     private void setEndMinuteOptions() {
-        List<String> minutes = Arrays.asList("00", "15", "30", "45");
-        endMinuteComboBox.setItems(minutes.stream()
-                .filter(endMin -> startMinuteComboBox.getValue() == null || Integer.parseInt(endMin) >= Integer.parseInt(startMinuteComboBox.getValue()))
-                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
-    }
+        ObservableList<String> minutes = FXCollections.observableArrayList(Arrays.asList("00", "15", "30", "45"));
 
-    private void setMinuteOptions(ComboBox<String> minuteComboBox) {
-        minuteComboBox.getItems().addAll();
+        endMinuteComboBox.setItems(minutes);
     }
 
     private void validateTextField(TextField textField, String textFieldName) throws Exception {
@@ -276,6 +285,34 @@ public class AppointmentFormController implements Initializable {
         if(contactComboBox.getValue() == null) {
             errorMessage.append("Contact is empty\n");
         }
+        if(!errorMessage.isEmpty()) {
+            throw new Exception(errorMessage.toString());
+        }
+    }
+
+    private void validateDate(DatePicker datePicker, String datePickerName) throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        if(datePicker.getValue() == null) {
+            errorMessage.append(datePickerName).append(" is empty\n");
+        }
+        if(!errorMessage.isEmpty()) {
+            throw new Exception(errorMessage.toString());
+        }
+    }
+
+    private void validateTime(ComboBox<String> timeComboBox, String timeComboBoxName) throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        if(timeComboBox.getValue() == null) {
+            errorMessage.append(timeComboBoxName).append(" is empty\n");
+        }
+        if(!errorMessage.isEmpty()) {
+            throw new Exception(errorMessage.toString());
+        }
+    }
+
+    private void validateAppointmentInterval() throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+
         if(!errorMessage.isEmpty()) {
             throw new Exception(errorMessage.toString());
         }
@@ -316,7 +353,41 @@ public class AppointmentFormController implements Initializable {
             errorMessage.append(e.getMessage());
         }
 
+        try {
+            validateDate(startDatePicker, "Start Date");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
 
+        try {
+            validateDate(endDatePicker, "End Date");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateTime(startHourComboBox, "Start Hour");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateTime(startMinuteComboBox, "Start Minute");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateTime(endHourComboBox, "End Hour");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        try {
+            validateTime(endMinuteComboBox, "End Minute");
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
 
         System.out.println(errorMessage);
 
