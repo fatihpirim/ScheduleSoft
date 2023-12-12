@@ -117,17 +117,11 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="startDateLabel" prefHeight="17.0" prefWidth="295.0" text="%start_date" GridPane.valignment="BOTTOM" />
+                        <Label fx:id="startDateLabel" prefHeight="17.0" prefWidth="295.0" text="%date" GridPane.valignment="BOTTOM" />
                         <Label fx:id="startTimeLabel" prefHeight="17.0" prefWidth="348.0" text="%start_time" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <ComboBox fx:id="startHourComboBox" prefHeight="25.0" prefWidth="70.0" />
-                        <Label alignment="CENTER" prefHeight="48.0" prefWidth="20.0" text=":">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="startMinuteComboBox" prefHeight="25.0" prefWidth="70.0" />
+                        <ComboBox fx:id="startTimeComboBox" prefHeight="25.0" prefWidth="130.0" />
                      </children>
                   </HBox>
                   <DatePicker fx:id="startDatePicker" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1" />
@@ -146,20 +140,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="endDateLabel" prefHeight="17.0" prefWidth="295.0" text="%end_date" GridPane.valignment="BOTTOM" />
                   <Label fx:id="endTimeLabel" prefHeight="17.0" prefWidth="348.0" text="%end_time" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <ComboBox fx:id="endHourComboBox" prefHeight="25.0" prefWidth="70.0" />
-                        <Label alignment="CENTER" prefHeight="48.0" prefWidth="20.0" text=":">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="endMinuteComboBox" prefHeight="25.0" prefWidth="70.0" />
+                        <ComboBox fx:id="endTimeComboBox" prefHeight="25.0" prefWidth="130.0" />
                      </children>
                   </HBox>
-                  <DatePicker fx:id="endDatePicker" prefWidth="200.0" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />

@@ -10,11 +10,13 @@ import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.util.Schedule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.time.*;
@@ -44,15 +46,9 @@ public class AppointmentFormController implements Initializable {
     @FXML
     DatePicker startDatePicker;
     @FXML
-    ComboBox<String> startHourComboBox;
+    ComboBox<ZonedDateTime> startTimeComboBox;
     @FXML
-    ComboBox<String> startMinuteComboBox;
-    @FXML
-    DatePicker endDatePicker;
-    @FXML
-    ComboBox<String> endHourComboBox;
-    @FXML
-    ComboBox<String> endMinuteComboBox;
+    ComboBox<ZonedDateTime> endTimeComboBox;
     @FXML
     ComboBox<Integer> customerIdComboBox;
     @FXML
@@ -78,58 +74,23 @@ public class AppointmentFormController implements Initializable {
             populateFields();
 
         } else {
-
+            startTimeComboBox.setDisable(true);
+            endTimeComboBox.setDisable(true);
         }
 
         // Fetch contacts from database and set as the options in the contact-combo-box
         contactComboBox.setItems(contactService.getAllContacts().stream()
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
 
-        // Disables the dates before the minimum date in the appointment start-date date picker
-        disableDatesAfterMaxDate(startDatePicker, endDatePicker.getValue());
+        disableWeekends(startDatePicker);
+        startDatePicker.setEditable(false);
 
-        // Disables the dates after the maximum date in the appointment start-date date picker
-        disableDatesBeforeMinDate(endDatePicker, startDatePicker.getValue());
-
-        // Listens to changes in the appointment start time and disables dates accordingly
-        startDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> disableDatesBeforeMinDate(endDatePicker, startDatePicker.getValue()));
-
-        // Listens to changes in the appointment end time and disables dates accordingly
-        endDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> disableDatesAfterMaxDate(startDatePicker, endDatePicker.getValue()));
-
-        // Sets the items in the start hour combo box
-        setStartHourOptions();
-
-        // Listens to changes in start hour and updates end hour options
-        startHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> {
-            // String selectedEndMinute = endMinuteComboBox.getValue();
-            setEndHourOptions();
-            // endMinuteComboBox.setValue(selectedEndMinute)
-            setStartMinuteOptions();
+        startDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> {
+            setTimeItems(startTimeComboBox);
+            setTimeItems(endTimeComboBox);
+            startTimeComboBox.setDisable(false);
+            endTimeComboBox.setDisable(false);
         });
-
-        // Sets the items in the start minute combo box
-        setStartMinuteOptions();
-
-        // Listens to change in start minute and updates end minute options
-        startMinuteComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndMinuteOptions());
-
-        // Sets the items in the end hour combo box
-        setEndHourOptions();
-
-        // Listens to changes in end hour
-        endHourComboBox.valueProperty().addListener((observable, oldTime, newTime) -> {
-            String selectedStartMinute = startMinuteComboBox.getValue();
-            setStartHourOptions();
-            startMinuteComboBox.setValue(selectedStartMinute);
-            // setEndMinuteOptions();
-        });
-
-        // Sets the items in the end minute combo box
-        setEndMinuteOptions();
-
-        // Listens to change in end minute and updates start minute options
-        endMinuteComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartMinuteOptions());
 
         // Sets the items in the customer id combo box
         customerIdComboBox.setItems(customerService.getAllCustomers().stream()
@@ -140,7 +101,6 @@ public class AppointmentFormController implements Initializable {
         userIdComboBox.setItems(userService.getAllUsers().stream()
                 .map(User::getId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
-
 
     }
 
@@ -176,17 +136,19 @@ public class AppointmentFormController implements Initializable {
         contactComboBox.setValue(contact);
 
         ZonedDateTime startDateTime = selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
+
         LocalDate startDate = startDateTime.toLocalDate();
         startDatePicker.setValue(startDate);
-        startHourComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("H")));
 
-        startMinuteComboBox.setValue(startDateTime.format(DateTimeFormatter.ofPattern("mm")));
+        startTimeComboBox.setValue(startDateTime);
+        endTimeComboBox.setValue(endDateTime);
 
-        ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
-        LocalDate endDate = endDateTime.toLocalDate();
-        endDatePicker.setValue(endDate);
-        endHourComboBox.setValue(endDateTime.format(DateTimeFormatter.ofPattern("H")));
-        endMinuteComboBox.setValue(endDateTime.format(DateTimeFormatter.ofPattern("mm")));
+        startTimeComboBox.setDisable(false);
+        endTimeComboBox.setDisable(false);
+
+        setTimeItems(startTimeComboBox);
+        setTimeItems(endTimeComboBox);
 
         customerIdComboBox.setValue(selectedAppointment.getCustomerId());
         userIdComboBox.setValue(selectedAppointment.getUserId());
@@ -194,12 +156,12 @@ public class AppointmentFormController implements Initializable {
         appointmentIdField.setText(String.valueOf(selectedAppointment.getId()));
     }
 
-    private void disableDatesBeforeMinDate(DatePicker datePicker, LocalDate minDate) {
+    private void disableWeekends(DatePicker datePicker) {
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                if ((minDate != null && date.isBefore(minDate)) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                if ((date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY)) {
                     setDisable(true);
                     setStyle("-fx-background-color: #D3D3D380;");
                 }
@@ -207,64 +169,31 @@ public class AppointmentFormController implements Initializable {
         });
     }
 
-    private void disableDatesAfterMaxDate(DatePicker datePicker, LocalDate maxDate) {
-        datePicker.setDayCellFactory(picker -> new DateCell() {
+    private void setTimeItems(ComboBox<ZonedDateTime> timeComboBox) {
+        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours("08:00", "22:00").stream()
+                .map(ot -> ot.atDate(startDatePicker.getValue()).atZoneSameInstant(ZoneId.systemDefault()))//bug is here somewhere
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
+
+        System.out.println(times);
+
+        timeComboBox.setItems(times);
+
+        timeComboBox.setConverter(new StringConverter<>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+
             @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                if ((maxDate != null && date.isAfter(maxDate)) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                    setDisable(true);
-                    setStyle("-fx-background-color: #D3D3D380;");
-                }
+            public String toString(ZonedDateTime zonedDateTime) {
+                return zonedDateTime != null ? formatter.format(zonedDateTime) : "";
+            }
+
+            @Override
+            public ZonedDateTime fromString(String string) {
+                return ZonedDateTime.parse(string, formatter);
             }
         });
     }
 
-    private void setStartHourOptions() {
-        startHourComboBox.setItems(Schedule.getBusinessHours("08:00", "22:00").stream()
-                // convert offset-time (business hour) to a zoned-date-time at users time zone
-                .map(ot -> ot.atDate(java.time.LocalDate.now()).atZoneSameInstant(ZoneId.systemDefault()))
-                // convert zoned-date-time (business hour) into a formatted string
-                .map(zdt -> zdt.format(DateTimeFormatter.ofPattern("H")))
-                // filter through only hours that are after before end hour
-                .filter(startStr -> endHourComboBox.getValue() == null || Integer.parseInt(startStr) <= Integer.parseInt(endHourComboBox.getValue()))
-                // collect into a list
-                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
-    }
 
-    private void setEndHourOptions() {
-        endHourComboBox.setItems(Schedule.getBusinessHours("08:00", "22:00").stream()
-                // convert offset-time (business hour) to a zoned-date-time at users time zone
-                .map(ot -> ot.atDate(java.time.LocalDate.now()).atZoneSameInstant(ZoneId.systemDefault()))
-                // convert zoned-date-time (business hour) into a formatted string
-                .map(zdt -> zdt.format(DateTimeFormatter.ofPattern("H")))
-                // filter through only hours that are after start hour
-                .filter(endStr -> startHourComboBox.getValue() == null || Integer.parseInt(endStr) >= Integer.parseInt(startHourComboBox.getValue()))
-                // collect into a list
-                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
-    }
-
-    private void setStartMinuteOptions() {
-        ObservableList<String> minutes = FXCollections.observableArrayList(Arrays.asList("00", "15", "30", "45"));
-
-        boolean necessaryFieldsAreEmpty = endHourComboBox.getValue() == null || endMinuteComboBox.getValue() == null || startHourComboBox.getValue() == null;
-
-        LocalTime endTime = LocalTime.of(Integer.parseInt(endHourComboBox.getValue() != null ? endHourComboBox.getValue() : "0"),
-                Integer.parseInt(endMinuteComboBox.getValue() != null ? endMinuteComboBox.getValue() : "00"));
-
-        startMinuteComboBox.setItems(minutes.stream()
-                .filter(minute -> startHourComboBox.getValue() != null)
-//                .peek(minute -> System.out.println("EndHOURValue = " + endHourComboBox.getValue() + "\nEndMINUTEValue = " + endMinuteComboBox.getValue()+ "\nStartHOURValue = " + startHourComboBox.getValue()))
-                .filter(minute -> (necessaryFieldsAreEmpty) || LocalTime.of(Integer.parseInt(startHourComboBox.getValue()) , Integer.parseInt(minute)).isBefore(endTime) ||
-                        LocalTime.of(Integer.parseInt(startHourComboBox.getValue()) , Integer.parseInt(minute)).equals(endTime))
-                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
-    }
-
-    private void setEndMinuteOptions() {
-        ObservableList<String> minutes = FXCollections.observableArrayList(Arrays.asList("00", "15", "30", "45"));
-
-        endMinuteComboBox.setItems(minutes);
-    }
 
     private void validateTextField(TextField textField, String textFieldName) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
@@ -300,23 +229,24 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
-    private void validateTime(ComboBox<String> timeComboBox, String timeComboBoxName) throws Exception {
+    private void validateTime() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
-        if(timeComboBox.getValue() == null) {
-            errorMessage.append(timeComboBoxName).append(" is empty\n");
+        if(startTimeComboBox.getValue() == null ) {
+            errorMessage.append("Start time is empty\n");
+        }
+        if (endTimeComboBox.getValue() == null) {
+            errorMessage.append("End time is empty\n");
+        }
+        if(startTimeComboBox.getValue() != null && endTimeComboBox.getValue() != null) {
+            if(startTimeComboBox.getValue().isAfter(endTimeComboBox.getValue())) {
+                errorMessage.append("Invalid start and end time. The start time is after end time\n");
+            }
         }
         if(!errorMessage.isEmpty()) {
             throw new Exception(errorMessage.toString());
         }
     }
 
-    private void validateAppointmentInterval() throws Exception {
-        StringBuilder errorMessage = new StringBuilder();
-
-        if(!errorMessage.isEmpty()) {
-            throw new Exception(errorMessage.toString());
-        }
-    }
 
 
     private boolean validateAllForms() {
@@ -359,32 +289,9 @@ public class AppointmentFormController implements Initializable {
             errorMessage.append(e.getMessage());
         }
 
-        try {
-            validateDate(endDatePicker, "End Date");
-        } catch (Exception e) {
-            errorMessage.append(e.getMessage());
-        }
 
         try {
-            validateTime(startHourComboBox, "Start Hour");
-        } catch (Exception e) {
-            errorMessage.append(e.getMessage());
-        }
-
-        try {
-            validateTime(startMinuteComboBox, "Start Minute");
-        } catch (Exception e) {
-            errorMessage.append(e.getMessage());
-        }
-
-        try {
-            validateTime(endHourComboBox, "End Hour");
-        } catch (Exception e) {
-            errorMessage.append(e.getMessage());
-        }
-
-        try {
-            validateTime(endMinuteComboBox, "End Minute");
+            validateTime();
         } catch (Exception e) {
             errorMessage.append(e.getMessage());
         }

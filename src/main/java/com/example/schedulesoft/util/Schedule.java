@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Schedule {
 
-
     public static List<OffsetTime> getBusinessHours(String startTime, String endTime) {
 
         ZoneOffset zoneOffset = ZoneOffset.of("-05:00"); // east coast offset
@@ -19,7 +18,7 @@ public class Schedule {
         while(true) {
             if(!offsetStartTime.equals(offsetEndTime) ) {
                 businessHours.add(offsetStartTime);
-                offsetStartTime = offsetStartTime.plusHours(1);
+                offsetStartTime = offsetStartTime.plusMinutes(30);
             } else {
                 businessHours.add(offsetEndTime);
                 break;
