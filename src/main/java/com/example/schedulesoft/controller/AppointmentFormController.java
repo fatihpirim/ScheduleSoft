@@ -86,11 +86,14 @@ public class AppointmentFormController implements Initializable {
         startDatePicker.setEditable(false);
 
         startDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> {
-            setTimeItems(startTimeComboBox);
-            setTimeItems(endTimeComboBox);
+            setStartTimeItems();
+            setEndTimeItems();
             startTimeComboBox.setDisable(false);
             endTimeComboBox.setDisable(false);
         });
+
+        startTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndTimeItems());
+        endTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartTimeItems());
 
         // Sets the items in the customer id combo box
         customerIdComboBox.setItems(customerService.getAllCustomers().stream()
@@ -123,6 +126,7 @@ public class AppointmentFormController implements Initializable {
 
     }
 
+
     private void populateFields() {
 
         Appointment selectedAppointment = appointmentModel.getSelectedAppointment();
@@ -136,8 +140,11 @@ public class AppointmentFormController implements Initializable {
         contactComboBox.setValue(contact);
 
         ZonedDateTime startDateTime = selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault());
+        System.out.println("BEFORE: " + selectedAppointment.getStartDateTime());
+        System.out.println("AFTER: " + selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault()));
+        System.out.println("Populate start time as " + startDateTime );
         ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
-
+        System.out.println("Populate end time as " + endDateTime );
         LocalDate startDate = startDateTime.toLocalDate();
         startDatePicker.setValue(startDate);
 
@@ -147,8 +154,8 @@ public class AppointmentFormController implements Initializable {
         startTimeComboBox.setDisable(false);
         endTimeComboBox.setDisable(false);
 
-        setTimeItems(startTimeComboBox);
-        setTimeItems(endTimeComboBox);
+        setStartTimeItems();
+        setEndTimeItems();
 
         customerIdComboBox.setValue(selectedAppointment.getCustomerId());
         userIdComboBox.setValue(selectedAppointment.getUserId());
@@ -169,15 +176,41 @@ public class AppointmentFormController implements Initializable {
         });
     }
 
-    private void setTimeItems(ComboBox<ZonedDateTime> timeComboBox) {
-        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours("08:00", "22:00").stream()
-                .map(ot -> ot.atDate(startDatePicker.getValue()).atZoneSameInstant(ZoneId.systemDefault()))//bug is here somewhere
+    private void setStartTimeItems() {
+        LocalDate selectedDate = startDatePicker.getValue();
+
+        if(selectedDate == null) {
+            System.out.println("ERROR: Date not selected");
+            return;
+        }
+        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours(selectedDate,"08:00", "22:00").stream()
+                .map(zdt -> zdt.withZoneSameInstant(ZoneId.systemDefault()))
+                .filter(zdt -> endTimeComboBox.getValue() == null || zdt.isBefore(endTimeComboBox.getValue()) || zdt.equals(endTimeComboBox.getValue()))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
 
-        System.out.println(times);
+        startTimeComboBox.setItems(times);
 
-        timeComboBox.setItems(times);
+        formatTimeComboBoxItems(startTimeComboBox);
+    }
 
+    private void setEndTimeItems() {
+        LocalDate selectedDate = startDatePicker.getValue();
+
+        if(selectedDate == null) {
+            System.out.println("ERROR: Date not selected");
+            return;
+        }
+        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours(selectedDate,"08:00", "22:00").stream()
+                .map(zdt -> zdt.withZoneSameInstant(ZoneId.systemDefault()))
+                .filter(zdt -> startTimeComboBox.getValue() == null || zdt.isAfter(startTimeComboBox.getValue()) || zdt.equals(startTimeComboBox.getValue()))
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
+
+        endTimeComboBox.setItems(times);
+
+        formatTimeComboBoxItems(endTimeComboBox);
+    }
+
+    private void formatTimeComboBoxItems(ComboBox<ZonedDateTime> timeComboBox) {
         timeComboBox.setConverter(new StringConverter<>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
 
@@ -192,6 +225,10 @@ public class AppointmentFormController implements Initializable {
             }
         });
     }
+
+
+
+
 
 
 
