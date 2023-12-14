@@ -1,6 +1,7 @@
 package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.PanelManager;
+import com.example.schedulesoft.auth.SessionHolder;
 import com.example.schedulesoft.domain.*;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.model.AppointmentModel;
@@ -54,6 +55,8 @@ public class AppointmentFormController implements Initializable {
     @FXML
     ComboBox<Integer> userIdComboBox;
     @FXML
+    Label appointmentIdLabel;
+    @FXML
     TextField appointmentIdField;
 
     private final AppointmentService appointmentService = new AppointmentService();
@@ -69,22 +72,35 @@ public class AppointmentFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
+        // An appointment is selected (Edit)
         if(appointmentIsSelected) {
 
             populateFields();
 
+            startTimeComboBox.setDisable(false);
+            endTimeComboBox.setDisable(false);
+
+            appointmentIdLabel.setVisible(true);
+            appointmentIdField.setVisible(true);
+
+        // An appointment is not selected (Add)
         } else {
             startTimeComboBox.setDisable(true);
             endTimeComboBox.setDisable(true);
+
+            appointmentIdLabel.setVisible(false);
+            appointmentIdField.setVisible(false);
         }
 
-        // Fetch contacts from database and set as the options in the contact-combo-box
+        // Fetch contacts from database and sets the items of the contact-combo-box
         contactComboBox.setItems(contactService.getAllContacts().stream()
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
 
+        // Configure appointment date picker
         disableWeekends(startDatePicker);
         startDatePicker.setEditable(false);
 
+        // Update time options when date is changed
         startDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> {
             setStartTimeItems();
             setEndTimeItems();
@@ -92,15 +108,20 @@ public class AppointmentFormController implements Initializable {
             endTimeComboBox.setDisable(false);
         });
 
+        // Change time combo box items so that a start-time after an end-time is never available in combo box
         startTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndTimeItems());
         endTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartTimeItems());
 
-        // Sets the items in the customer id combo box
+        // Format ZonedDateTime items to display as MM/dd HH:mm
+        formatTimeComboBoxItems(startTimeComboBox);
+        formatTimeComboBoxItems(endTimeComboBox);
+
+        // Fetch customers from database and sets the items of customer-id-combo-box to customers' ids
         customerIdComboBox.setItems(customerService.getAllCustomers().stream()
                 .map(Customer::getId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
 
-        // Sets the items in the user id combo box
+        // Fetch users from database and sets the items of user-id-combo-box to users' ids
         userIdComboBox.setItems(userService.getAllUsers().stream()
                 .map(User::getId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
@@ -114,6 +135,61 @@ public class AppointmentFormController implements Initializable {
         boolean allFormsAreValid = validateAllForms();
         if(!allFormsAreValid) {
             return;
+        }
+
+        String title = titleField.getText();
+        String description = descriptionField.getText();
+        String location = locationField.getText();
+        String type = typeField.getText();
+        ZonedDateTime startDateTime = startTimeComboBox.getValue();
+        ZonedDateTime endDateTime = endTimeComboBox.getValue();
+        ZonedDateTime createdOn = ZonedDateTime.now();
+        String createdBy = SessionHolder.getInstance().getSession().getUser().getUsername();
+        ZonedDateTime lastUpdated = ZonedDateTime.now();
+        String lastUpdatedBy = SessionHolder.getInstance().getSession().getUser().getUsername();
+        int customerId = customerIdComboBox.getValue();
+        int userId = userIdComboBox.getValue();
+        int contactId = contactComboBox.getValue().getId();
+
+        boolean appointmentIsSaved = false;
+
+        if(appointmentIsSelected) {
+            System.out.println("UPDATING APPOINTMENT");
+            Appointment selectedAppointment = appointmentModel.getSelectedAppointment();
+            selectedAppointment.setTitle(title);
+            selectedAppointment.setDescription(description);
+            selectedAppointment.setLocation(location);
+            selectedAppointment.setType(type);
+            selectedAppointment.setStartDateTime(startDateTime);
+            selectedAppointment.setEndDateTime(endDateTime);
+            selectedAppointment.setLastUpdated(lastUpdated);
+            selectedAppointment.setLastUpdatedBy(lastUpdatedBy);
+            selectedAppointment.setCustomerId(customerId);
+            selectedAppointment.setUserId(userId);
+            selectedAppointment.setContactId(contactId);
+
+            try {
+                appointmentIsSaved = appointmentService.saveAppointment(selectedAppointment);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                showErrorAlert(e.getMessage());
+            }
+        } else {
+            System.out.println("ADDING APPOINTMENT");
+            Appointment newAppointment = new Appointment(title, description, location, type, startDateTime,
+                    endDateTime, createdOn, createdBy, lastUpdated, lastUpdatedBy, customerId,
+                    userId, contactId);
+            try {
+                appointmentIsSaved = appointmentService.saveAppointment(newAppointment);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                showErrorAlert(e.getMessage());
+            }
+        }
+
+        if(appointmentIsSaved) {
+            PanelManager.changePanelTo(View.AppointmentTable);
+            System.out.println("Saved Successfully.");
         }
     }
 
@@ -140,20 +216,11 @@ public class AppointmentFormController implements Initializable {
         contactComboBox.setValue(contact);
 
         ZonedDateTime startDateTime = selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault());
-        System.out.println("BEFORE: " + selectedAppointment.getStartDateTime());
-        System.out.println("AFTER: " + selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault()));
-        System.out.println("Populate start time as " + startDateTime );
         ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
-        System.out.println("Populate end time as " + endDateTime );
         LocalDate startDate = startDateTime.toLocalDate();
         startDatePicker.setValue(startDate);
-
         startTimeComboBox.setValue(startDateTime);
         endTimeComboBox.setValue(endDateTime);
-
-        startTimeComboBox.setDisable(false);
-        endTimeComboBox.setDisable(false);
-
         setStartTimeItems();
         setEndTimeItems();
 
@@ -183,14 +250,14 @@ public class AppointmentFormController implements Initializable {
             System.out.println("ERROR: Date not selected");
             return;
         }
-        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours(selectedDate,"08:00", "22:00").stream()
+        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours(selectedDate,"08:00", "22:00", "America/New_York").stream()
                 .map(zdt -> zdt.withZoneSameInstant(ZoneId.systemDefault()))
-                .filter(zdt -> endTimeComboBox.getValue() == null || zdt.isBefore(endTimeComboBox.getValue()) || zdt.equals(endTimeComboBox.getValue()))
+                .filter(zdt -> endTimeComboBox.getValue() == null || zdt.isBefore(endTimeComboBox.getValue()))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
 
         startTimeComboBox.setItems(times);
 
-        formatTimeComboBoxItems(startTimeComboBox);
+
     }
 
     private void setEndTimeItems() {
@@ -200,14 +267,12 @@ public class AppointmentFormController implements Initializable {
             System.out.println("ERROR: Date not selected");
             return;
         }
-        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours(selectedDate,"08:00", "22:00").stream()
+        ObservableList<ZonedDateTime> times = Schedule.getBusinessHours(selectedDate,"08:00", "22:00", "America/New_York").stream()
                 .map(zdt -> zdt.withZoneSameInstant(ZoneId.systemDefault()))
-                .filter(zdt -> startTimeComboBox.getValue() == null || zdt.isAfter(startTimeComboBox.getValue()) || zdt.equals(startTimeComboBox.getValue()))
+                .filter(zdt -> startTimeComboBox.getValue() == null || zdt.isAfter(startTimeComboBox.getValue()))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
 
         endTimeComboBox.setItems(times);
-
-        formatTimeComboBoxItems(endTimeComboBox);
     }
 
     private void formatTimeComboBoxItems(ComboBox<ZonedDateTime> timeComboBox) {
@@ -226,11 +291,7 @@ public class AppointmentFormController implements Initializable {
         });
     }
 
-
-
-
-
-
+    // Validators
 
     private void validateTextField(TextField textField, String textFieldName) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
@@ -284,7 +345,25 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    private void validateCustomerId() throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        if(customerIdComboBox.getValue() == null) {
+            errorMessage.append("Customer ID is empty\n");
+        }
+        if(!errorMessage.isEmpty()) {
+            throw new Exception(errorMessage.toString());
+        }
+    }
 
+    private void validateUserId() throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        if(userIdComboBox.getValue() == null) {
+            errorMessage.append("User ID is empty\n");
+        }
+        if(!errorMessage.isEmpty()) {
+            throw new Exception(errorMessage.toString());
+        }
+    }
 
     private boolean validateAllForms() {
 
@@ -326,18 +405,38 @@ public class AppointmentFormController implements Initializable {
             errorMessage.append(e.getMessage());
         }
 
-
         try {
             validateTime();
         } catch (Exception e) {
             errorMessage.append(e.getMessage());
         }
 
-        System.out.println(errorMessage);
+        try {
+            validateCustomerId();
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+        try {
+            validateUserId();
+        } catch (Exception e) {
+            errorMessage.append(e.getMessage());
+        }
+
+        if(!errorMessage.toString().isEmpty()) {
+            System.out.println(errorMessage);
+            showErrorAlert(errorMessage.toString());
+        }
 
         return errorMessage.toString().isEmpty();
     }
 
+    private void showErrorAlert(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Please fix the following errors:");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
+    }
 
 
 }

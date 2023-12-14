@@ -16,9 +16,9 @@ public class Schedule {
         System.out.println(convertedZDT);
     }
 
-    public static List<ZonedDateTime> getBusinessHours(LocalDate date, String startTime, String endTime) {
+    public static List<ZonedDateTime> getBusinessHours(LocalDate date, String startTime, String endTime, String zoneOfBusiness) {
 
-        ZoneId zoneId = ZoneId.of("America/New_York");
+        ZoneId zoneId = ZoneId.of(zoneOfBusiness);
         ZonedDateTime startZDT = ZonedDateTime.of(date, LocalTime.parse(startTime), zoneId);
         ZonedDateTime endZDT = ZonedDateTime.of(date, LocalTime.parse(endTime), zoneId);
 
