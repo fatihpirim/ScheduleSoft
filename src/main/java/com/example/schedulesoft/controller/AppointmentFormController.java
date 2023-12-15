@@ -23,6 +23,7 @@ import java.net.URL;
 import java.time.*;
 import java.time.chrono.ChronoZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -218,7 +219,15 @@ public class AppointmentFormController implements Initializable {
         ZonedDateTime startDateTime = selectedAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault());
         ZonedDateTime endDateTime = selectedAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
         LocalDate startDate = startDateTime.toLocalDate();
+        // Determine the business hours the start and end datetime are a part of to handle some edge cases
+        ObservableList<ZonedDateTime> businessHoursOnDayBefore = Schedule.getBusinessHours(startDateTime.toLocalDate().minusDays(1),"08:00", "22:00", "America/New_York").stream()
+                .map(zdt -> zdt.withZoneSameInstant(ZoneId.systemDefault()))
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
+        if(businessHoursOnDayBefore.contains(startDateTime) || businessHoursOnDayBefore.contains(endDateTime)) {
+            startDate = startDateTime.toLocalDate().minusDays(1);
+        }
         startDatePicker.setValue(startDate);
+
         startTimeComboBox.setValue(startDateTime);
         endTimeComboBox.setValue(endDateTime);
         setStartTimeItems();

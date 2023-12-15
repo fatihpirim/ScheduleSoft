@@ -17,7 +17,6 @@ public class Customer {
     private final StringProperty lastUpdatedBy;
     private final IntegerProperty divisionId;
 
-
     public Customer(String name, String address, String postalCode, String phoneNumber, ZonedDateTime createdOn, String createdBy, ZonedDateTime lastUpdated,
                     String lastUpdatedBy, Integer divisionId) {
 

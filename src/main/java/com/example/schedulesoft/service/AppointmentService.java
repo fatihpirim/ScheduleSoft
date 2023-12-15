@@ -31,16 +31,26 @@ public class AppointmentService {
             return false;
         }
 
-//        if(appointment.getId() == 0) {
-//
-//            int result = appointmentDAO.insert(appointmentDTO);
-//
-//        } else {
-//
-//            int result = appointmentDAO.update(appointmentDTO);
-//        }
+        if(appointment.getId() == 0) {
 
-        return true;
+            int result = appointmentDAO.insert(appointmentDTO);
+            if(result == 1) {
+                System.out.println("Appointment added successfully");
+                return true;
+            } else {
+                System.out.println("Appointment was unable to be added");
+                return false;
+            }
+        } else {
+            int result = appointmentDAO.update(appointmentDTO);
+            if(result == 1) {
+                System.out.println("Customer updated successfully");
+                return true;
+            } else {
+                System.out.println("Customer was unable to be updated");
+                return false;
+            }
+        }
     }
 
     public boolean deleteAppointment(Appointment appointment) {
