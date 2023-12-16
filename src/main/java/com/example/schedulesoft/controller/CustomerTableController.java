@@ -1,8 +1,11 @@
 package com.example.schedulesoft.controller;
 
+import com.example.schedulesoft.domain.Appointment;
 import com.example.schedulesoft.domain.Country;
 import com.example.schedulesoft.domain.Division;
+import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.model.CustomerModel;
+import com.example.schedulesoft.service.AppointmentService;
 import com.example.schedulesoft.service.CountryService;
 import com.example.schedulesoft.service.DivisionService;
 import com.example.schedulesoft.util.AppConfig;
@@ -14,12 +17,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -68,6 +71,8 @@ public class CustomerTableController implements Initializable {
     private final CustomerService customerService = new CustomerService();
     private final CustomerModel customerModel = CustomerModel.getInstance();
 
+    private final AppointmentService appointmentService = new AppointmentService();
+    private final AppointmentModel appointmentModel = AppointmentModel.getInstance();
     private final CountryService countryService = new CountryService();
     private final DivisionService divisionService = new DivisionService();
 
@@ -121,13 +126,70 @@ public class CustomerTableController implements Initializable {
     private void onDelete() {
         System.out.println("Clicked Delete (customer)");
 
-        // Deleting customer will delete all its appointments (notify user)
+        Customer customer = customerModel.getSelectedCustomer();
 
-        customerService.deleteCustomer(customerModel.getSelectedCustomer());
+        List<Appointment> appointments = getAppointments(customer);
+        boolean customerHasNoAppointments = appointments.isEmpty();
 
-        customerModel.removeSelectedCustomer();
+        if(customerHasNoAppointments) {
+            System.out.println("The customer " + customer.getName() + " has no appointments.");
 
-        // Notify user of deletion
+            String headerText = "Are you sure you want to delete this customer?";
+            String contentText = customer.getName() + " with id: " + customer.getId();
+
+            Optional<ButtonType> confirmation = showConfirmationAlert(headerText, contentText);
+
+            if(confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+                System.out.println("Deleting " + customer.getName() + " with id: " + customer.getId() +"\n");
+
+                boolean customerIsDeleted = customerService.deleteCustomer(customerModel.getSelectedCustomer());
+                if(customerIsDeleted) {
+                    customerModel.removeSelectedCustomer();
+                }
+
+            } else if(confirmation.isPresent() && confirmation.get() == ButtonType.CANCEL) {
+                System.out.println("Cancelled deletion");
+            }
+
+        } else {
+            System.out.println("The customer " + customer.getName() + " has the following appointments:\n" + appointments);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+
+            String headerText = "Are you sure you want to delete this customer?";
+            StringBuilder contentText = new StringBuilder();
+            contentText.append(customer.getName() + " with id: " + customer.getId() +"\n\n");
+            contentText.append("Deleting the customer will delete all of their appointments: \n\n");
+            appointments.forEach(appointment -> {
+                String formattedAppointment = appointment.getTitle() + " (" + formatter.format(appointment.getStartDateTime()) + " - " +
+                        formatter.format(appointment.getEndDateTime()) + ") \n";
+                contentText.append(formattedAppointment);
+            });
+
+            Optional<ButtonType> confirmation = showConfirmationAlert(headerText, contentText.toString());
+
+            if(confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+                System.out.println("Deleting " + customer.getName() + " with id: " + customer.getId() +"\n");
+                System.out.println("Deleting the customers appointments as well");
+
+                appointments.forEach(appointment -> {
+                    System.out.println("Deleting " + appointment);
+                    boolean appointmentDeleted = appointmentService.deleteAppointment(appointment);
+                    if(appointmentDeleted) {
+                        appointmentModel.removeSelectedCustomer();
+                    }
+                });
+
+                if(getAppointments(customer).isEmpty()) {
+                    boolean customerIsDeleted = customerService.deleteCustomer(customerModel.getSelectedCustomer());
+                    if(customerIsDeleted) {
+                        customerModel.removeSelectedCustomer();
+                    }
+                }
+
+            } else if(confirmation.isPresent() && confirmation.get() == ButtonType.CANCEL) {
+                System.out.println("Cancelled deletion");
+            }
+        }
     }
 
     private void setCellValueFactoryOfColumns() {
@@ -173,6 +235,19 @@ public class CustomerTableController implements Initializable {
             return new SimpleStringProperty(phone);
         });
 
+    }
+
+    private List<Appointment> getAppointments(Customer customer) {
+        return appointmentService.getAllAppointments().stream()
+                .filter(appointment -> appointment.getCustomerId() == customer.getId())
+                .toList();
+    }
+
+    private Optional<ButtonType> showConfirmationAlert(String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        return alert.showAndWait();
     }
 
 }

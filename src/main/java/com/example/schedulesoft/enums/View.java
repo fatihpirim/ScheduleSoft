@@ -6,7 +6,8 @@ public enum View {
     CustomerForm("view/CustomerForm.fxml"),
     AppointmentForm("view/AppointmentForm.fxml"),
     Home("view/Home.fxml"),
-    Login("view/Login.fxml");
+    Login("view/Login.fxml"),
+    AdjustTime("view/AdjustTimeDialogController.fxml");
 
     private String fileName;
 

@@ -2,27 +2,31 @@ package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.domain.Appointment;
 import com.example.schedulesoft.domain.Contact;
-import com.example.schedulesoft.domain.Customer;
 import com.example.schedulesoft.model.AppointmentModel;
-import com.example.schedulesoft.model.CustomerModel;
 import com.example.schedulesoft.service.AppointmentService;
 import com.example.schedulesoft.service.ContactService;
-import com.example.schedulesoft.service.CustomerService;
 import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.PanelManager;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.util.LocaleUtil;
-import com.example.schedulesoft.util.Schedule;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.ZonedDateTime;
-import java.util.Locale;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentTableController implements Initializable {
@@ -124,12 +128,43 @@ public class AppointmentTableController implements Initializable {
     private void onDelete() {
         System.out.println("Clicked Delete (appointment)");
 
+        Appointment appointment = appointmentModel.getSelectedAppointment();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+
+        String headerText = "Are you sure you want to delete this appointment?";
+        String contentText = appointment.getTitle() + " (" + formatter.format(appointment.getStartDateTime()) + " - " +
+                formatter.format(appointment.getEndDateTime()) + ") ";
+
+        Optional<ButtonType> confirmation = showConfirmationAlert(headerText, contentText);
+
+        if(confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+            System.out.println("Deleting " + contentText);
+            boolean appointmentDeleted = appointmentService.deleteAppointment(appointment);
+            if(appointmentDeleted) {
+                appointmentModel.removeSelectedCustomer();
+            }
+        } else if(confirmation.isPresent() && confirmation.get() == ButtonType.CANCEL) {
+            System.out.println("Cancelled deletion");
+        }
 
     }
 
     @FXML
-    private void onAdjust() {
+    private void onAdjust(ActionEvent event) {
 
+        try {
+
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/schedulesoft/view/AdjustTimeDialog.fxml"), AppConfig.getResourceBundle());
+
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(((Button) event.getSource()).getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+            dialogStage.setResizable(false);
+            dialogStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setCellValueFactoryOfColumns() {
@@ -214,6 +249,13 @@ public class AppointmentTableController implements Initializable {
                 }
             }
         });
+    }
+
+    private Optional<ButtonType> showConfirmationAlert(String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        return alert.showAndWait();
     }
 
 }

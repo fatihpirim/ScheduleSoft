@@ -54,7 +54,18 @@ public class AppointmentService {
     }
 
     public boolean deleteAppointment(Appointment appointment) {
-        return true;
+        AppointmentDTO appointmentDTO = AppointmentMapper.toDto(appointment);
+
+        // !!! delete all appointments of the customer
+
+        int result = appointmentDAO.delete(appointmentDTO);
+        if(result == 1) {
+            System.out.println("Appointment deleted successfully");
+            return true;
+        } else {
+            System.out.println("Appointment was unable to be deleted");
+            return false;
+        }
     }
 
     public ArrayList<Appointment> getAllAppointments() {
@@ -64,12 +75,6 @@ public class AppointmentService {
                 .map(AppointmentMapper::toAppointment)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-    }
-
-    public ArrayList<Appointment> getAllAppointmentsByCustomerId() {
-        ArrayList<Appointment> allAppointments = getAllAppointments();
-        // filter all appointments
-        return null;
     }
 
     public boolean appointmentIntervalIsValid(Appointment appointment) throws Exception {
