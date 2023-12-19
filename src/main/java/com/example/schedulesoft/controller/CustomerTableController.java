@@ -1,23 +1,23 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.domain.Appointment;
-import com.example.schedulesoft.domain.Country;
-import com.example.schedulesoft.domain.Division;
+import com.example.schedulesoft.domain.*;
+import com.example.schedulesoft.enums.Severity;
 import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.model.CustomerModel;
 import com.example.schedulesoft.service.AppointmentService;
 import com.example.schedulesoft.service.CountryService;
 import com.example.schedulesoft.service.DivisionService;
+import com.example.schedulesoft.ui.Toast;
 import com.example.schedulesoft.util.AppConfig;
-import com.example.schedulesoft.PanelManager;
+import com.example.schedulesoft.util.PanelManager;
 import com.example.schedulesoft.enums.View;
-import com.example.schedulesoft.domain.Customer;
 import com.example.schedulesoft.service.CustomerService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -79,6 +79,8 @@ public class CustomerTableController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        PanelManager.changePanelTo(View.CustomerForm);
+
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
         setCellValueFactoryOfColumns(); // method extraction
@@ -104,6 +106,7 @@ public class CustomerTableController implements Initializable {
         });
 
         System.out.println(customerModel.getCustomers());
+
     }
 
     @FXML
@@ -144,7 +147,11 @@ public class CustomerTableController implements Initializable {
 
                 boolean customerIsDeleted = customerService.deleteCustomer(customerModel.getSelectedCustomer());
                 if(customerIsDeleted) {
+                    System.out.println("Deleted customer");
                     customerModel.removeSelectedCustomer();
+                    Stage stage = (Stage) deleteButton.getScene().getWindow();
+                    Toast toast = new Toast("Success", "Deleted customer with id " + customer.getId(), Severity.SUCCESS);
+                    toast.show(stage);
                 }
 
             } else if(confirmation.isPresent() && confirmation.get() == ButtonType.CANCEL) {
@@ -249,5 +256,7 @@ public class CustomerTableController implements Initializable {
         alert.setContentText(contentText);
         return alert.showAndWait();
     }
+
+
 
 }

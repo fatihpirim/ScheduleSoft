@@ -1,12 +1,13 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.PanelManager;
+import com.example.schedulesoft.util.PanelManager;
 import com.example.schedulesoft.auth.SessionHolder;
 import com.example.schedulesoft.domain.*;
+import com.example.schedulesoft.enums.Severity;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.model.AppointmentModel;
-import com.example.schedulesoft.model.CustomerModel;
 import com.example.schedulesoft.service.*;
+import com.example.schedulesoft.ui.Toast;
 import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.util.Schedule;
 import javafx.collections.FXCollections;
@@ -16,14 +17,12 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.util.Callback;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.time.*;
-import java.time.chrono.ChronoZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -59,6 +58,9 @@ public class AppointmentFormController implements Initializable {
     Label appointmentIdLabel;
     @FXML
     TextField appointmentIdField;
+
+    @FXML
+    Button saveButton;
 
     private final AppointmentService appointmentService = new AppointmentService();
     private final AppointmentModel appointmentModel = AppointmentModel.getInstance();
@@ -189,7 +191,12 @@ public class AppointmentFormController implements Initializable {
         }
 
         if(appointmentIsSaved) {
+            Stage stage = (Stage) saveButton.getScene().getWindow();
+            Toast toast = new Toast("Success", "Saved appointment", Severity.SUCCESS);
+            toast.show(stage);
+
             PanelManager.changePanelTo(View.AppointmentTable);
+
             System.out.println("Saved Successfully.");
         }
     }

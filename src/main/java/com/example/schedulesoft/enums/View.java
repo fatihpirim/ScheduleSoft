@@ -1,13 +1,15 @@
 package com.example.schedulesoft.enums;
 
 public enum View {
-    CustomerTable("view/CustomerTable.fxml"),
-    AppointmentTable("view/AppointmentTable.fxml"),
-    CustomerForm("view/CustomerForm.fxml"),
-    AppointmentForm("view/AppointmentForm.fxml"),
-    Home("view/Home.fxml"),
-    Login("view/Login.fxml"),
-    AdjustTime("view/AdjustTimeDialogController.fxml");
+
+    CustomerTable(View.rootPath+"/CustomerTable.fxml"),
+    AppointmentTable(View.rootPath+"/AppointmentTable.fxml"),
+    CustomerForm(View.rootPath+"/CustomerForm.fxml"),
+    AppointmentForm(View.rootPath+"/AppointmentForm.fxml"),
+    Home(View.rootPath+"/Home.fxml"),
+    Login(View.rootPath+"/Login.fxml");
+
+    private static final String rootPath  = "/com/example/schedulesoft/view";
 
     private String fileName;
 

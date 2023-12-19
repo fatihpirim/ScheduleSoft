@@ -1,12 +1,13 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.PanelManager;
+import com.example.schedulesoft.util.PanelManager;
 import com.example.schedulesoft.auth.SessionHolder;
 import com.example.schedulesoft.domain.Appointment;
+import com.example.schedulesoft.enums.Message;
 import com.example.schedulesoft.enums.View;
+import com.example.schedulesoft.event.DAOEvent;
 import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.service.AppointmentService;
-import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.util.Schedule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +43,8 @@ public class AdjustTimeDialogController implements Initializable {
 
     @FXML
     Button cancelButton;
+    @FXML
+    Button saveButton;
 
     private final AppointmentService appointmentService = new AppointmentService();
     private final AppointmentModel appointmentModel = AppointmentModel.getInstance();
@@ -106,6 +109,8 @@ public class AdjustTimeDialogController implements Initializable {
                 System.out.println("Saved Successfully.");
                 closeDialog();
                 PanelManager.changePanelTo(View.AppointmentTable);
+                Event daoEvent = new DAOEvent(Message.SUCCESS);
+                saveButton.fireEvent(daoEvent);
             }
 
         } else {

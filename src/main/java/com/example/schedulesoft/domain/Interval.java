@@ -46,15 +46,13 @@ public class Interval {
         // another appointments end time is before this start time
         // another appointments end time is equal to this appointments start time
 
-        System.out.println("This interval: " + getStartDateTime() + " <-> " + getEndDateTime() );
-        System.out.println("Other interval: " + otherInterval.getStartDateTime() + " <-> " + otherInterval.getEndDateTime());
+//        System.out.println("This interval: " + getStartDateTime() + " <-> " + getEndDateTime() );
+//        System.out.println("Other interval: " + otherInterval.getStartDateTime() + " <-> " + otherInterval.getEndDateTime());
 
         if (this.endDateTime.isBefore(otherInterval.getStartDateTime()) || otherInterval.getEndDateTime().isBefore(this.startDateTime)) {
-            System.out.println("Not overlapping 1");
             return false;
         }
         if (this.endDateTime.isEqual(otherInterval.getStartDateTime()) || otherInterval.getEndDateTime().isEqual(this.startDateTime)) {
-            System.out.println("Not overlapping 2");
             return false;
         }
 

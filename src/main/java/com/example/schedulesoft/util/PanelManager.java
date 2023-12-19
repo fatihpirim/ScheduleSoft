@@ -1,7 +1,6 @@
-package com.example.schedulesoft;
+package com.example.schedulesoft.util;
 
 import com.example.schedulesoft.enums.View;
-import com.example.schedulesoft.util.AppConfig;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
@@ -13,9 +12,14 @@ import java.util.Objects;
 public class PanelManager {
 
     private static Pane panelContainer;
+    private static Node panel;
 
     public static void setParent(Pane panelContainer) {
         PanelManager.panelContainer = panelContainer;
+    }
+
+    public static Node getPanel() {
+        return panel;
     }
 
     public static void changePanelTo(View panel) {
@@ -35,10 +39,13 @@ public class PanelManager {
             panelContainer.getChildren().clear();
             panelContainer.getChildren().add(child);
 
+            PanelManager.panel = child;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
-
+    public static Pane getPanelContainer() {
+        return panelContainer;
     }
 }

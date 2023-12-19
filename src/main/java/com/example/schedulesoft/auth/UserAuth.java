@@ -1,7 +1,5 @@
 package com.example.schedulesoft.auth;
 
-import com.example.schedulesoft.auth.SessionHolder;
-import com.example.schedulesoft.auth.UserSession;
 import com.example.schedulesoft.dao.UserDAO;
 import com.example.schedulesoft.dto.UserDTO;
 import com.example.schedulesoft.exception.UsernameNotFoundException;
@@ -34,6 +32,7 @@ public class UserAuth {
 
         System.out.println("Unable to authenticate " + username);
         System.out.println("Password is incorrect");
+
         return false;
     }
 

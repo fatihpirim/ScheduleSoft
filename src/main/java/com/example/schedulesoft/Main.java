@@ -3,7 +3,9 @@ package com.example.schedulesoft;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.util.Database;
+import com.example.schedulesoft.util.PageManager;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,6 +31,11 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {

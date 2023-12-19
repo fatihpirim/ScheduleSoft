@@ -2,11 +2,15 @@ package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.domain.Appointment;
 import com.example.schedulesoft.domain.Contact;
+import com.example.schedulesoft.enums.Message;
+import com.example.schedulesoft.enums.Severity;
+import com.example.schedulesoft.event.DAOEvent;
 import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.service.AppointmentService;
 import com.example.schedulesoft.service.ContactService;
+import com.example.schedulesoft.ui.Toast;
 import com.example.schedulesoft.util.AppConfig;
-import com.example.schedulesoft.PanelManager;
+import com.example.schedulesoft.util.PanelManager;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.util.LocaleUtil;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -109,12 +113,13 @@ public class AppointmentTableController implements Initializable {
     }
 
     @FXML
-    private void onAdd() {
+    private void onAdd(ActionEvent event) {
         System.out.println("Clicked Add (appointment)");
 
         appointmentModel.setSelectedAppointment(null);
 
         PanelManager.changePanelTo(View.AppointmentForm);
+
     }
 
     @FXML
@@ -141,27 +146,41 @@ public class AppointmentTableController implements Initializable {
             System.out.println("Deleting " + contentText);
             boolean appointmentDeleted = appointmentService.deleteAppointment(appointment);
             if(appointmentDeleted) {
+                System.out.println("Deleted appointment");
                 appointmentModel.removeSelectedCustomer();
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                Toast toast = new Toast("Success", "Deleted appointment with id " + appointment.getId(), Severity.SUCCESS);
+                toast.show(stage);
             }
         } else if(confirmation.isPresent() && confirmation.get() == ButtonType.CANCEL) {
             System.out.println("Cancelled deletion");
         }
-
     }
 
     @FXML
     private void onAdjust(ActionEvent event) {
 
+        Stage stage = (Stage) addButton.getScene().getWindow();
+
         try {
 
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/schedulesoft/view/AdjustTimeDialog.fxml"), AppConfig.getResourceBundle());
-
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(((Button) event.getSource()).getScene().getWindow());
             dialogStage.setScene(new Scene(root));
             dialogStage.setResizable(false);
             dialogStage.show();
+
+            dialogStage.addEventHandler(DAOEvent.DAO_EVENT_TYPE, DAOEvent -> {
+                Message message = DAOEvent.getMessage();
+                if(message.equals(Message.SUCCESS)) {
+                    System.out.println("Success");
+                    Toast toast = new Toast("Success", "Adjusted appointment time", Severity.SUCCESS);
+                    toast.show(stage);
+                }
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }

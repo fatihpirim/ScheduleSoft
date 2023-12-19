@@ -1,11 +1,11 @@
-package com.example.schedulesoft;
+package com.example.schedulesoft.util;
 
-import com.example.schedulesoft.util.AppConfig;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import com.example.schedulesoft.enums.View;
 import javafx.fxml.FXMLLoader;
+
 import java.io.IOException;
 import java.util.Objects;
 

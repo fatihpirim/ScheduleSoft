@@ -115,6 +115,20 @@ public class AppointmentService {
         return true;
     }
 
+    public Appointment getAppointmentWithinInterval(Interval interval) throws Exception {
+
+        ZonedDateTime startDateTime = interval.getStartDateTime();
+        List<Appointment> appointments = getAllAppointments();
+
+        for(Appointment appointment: appointments) {
+            Interval apptInterval = new Interval(appointment.getStartDateTime(), appointment.getEndDateTime());
+            if(interval.isOverlapping(apptInterval) &&
+                    (startDateTime.isBefore(appointment.getStartDateTime())) || (startDateTime.equals(appointment.getStartDateTime()))) {
+                return appointment;
+            }
+        }
+        return null;
+    }
 
 
 }

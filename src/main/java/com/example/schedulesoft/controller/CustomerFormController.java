@@ -1,6 +1,8 @@
 package com.example.schedulesoft.controller;
 
-import com.example.schedulesoft.PanelManager;
+import com.example.schedulesoft.enums.Severity;
+import com.example.schedulesoft.ui.Toast;
+import com.example.schedulesoft.util.PanelManager;
 import com.example.schedulesoft.auth.SessionHolder;
 import com.example.schedulesoft.domain.Country;
 import com.example.schedulesoft.domain.Customer;
@@ -16,14 +18,14 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CustomerFormController implements Initializable {
@@ -50,6 +52,9 @@ public class CustomerFormController implements Initializable {
     TextField phoneNumberField;
     @FXML
     TextField customerIdField;
+
+    @FXML
+    Button saveButton;
 
     private final CustomerService customerService = new CustomerService();
     private final CustomerModel customerModel = CustomerModel.getInstance();
@@ -148,6 +153,10 @@ public class CustomerFormController implements Initializable {
 
             boolean customerWasSaved = customerService.saveCustomer(selectedCustomer);
             if(customerWasSaved) {
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                Toast toast = new Toast("Success", "Updated customer with id " + selectedCustomer.getId(), Severity.SUCCESS);
+                toast.show(stage);
+
                 PanelManager.changePanelTo(View.CustomerTable);
             }
 
@@ -160,6 +169,10 @@ public class CustomerFormController implements Initializable {
 
             boolean customerWasSaved = customerService.saveCustomer(newCustomer);
             if(customerWasSaved) {
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                Toast toast = new Toast("Success", "Added customer " + name, Severity.SUCCESS);
+                toast.show(stage);
+
                 PanelManager.changePanelTo(View.CustomerTable);
             }
         }
