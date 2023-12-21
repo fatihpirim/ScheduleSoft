@@ -3,6 +3,7 @@ package com.example.schedulesoft.controller;
 import com.example.schedulesoft.auth.SessionHolder;
 import com.example.schedulesoft.domain.Appointment;
 import com.example.schedulesoft.domain.Interval;
+import com.example.schedulesoft.enums.Message;
 import com.example.schedulesoft.enums.Severity;
 import com.example.schedulesoft.enums.View;
 import com.example.schedulesoft.auth.UserAuth;
@@ -11,6 +12,7 @@ import com.example.schedulesoft.ui.Toast;
 import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.util.LocaleUtil;
 import com.example.schedulesoft.util.PageManager;
+import com.example.schedulesoft.util.UserActivityLogger;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,6 +46,8 @@ public class LoginController implements Initializable {
     Button loginButton;
 
     private ResourceBundle rb;
+
+    UserActivityLogger logger = UserActivityLogger.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,11 +89,15 @@ public class LoginController implements Initializable {
 
             PageManager.changePageTo(View.Home);
             System.out.println("Details: \n " + SessionHolder.getInstance().getSession().getUser());
+
+            logger.logLoginAttempt(Message.SUCCESS, username);
         } else {
             displayError("incorrect_username_or_password");
 
             Toast toast = new Toast("Error", "Failed to log in", Severity.ERROR);
             toast.show(stage);
+
+            logger.logLoginAttempt(Message.FAILURE, username);
         }
 
     }
@@ -115,6 +123,8 @@ public class LoginController implements Initializable {
                String message = "invalid_password";
                displayError(message);
            }
+
+           logger.logLoginAttempt(Message.FAILURE);
            return false; // all fields are not valid
        } else {
            return true; // all fields are valid

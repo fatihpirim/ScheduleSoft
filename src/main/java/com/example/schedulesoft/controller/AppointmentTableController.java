@@ -16,6 +16,9 @@ import com.example.schedulesoft.util.LocaleUtil;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +31,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -52,6 +58,9 @@ public class AppointmentTableController implements Initializable {
     private Button deleteButton;
     @FXML
     private Button adjustButton;
+
+    @FXML
+    private ComboBox<String> filterComboBox;
 
     @FXML
     private TableColumn<Appointment, Number> idCol;
@@ -109,6 +118,11 @@ public class AppointmentTableController implements Initializable {
         System.out.println(appointmentModel.getAppointments());
 
         setCellFactoryOfColumns();
+
+        ObservableList<String> filterItems = FXCollections.observableArrayList(Arrays.asList("All", "This Week", "This Month"));
+        filterComboBox.setItems(filterItems);
+        filterComboBox.setValue("All");
+        setFilter();
 
     }
 
@@ -275,6 +289,43 @@ public class AppointmentTableController implements Initializable {
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
         return alert.showAndWait();
+    }
+
+    private void setFilter() {
+        FilteredList<Appointment> filteredAppointments = new FilteredList<>(AppointmentModel.getInstance().getAppointments(), a -> true);
+        filterComboBox.valueProperty().addListener((observable, oldFilter, newFilter) -> {
+
+            filteredAppointments.setPredicate(appointment -> {
+
+                ZonedDateTime startDateTime = appointment.getStartDateTime();
+
+                switch (newFilter) {
+                    case "All" -> {
+                        return true;
+                    }
+                    case "This Week" -> {
+                        ZonedDateTime startOfWeek = ZonedDateTime.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY)).truncatedTo(java.time.temporal.ChronoUnit.DAYS);
+                        ZonedDateTime endOfWeek = startOfWeek.plusDays(6).plusHours(23).plusMinutes(59).plusSeconds(59);
+
+                        if(!startDateTime.isBefore(startOfWeek) && !startDateTime.isAfter(endOfWeek)) {
+                            return true;
+                        }
+                    }
+                    case "This Month" -> {
+                        ZonedDateTime startOfMonth = ZonedDateTime.now().with(TemporalAdjusters.firstDayOfMonth()).truncatedTo(java.time.temporal.ChronoUnit.DAYS);
+                        ZonedDateTime endOfMonth = ZonedDateTime.now().with(TemporalAdjusters.lastDayOfMonth()).plusHours(23).plusMinutes(59).plusSeconds(59);
+
+                        if(!startDateTime.isBefore(startOfMonth) && !startDateTime.isAfter(endOfMonth)) {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            });
+
+            appointmentTable.setItems(filteredAppointments);
+        });
     }
 
 }

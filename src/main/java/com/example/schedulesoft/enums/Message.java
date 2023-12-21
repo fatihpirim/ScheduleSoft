@@ -2,7 +2,7 @@ package com.example.schedulesoft.enums;
 
 public enum Message {
     SUCCESS,
-    ERROR,
+    FAILURE,
     WARNING,
-    FAILURE
+    INFO
 }

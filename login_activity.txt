@@ -1,0 +1,27 @@
+Login Attempt On:  12/21/2023 19:34               Europe/London        
+Timestamp:         2023-12-21 19:34:47.2674346    Europe/London        
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/21/2023 19:35               Europe/London        
+Timestamp:         2023-12-21 19:35:15.3190866    Europe/London        
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/21/2023 19:35               Europe/London        
+Timestamp:         2023-12-21 19:35:24.7302101    Europe/London        
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/21/2023 14:36               America/New_York     
+Timestamp:         2023-12-21 14:36:21.0737988    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/21/2023 14:37               America/New_York     
+Timestamp:         2023-12-21 14:37:04.9991854    America/New_York     
+Result:            SUCCESS
+
+
