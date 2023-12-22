@@ -25,6 +25,13 @@ public class SideNavBarController implements Initializable {
     }
 
     @FXML
+    private void onDashboardClick(Event event) {
+        System.out.println("Clicked Dashboard");
+
+        PanelManager.changePanelTo(View.Dashboard);
+    }
+
+    @FXML
     private void onCustomersClick(Event event) {
         System.out.println("Clicked Customers");
 

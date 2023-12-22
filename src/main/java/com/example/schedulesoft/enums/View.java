@@ -1,7 +1,7 @@
 package com.example.schedulesoft.enums;
 
 public enum View {
-
+    Dashboard(View.rootPath+"/Dashboard.fxml"),
     CustomerTable(View.rootPath+"/CustomerTable.fxml"),
     AppointmentTable(View.rootPath+"/AppointmentTable.fxml"),
     CustomerForm(View.rootPath+"/CustomerForm.fxml"),

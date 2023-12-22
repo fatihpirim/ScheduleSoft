@@ -44,7 +44,7 @@
                   <ComboBox fx:id="chartComboBox" prefWidth="150.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: red;" HBox.hgrow="NEVER" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: red;" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <VBox prefHeight="570.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS">
@@ -52,18 +52,18 @@
             <Insets />
          </VBox.margin>
          <children>
-            <HBox prefHeight="255.0" style="-fx-background-color: white;">
+            <HBox prefHeight="255.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox fx:id="chartContainer" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: green;" />
-                  <ScrollPane fx:id="loginActivityScrollPane" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: blue;" />
+                  <VBox fx:id="chartContainer" prefWidth="500.0" HBox.hgrow="ALWAYS" />
+                  <ScrollPane fx:id="loginActivityScrollPane" prefWidth="300.0" style="-fx-background-color: blue;" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" style="-fx-background-color: beige;">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" style="-fx-background-color: beige;" VBox.vgrow="NEVER">
                <children>
                   <ComboBox fx:id="contactComboBox" prefWidth="150.0" />
                </children>
             </HBox>
-            <TableView fx:id="scheduleTableView" prefHeight="285.0">
+            <TableView fx:id="scheduleTableView" prefHeight="285.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />

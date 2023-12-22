@@ -24,7 +24,7 @@
          <children>
             <Button fx:id="customersMenuItem" mnemonicParsing="false" onAction="#onCustomersClick" prefHeight="25.0" prefWidth="200.0" text="%customers" GridPane.rowIndex="1" />
             <Button fx:id="appointmentsMenuItem" mnemonicParsing="false" onAction="#onAppointmentsClick" prefHeight="25.0" prefWidth="200.0" text="%appointments" GridPane.rowIndex="2" />
-            <Button fx:id="dashboardMenuItem" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Dashboard" />
+            <Button fx:id="dashboardMenuItem" mnemonicParsing="false" onAction="#onDashboardClick" prefHeight="25.0" prefWidth="200.0" text="Dashboard" />
          </children>
       </GridPane>
       <VBox alignment="BOTTOM_LEFT" prefHeight="300.0" style="-fx-background-color: lime;" VBox.vgrow="ALWAYS">
