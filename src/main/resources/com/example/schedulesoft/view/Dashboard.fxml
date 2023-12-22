@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.DashboardController">
+   <children>
+      <HBox prefHeight="100.0" VBox.vgrow="NEVER">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefWidth="600.0" style="-fx-background-color: orange;" HBox.hgrow="NEVER">
+               <children>
+                  <Label prefHeight="48.0" prefWidth="194.0" text="Dashboard">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <HBox alignment="TOP_RIGHT" prefWidth="200.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="zoneIdLabel" alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="143.0" text="CA" HBox.hgrow="NEVER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="30.0" style="-fx-background-color: turquoise;">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefWidth="500.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ComboBox fx:id="chartComboBox" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: red;" HBox.hgrow="NEVER" />
+         </children>
+      </HBox>
+      <VBox prefHeight="570.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <children>
+            <HBox prefHeight="255.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox fx:id="chartContainer" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: green;" />
+                  <ScrollPane fx:id="loginActivityScrollPane" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: blue;" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" style="-fx-background-color: beige;">
+               <children>
+                  <ComboBox fx:id="contactComboBox" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <TableView fx:id="scheduleTableView" prefHeight="285.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</VBox>

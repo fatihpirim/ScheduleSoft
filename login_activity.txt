@@ -25,3 +25,14 @@ Timestamp:         2023-12-21 14:37:04.9991854    America/New_York
 Result:            SUCCESS
 
 
+Login Attempt On:  12/22/2023 11:21               America/New_York     
+Timestamp:         2023-12-22 11:21:48.3902758    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/22/2023 11:21               America/New_York     
+Timestamp:         2023-12-22 11:21:54.0064157    America/New_York     
+Result:            SUCCESS                        
+
+
