@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -24,10 +25,13 @@ public class DashboardController implements Initializable {
 
     @FXML
     ComboBox<String> chartComboBox;
-
     @FXML
     VBox chartContainer;
 
+    @FXML
+    Label successNoLabel;
+    @FXML
+    Label failureNoLabel;
     @FXML
     ScrollPane loginActivityScrollPane;
 
@@ -60,11 +64,21 @@ public class DashboardController implements Initializable {
         loginActivityTextFlow.setPadding(new Insets(5, 5, 5, 5));
         String filePath = System.getProperty("user.dir")+"/login_activity.txt";
 
+        int successNo = 0;
+        int failureNo = 0;
+
         try {
             // Read the contents of the text file
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
+
+                if(line.contains("SUCCESS")) {
+                    successNo += 1;
+                } else if (line.contains("FAILURE")) {
+                    failureNo += 1;
+                }
+
                 Text textNode = new Text(line + "\n");
                 loginActivityTextFlow.getChildren().add(textNode);
             }
@@ -73,6 +87,9 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
         }
 
+        System.out.println("Success No: " + successNo + " Failure No: " + failureNo);
+        successNoLabel.setText(Integer.toString(successNo));
+        failureNoLabel.setText(Integer.toString(failureNo));
         loginActivityScrollPane.setContent(loginActivityTextFlow);
 
 
