@@ -32,7 +32,7 @@ public class AppointmentFormController implements Initializable {
     Label zoneIdLabel;
 
     @FXML
-    ResourceBundle resources;
+    ResourceBundle rb;
 
     @FXML
     TextField titleField;
@@ -192,7 +192,7 @@ public class AppointmentFormController implements Initializable {
 
         if(appointmentIsSaved) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
-            Toast toast = new Toast("Success", "Saved appointment", Severity.SUCCESS);
+            Toast toast = new Toast(rb.getString("success"), rb.getString("saved_appointment"), Severity.SUCCESS);
             toast.show(stage);
 
             PanelManager.changePanelTo(View.AppointmentTable);

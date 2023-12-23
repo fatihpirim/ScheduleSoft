@@ -45,7 +45,7 @@ public class AppointmentTableController implements Initializable {
     Label zoneIdLabel;
 
     @FXML
-    ResourceBundle resources;
+    ResourceBundle rb;
 
     @FXML
     TableView<Appointment> appointmentTable;
@@ -163,7 +163,7 @@ public class AppointmentTableController implements Initializable {
                 System.out.println("Deleted appointment");
                 appointmentModel.removeSelectedCustomer();
                 Stage stage = (Stage) deleteButton.getScene().getWindow();
-                Toast toast = new Toast("Success", "Deleted appointment with id " + appointment.getId(), Severity.SUCCESS);
+                Toast toast = new Toast(rb.getString("success"), rb.getString("deleted_appointment") + " " + appointment.getId(), Severity.SUCCESS);
                 toast.show(stage);
             }
         } else if(confirmation.isPresent() && confirmation.get() == ButtonType.CANCEL) {
@@ -190,7 +190,7 @@ public class AppointmentTableController implements Initializable {
                 Message message = DAOEvent.getMessage();
                 if(message.equals(Message.SUCCESS)) {
                     System.out.println("Success");
-                    Toast toast = new Toast("Success", "Adjusted appointment time", Severity.SUCCESS);
+                    Toast toast = new Toast(rb.getString("success"), rb.getString("adjust_appointment_time"), Severity.SUCCESS);
                     toast.show(stage);
                 }
             });

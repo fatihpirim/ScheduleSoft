@@ -93,10 +93,15 @@
                   <ComboBox fx:id="contactComboBox" prefWidth="150.0" />
                </children>
             </HBox>
-            <TableView fx:id="scheduleTableView" prefHeight="285.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="contactScheduleTable" prefHeight="285.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="idCol" prefWidth="53.0" text="id" />
+                <TableColumn fx:id="titleCol" prefWidth="104.0" text="title" />
+                  <TableColumn fx:id="typeCol" prefWidth="129.0" text="type" />
+                  <TableColumn fx:id="descriptionCol" prefWidth="140.0" text="desc" />
+                  <TableColumn fx:id="startCol" prefWidth="138.0" text="start" />
+                  <TableColumn fx:id="endCol" prefWidth="159.0" text="end" />
+                  <TableColumn fx:id="customerIdCol" prefWidth="76.0" text="customer id" />
               </columns>
             </TableView>
          </children>

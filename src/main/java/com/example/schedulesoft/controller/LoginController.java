@@ -94,7 +94,7 @@ public class LoginController implements Initializable {
         } else {
             displayError("incorrect_username_or_password");
 
-            Toast toast = new Toast("Error", "Failed to log in", Severity.ERROR);
+            Toast toast = new Toast(rb.getString("error"), rb.getString("login_fail"), Severity.ERROR);
             toast.show(stage);
 
             logger.logLoginAttempt(Message.FAILURE, username);

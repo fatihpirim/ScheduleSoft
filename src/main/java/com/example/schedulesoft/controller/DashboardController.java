@@ -1,15 +1,23 @@
 package com.example.schedulesoft.controller;
 
+import com.example.schedulesoft.domain.Appointment;
+import com.example.schedulesoft.domain.Contact;
+import com.example.schedulesoft.model.AppointmentModel;
+import com.example.schedulesoft.model.ContactScheduleModel;
+import com.example.schedulesoft.service.AppointmentService;
+import com.example.schedulesoft.service.ContactService;
 import com.example.schedulesoft.ui.AppointmentsByMonthChart;
 import com.example.schedulesoft.ui.AppointmentsByTypeChart;
+import com.example.schedulesoft.util.LocaleUtil;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -18,8 +26,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class DashboardController implements Initializable {
 
@@ -34,6 +44,30 @@ public class DashboardController implements Initializable {
     Label failureNoLabel;
     @FXML
     ScrollPane loginActivityScrollPane;
+
+    @FXML
+    private ComboBox<Contact> contactComboBox;
+    @FXML
+    TableView<Appointment> contactScheduleTable;
+    @FXML
+    private TableColumn<Appointment, Number> idCol;
+    @FXML
+    private TableColumn<Appointment, String> titleCol;
+    @FXML
+    private TableColumn<Appointment, String> typeCol;
+    @FXML
+    private TableColumn<Appointment, String> descriptionCol;
+    @FXML
+    private TableColumn<Appointment, ZonedDateTime> startCol;
+    @FXML
+    private TableColumn<Appointment, ZonedDateTime> endCol;
+    @FXML
+    private TableColumn<Appointment, Number> customerIdCol;
+
+    private final AppointmentService appointmentService = new AppointmentService();
+    private final ContactScheduleModel contactScheduleModel = ContactScheduleModel.getInstance();
+
+    private final ContactService contactService = new ContactService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,7 +102,6 @@ public class DashboardController implements Initializable {
         int failureNo = 0;
 
         try {
-            // Read the contents of the text file
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -92,8 +125,98 @@ public class DashboardController implements Initializable {
         failureNoLabel.setText(Integer.toString(failureNo));
         loginActivityScrollPane.setContent(loginActivityTextFlow);
 
+        // contact schedule UI / Control
 
+        ObservableList<Contact> contacts = contactService.getAllContacts().stream()
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
+        contactComboBox.setItems(contacts);
+        contactComboBox.setValue(contacts.get(0));
+
+        contactScheduleModel.setAppointments(appointmentService.getAllAppointments().stream().
+                filter(appointment -> appointment.getContactId() == contactComboBox.getValue().getId())
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
+        contactScheduleTable.setItems(contactScheduleModel.getAppointments());
+
+        contactComboBox.valueProperty().addListener((observable, oldContact, newContact) -> {
+            contactScheduleModel.setAppointments(appointmentService.getAllAppointments().stream().
+                    filter(appointment -> appointment.getContactId() == contactComboBox.getValue().getId())
+                    .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
+            contactScheduleTable.setItems(contactScheduleModel.getAppointments());
+        });
+
+
+        setCellValueFactoryOfColumns();
+        setCellFactoryOfColumns();
     }
+
+    private void setCellValueFactoryOfColumns() {
+
+        idCol.setCellValueFactory(appointment -> {
+            int id = appointment.getValue().getId();
+            return new SimpleIntegerProperty(id);
+        });
+
+        titleCol.setCellValueFactory(appointment -> {
+            String title = appointment.getValue().getTitle();
+            return new SimpleStringProperty(title);
+        });
+
+        descriptionCol.setCellValueFactory(appointment -> {
+            String desc = appointment.getValue().getDescription();
+            return new SimpleStringProperty(desc);
+        });
+
+        typeCol.setCellValueFactory(appointment -> {
+            String type = appointment.getValue().getType();
+            return new SimpleStringProperty(type);
+        });
+
+        startCol.setCellValueFactory(appointment -> {
+            ZonedDateTime startZDT = appointment.getValue().getStartDateTime();
+            return new SimpleObjectProperty<>(startZDT);
+        });
+
+        endCol.setCellValueFactory(appointment -> {
+            ZonedDateTime endZDT = appointment.getValue().getEndDateTime();
+            return new SimpleObjectProperty<>(endZDT);
+        });
+
+        customerIdCol.setCellValueFactory(appointment -> {
+            int customerId = appointment.getValue().getCustomerId();
+            return new SimpleIntegerProperty(customerId);
+        });
+    }
+
+    private void setCellFactoryOfColumns() {
+        startCol.setCellFactory(tc -> new TableCell<>() {
+
+            @Override
+            protected void updateItem(ZonedDateTime startZDT, boolean empty) {
+                super.updateItem(startZDT, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    startZDT = LocaleUtil.changeToTimezone(startZDT); // changes timezone to user's timezone
+                    setText(LocaleUtil.formatToLocale(startZDT)); // changes formatting to user's locale (am/pm,24hr time, etc.)
+                }
+            }
+        });
+
+        endCol.setCellFactory(tc -> new TableCell<>() {
+
+            @Override
+            protected void updateItem(ZonedDateTime endZDT, boolean empty) {
+                super.updateItem(endZDT, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    endZDT = LocaleUtil.changeToTimezone(endZDT);
+                    setText(LocaleUtil.formatToLocale(endZDT));
+                }
+            }
+        });
+    }
+
 
 
 }
