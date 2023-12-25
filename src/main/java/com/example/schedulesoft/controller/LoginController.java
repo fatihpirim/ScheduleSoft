@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -136,6 +137,7 @@ public class LoginController implements Initializable {
     private void displayError(String message) {
         System.out.println(message);
         Text text = new Text(resources.getString(message)+"\n");
+        text.setFill(Color.RED);
         errorTextFlow.getChildren().add(text);
         errorTextFlow.setVisible(true);
     }

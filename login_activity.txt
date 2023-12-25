@@ -282,3 +282,304 @@ Timestamp:         2023-12-25 11:09:10.6083088    America/Denver
 Result:            SUCCESS                        
 
 
+Username:          a                             
+Login Attempt On:  12/25/2023 11:15               America/Denver       
+Timestamp:         2023-12-25 11:15:40.4138665    America/Denver       
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 11:15               America/Denver       
+Timestamp:         2023-12-25 11:15:45.2214908    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 13:18               America/New_York     
+Timestamp:         2023-12-25 13:18:53.1586359    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 13:25               America/New_York     
+Timestamp:         2023-12-25 13:25:02.8673456    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 13:30               America/New_York     
+Timestamp:         2023-12-25 13:30:35.9977099    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 13:39               America/New_York     
+Timestamp:         2023-12-25 13:39:42.6968666    America/New_York     
+Result:            SUCCESS                        
+
+
+Login Attempt On:  12/25/2023 13:47               America/New_York     
+Timestamp:         2023-12-25 13:47:47.1783616    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 13:47               America/New_York     
+Timestamp:         2023-12-25 13:47:52.3581777    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          a                             
+Login Attempt On:  12/25/2023 13:47               America/New_York     
+Timestamp:         2023-12-25 13:47:53.7156789    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 14:02               America/New_York     
+Timestamp:         2023-12-25 14:02:23.9549259    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 14:02               America/New_York     
+Timestamp:         2023-12-25 14:02:46.4124577    America/New_York     
+Result:            SUCCESS                        
+
+
+Login Attempt On:  12/25/2023 14:05               America/New_York     
+Timestamp:         2023-12-25 14:05:06.8393596    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:05               America/New_York     
+Timestamp:         2023-12-25 14:05:08.297358     America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:05               America/New_York     
+Timestamp:         2023-12-25 14:05:09.5926608    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:05               America/New_York     
+Timestamp:         2023-12-25 14:05:18.1240536    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:08               America/New_York     
+Timestamp:         2023-12-25 14:08:26.7610727    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:08               America/New_York     
+Timestamp:         2023-12-25 14:08:27.7099722    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:08               America/New_York     
+Timestamp:         2023-12-25 14:08:28.9546878    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:08               America/New_York     
+Timestamp:         2023-12-25 14:08:30.8309571    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:08               America/New_York     
+Timestamp:         2023-12-25 14:08:32.7428939    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:09               America/New_York     
+Timestamp:         2023-12-25 14:09:38.9799923    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:09               America/New_York     
+Timestamp:         2023-12-25 14:09:40.4919552    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:09               America/New_York     
+Timestamp:         2023-12-25 14:09:41.4270943    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:29.9315429    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:33.2131952    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:34.261556     America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:37.4069183    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:38.6167721    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:53.5639572    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:54.7759005    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:56.1258396    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:57.6168894    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:58.83493      America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:10               America/New_York     
+Timestamp:         2023-12-25 14:10:59.4689421    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:11               America/New_York     
+Timestamp:         2023-12-25 14:11:29.0044342    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:11               America/New_York     
+Timestamp:         2023-12-25 14:11:30.1043108    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:11               America/New_York     
+Timestamp:         2023-12-25 14:11:31.3184274    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:19.0829113    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:21.191911     America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:22.3016954    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:23.4339689    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:39.8096849    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:41.271997     America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:43.1509572    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:44.8560975    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:46.1719131    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:48.4654264    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:49.6770109    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:58.1520713    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:12               America/New_York     
+Timestamp:         2023-12-25 14:12:59.4519207    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:13               America/New_York     
+Timestamp:         2023-12-25 14:13:00.4009575    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:15               America/New_York     
+Timestamp:         2023-12-25 14:15:27.3007678    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:15               America/New_York     
+Timestamp:         2023-12-25 14:15:32.1539019    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:15               America/New_York     
+Timestamp:         2023-12-25 14:15:34.0799508    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:20               America/New_York     
+Timestamp:         2023-12-25 14:20:41.9371256    America/New_York     
+Result:            FAILURE                        
+
+
+Login Attempt On:  12/25/2023 14:20               America/New_York     
+Timestamp:         2023-12-25 14:20:45.8991411    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          a                             
+Login Attempt On:  12/25/2023 14:20               America/New_York     
+Timestamp:         2023-12-25 14:20:48.9659838    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 14:20               America/New_York     
+Timestamp:         2023-12-25 14:20:55.9136217    America/New_York     
+Result:            SUCCESS                        
+
+

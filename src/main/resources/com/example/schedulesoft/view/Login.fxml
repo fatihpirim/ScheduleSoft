@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.LoginController">
+<VBox prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.LoginController">
    <children>
-      <HBox prefHeight="100.0" style="-fx-background-color: lavender;" VBox.vgrow="NEVER">
+      <HBox prefHeight="100.0" VBox.vgrow="NEVER">
          <children>
             <VBox prefWidth="800.0" HBox.hgrow="NEVER" />
             <VBox alignment="TOP_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -32,12 +32,12 @@
                </padding>
             </VBox>
          </children></HBox>
-      <HBox prefHeight="500.0" style="-fx-background-color: lavender;">
+      <HBox prefHeight="500.0">
          <children>
-            <VBox prefWidth="200.0" style="-fx-background-color: violet;" HBox.hgrow="ALWAYS" />
-            <VBox prefWidth="600.0" style="-fx-background-color: beige;" HBox.hgrow="NEVER">
+            <VBox prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <VBox fx:id="loginPanel" prefWidth="600.0" styleClass="login-panel" HBox.hgrow="NEVER">
                <children>
-                  <Pane fx:id="loginTitlePane" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: beige;" VBox.vgrow="NEVER">
+                  <Pane fx:id="loginTitlePane" prefHeight="100.0" prefWidth="600.0" VBox.vgrow="NEVER">
                      <children>
                         <Label fx:id="loginTitleLabel" alignment="CENTER" layoutX="5.0" layoutY="23.0" prefHeight="54.0" prefWidth="550.0" text="%login">
                            <font>
@@ -47,9 +47,9 @@
                      </children>
                   </Pane>
       
-                  <TextFlow fx:id="errorTextFlow" prefHeight="50.0" prefWidth="360.0" style="-fx-background-color: pink;" visible="false" VBox.vgrow="NEVER" />
+                  <TextFlow fx:id="errorTextFlow" prefHeight="50.0" prefWidth="360.0" visible="false" VBox.vgrow="NEVER" />
       
-                  <GridPane prefWidth="360.0" style="-fx-background-color: cyan;" VBox.vgrow="NEVER">
+                  <GridPane prefWidth="360.0" VBox.vgrow="NEVER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -76,9 +76,9 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </VBox>
-            <VBox prefWidth="200.0" style="-fx-background-color: violet;" HBox.hgrow="ALWAYS" />
+            <VBox prefWidth="200.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" style="-fx-background-color: lavender;" VBox.vgrow="ALWAYS" />
+      <HBox prefHeight="100.0" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>

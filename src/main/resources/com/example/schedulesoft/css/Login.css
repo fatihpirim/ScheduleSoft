@@ -1,0 +1,30 @@
+
+.root {
+    -fx-background-color: #2b2d42; /* Green */
+    -fx-text-fill: #2b2d42;
+}
+
+.login-panel {
+     -fx-background-color: #edf2f4;
+     -fx-background-radius: 2;
+}
+
+.global-text {
+    -fx-text-fill: inherit; /* Inherit text color from the root */
+}
+
+.button {
+    -fx-background-color: #EF233C; /* Green */
+    -fx-text-fill: #edf2f4;
+    -fx-background-radius: 6;
+}
+
+.button:hover {
+    -fx-background-color: #F3364D; /* Set the background color on hover */
+}
+
+.button:pressed {
+    -fx-border-color: #D90429;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+}

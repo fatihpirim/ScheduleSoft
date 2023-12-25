@@ -17,6 +17,6 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         PanelManager.setParent(panelContainer);
-        PanelManager.changePanelTo(View.CustomerTable);
+        PanelManager.changePanelTo(View.Dashboard);
     }
 }
