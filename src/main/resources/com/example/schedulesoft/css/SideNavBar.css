@@ -1,0 +1,36 @@
+.root {
+    -fx-background-color: #2b2d42;
+}
+
+.sidebar-container {
+    -fx-background-color: #2b2d42;
+}
+
+.app-logo-label {
+    -fx-text-fill: #ef233c;
+    -fx-font-weight: bold;
+}
+
+.avatar-background {
+    -fx-background-color: #383A50;
+    -fx-background-radius: 70;
+}
+.menu-item-button {
+   -fx-background-color: #2b2d42;
+   -fx-text-fill: #EDF2F4
+}
+
+.menu-item-button:hover {
+   -fx-background-color: #343648;
+   -fx-font-weight: bold;
+}
+
+.logout-button {
+    -fx-background-color: #ef233c;
+    -fx-text-fill: #edf2f4;
+}
+
+.logout-button:hover {
+    -fx-background-color: #F3364D;
+}
+

@@ -1,6 +1,6 @@
 
 .root {
-    -fx-background-color: #2b2d42; /* Green */
+    -fx-background-color: #2b2d42;
     -fx-text-fill: #2b2d42;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .button {
-    -fx-background-color: #EF233C; /* Green */
+    -fx-background-color: #EF233C;
     -fx-text-fill: #edf2f4;
     -fx-background-radius: 6;
 }
@@ -27,4 +27,8 @@
     -fx-border-color: #D90429;
     -fx-border-width: 2;
     -fx-border-radius: 6;
+}
+
+.zone-id-label {
+    -fx-text-fill: #f3364d;
 }

@@ -21,10 +21,7 @@
             <VBox prefWidth="800.0" HBox.hgrow="NEVER" />
             <VBox alignment="TOP_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="zoneIdLabel" text="zone id">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
+                  <Label fx:id="zoneIdLabel" styleClass="zone-id-label" text="zone id">
                   </Label>
                </children>
                <padding>
@@ -61,8 +58,14 @@
                     </rowConstraints>
                      <children>
                         <TextField fx:id="usernameField" prefWidth="360.0" GridPane.rowIndex="1" />
-                        <Label fx:id="usernameLabel" text="%username" />
-                        <Label fx:id="passwordLabel" text="%password" GridPane.rowIndex="2" />
+                        <Label fx:id="usernameLabel" text="%username">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <Label fx:id="passwordLabel" text="%password" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
                         <PasswordField fx:id="passwordField" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>

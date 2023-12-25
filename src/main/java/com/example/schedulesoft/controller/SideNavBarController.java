@@ -1,5 +1,6 @@
 package com.example.schedulesoft.controller;
 
+import com.example.schedulesoft.auth.SessionHolder;
 import com.example.schedulesoft.util.PageManager;
 import com.example.schedulesoft.util.PanelManager;
 import com.example.schedulesoft.auth.UserAuth;
@@ -8,6 +9,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +21,10 @@ public class SideNavBarController implements Initializable {
     ResourceBundle resources;
 
     @FXML
+    Label appLogo;
+    @FXML
+    Label userLabel;
+    @FXML
     Button customersMenuItem;
     @FXML
     Button appointmentsMenuItem;
@@ -25,6 +32,11 @@ public class SideNavBarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         this.resources = resources;
+
+        Font font = Font.loadFont(getClass().getResourceAsStream("/com/example/schedulesoft/font/Orbitron/Orbitron-VariableFont_wght.ttf"), 22);
+        appLogo.setFont(font);
+
+        userLabel.setText(SessionHolder.getInstance().getSession().getUser().getUsername());
     }
 
     @FXML
