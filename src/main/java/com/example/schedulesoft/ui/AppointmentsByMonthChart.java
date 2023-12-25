@@ -50,11 +50,6 @@ public class AppointmentsByMonthChart {
         }
 
         chart.getData().add(series1);
-
-//        for (XYChart.Data<String, Number> data : series1.getData()) {
-//            Tooltip tooltip = new Tooltip("Hello" + data.getYValue().toString());
-//            Tooltip.install(data.getNode(), tooltip);
-//        }
     }
 
     private List<ZonedDateTime> getMonths() {

@@ -6,11 +6,11 @@
 <HBox prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.HomeController">
    <children>
       <fx:include source="SideNavBar.fxml" />
-      <HBox style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+      <HBox HBox.hgrow="ALWAYS">
          <children>
-            <VBox style="-fx-background-color: orange;" HBox.hgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS">
                <children>
-                  <HBox fx:id="panelContainer" style="-fx-background-color: purple;" VBox.vgrow="ALWAYS" />
+                  <HBox fx:id="panelContainer" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

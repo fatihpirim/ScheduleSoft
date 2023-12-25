@@ -1,0 +1,29 @@
+.dashboard-container {
+   -fx-background-color: #DEDFDE;
+}
+
+.top-panel {
+     -fx-background-color: white;
+}
+
+.title {
+     -fx-text-fill: #383A50;
+}
+
+.zone-id-label {
+    -fx-text-fill: #f3364d;
+}
+
+.chart-container {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+}
+
+.table-container {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+}
+
+.chart-bar {
+    -fx-bar-fill: #ef233c;
+}

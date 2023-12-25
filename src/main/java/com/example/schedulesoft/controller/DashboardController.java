@@ -8,6 +8,7 @@ import com.example.schedulesoft.service.AppointmentService;
 import com.example.schedulesoft.service.ContactService;
 import com.example.schedulesoft.ui.AppointmentsByMonthChart;
 import com.example.schedulesoft.ui.AppointmentsByTypeChart;
+import com.example.schedulesoft.util.AppConfig;
 import com.example.schedulesoft.util.LocaleUtil;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -35,6 +36,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     ResourceBundle resources;
+
+    @FXML
+    Label zoneIdLabel;
 
     @FXML
     ComboBox<String> chartComboBox;
@@ -69,6 +73,8 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resources) {
 
         this.resources = resources;
+
+        zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
         // Chart Control & UI
         ObservableList<String> chartComboBoxItems = FXCollections.observableArrayList(Arrays.asList(resources.getString("by_month"), resources.getString("by_type")));
