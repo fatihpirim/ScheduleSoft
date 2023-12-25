@@ -34,16 +34,12 @@ import java.util.stream.Collectors;
 public class DashboardController implements Initializable {
 
     @FXML
+    ResourceBundle resources;
+
+    @FXML
     ComboBox<String> chartComboBox;
     @FXML
     VBox chartContainer;
-
-    @FXML
-    Label successNoLabel;
-    @FXML
-    Label failureNoLabel;
-    @FXML
-    ScrollPane loginActivityScrollPane;
 
     @FXML
     private ComboBox<Contact> contactComboBox;
@@ -70,60 +66,31 @@ public class DashboardController implements Initializable {
     private final ContactService contactService = new ContactService();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resources) {
+
+        this.resources = resources;
 
         // Chart Control & UI
-        ObservableList<String> chartComboBoxItems = FXCollections.observableArrayList(Arrays.asList("By Month", "By Type"));
+        ObservableList<String> chartComboBoxItems = FXCollections.observableArrayList(Arrays.asList(resources.getString("by_month"), resources.getString("by_type")));
         chartComboBox.setItems(chartComboBoxItems);
-        chartComboBox.setValue("By Month");
+        chartComboBox.setValue(resources.getString("by_month"));
 
-        AppointmentsByMonthChart appointmentByMonthChart = new AppointmentsByMonthChart();
-        AppointmentsByTypeChart appointmentByTypeChart = new AppointmentsByTypeChart();
+        AppointmentsByMonthChart appointmentByMonthChart = new AppointmentsByMonthChart(resources);
+        AppointmentsByTypeChart appointmentByTypeChart = new AppointmentsByTypeChart(resources);
 
         chartContainer.getChildren().clear();
         chartContainer.getChildren().add(appointmentByMonthChart.create());
 
         chartComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("By Month")) {
+            if(newValue.equals(resources.getString("by_month"))) {
                 chartContainer.getChildren().clear();
                 chartContainer.getChildren().add(appointmentByMonthChart.create());
-            } else if(newValue.equals("By Type")) {
+            } else if(newValue.equals(resources.getString("by_type"))) {
                 chartContainer.getChildren().clear();
                 chartContainer.getChildren().add(appointmentByTypeChart.create());
             }
         });
 
-        // Login Activity Control & UI
-        TextFlow loginActivityTextFlow = new TextFlow();
-        loginActivityTextFlow.setPadding(new Insets(5, 5, 5, 5));
-        String filePath = System.getProperty("user.dir")+"/login_activity.txt";
-
-        int successNo = 0;
-        int failureNo = 0;
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-
-                if(line.contains("SUCCESS")) {
-                    successNo += 1;
-                } else if (line.contains("FAILURE")) {
-                    failureNo += 1;
-                }
-
-                Text textNode = new Text(line + "\n");
-                loginActivityTextFlow.getChildren().add(textNode);
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Success No: " + successNo + " Failure No: " + failureNo);
-        successNoLabel.setText(Integer.toString(successNo));
-        failureNoLabel.setText(Integer.toString(failureNo));
-        loginActivityScrollPane.setContent(loginActivityTextFlow);
 
         // contact schedule UI / Control
 

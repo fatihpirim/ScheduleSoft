@@ -45,13 +45,15 @@ public class LoginController implements Initializable {
     @FXML
     Button loginButton;
 
-    private ResourceBundle rb;
+    private ResourceBundle resources;
 
     UserActivityLogger logger = UserActivityLogger.getInstance();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.rb = resourceBundle;
+    public void initialize(URL url, ResourceBundle resources) {
+
+        this.resources = resources;
+
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
     }
 
@@ -78,12 +80,12 @@ public class LoginController implements Initializable {
             Appointment appointment = appointmentService.getAppointmentWithinInterval(interval);
             if(appointment != null) {
                 System.out.println("Upcoming appointment " + appointment.getTitle());
-                Toast toast = new Toast("Alert", "Upcoming appointment with id " + appointment.getId() + "\n starting at " +
-                        LocaleUtil.formatToLocale(appointment.getStartDateTime()), Severity.WARNING);
+                Toast toast = new Toast(resources.getString("alert"), resources.getString("upcoming_appointment") + " " + appointment.getId() + "\n " +
+                       resources.getString("starting_at") + " " + LocaleUtil.formatToLocale(appointment.getStartDateTime()), Severity.WARNING);
                 toast.show(stage);
             } else {
                 System.out.println("No appointments upcoming");
-                Toast toast = new Toast("Info", "No upcoming appointments", Severity.INFO);
+                Toast toast = new Toast(resources.getString("info"), resources.getString("no_upcoming_appointment"), Severity.INFO);
                 toast.show(stage);
             }
 
@@ -94,7 +96,7 @@ public class LoginController implements Initializable {
         } else {
             displayError("incorrect_username_or_password");
 
-            Toast toast = new Toast(rb.getString("error"), rb.getString("login_fail"), Severity.ERROR);
+            Toast toast = new Toast(resources.getString("error"), resources.getString("login_fail"), Severity.ERROR);
             toast.show(stage);
 
             logger.logLoginAttempt(Message.FAILURE, username);
@@ -133,7 +135,7 @@ public class LoginController implements Initializable {
 
     private void displayError(String message) {
         System.out.println(message);
-        Text text = new Text(rb.getString(message)+"\n");
+        Text text = new Text(resources.getString(message)+"\n");
         errorTextFlow.getChildren().add(text);
         errorTextFlow.setVisible(true);
     }

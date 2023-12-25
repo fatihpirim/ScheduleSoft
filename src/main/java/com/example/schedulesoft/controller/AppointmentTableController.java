@@ -45,7 +45,7 @@ public class AppointmentTableController implements Initializable {
     Label zoneIdLabel;
 
     @FXML
-    ResourceBundle rb;
+    ResourceBundle resources;
 
     @FXML
     TableView<Appointment> appointmentTable;
@@ -89,7 +89,10 @@ public class AppointmentTableController implements Initializable {
     private final ContactService contactService = new ContactService();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resources) {
+
+        this.resources = resources;
+
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
         setCellValueFactoryOfColumns();
@@ -119,9 +122,10 @@ public class AppointmentTableController implements Initializable {
 
         setCellFactoryOfColumns();
 
-        ObservableList<String> filterItems = FXCollections.observableArrayList(Arrays.asList("All", "This Week", "This Month"));
+        ObservableList<String> filterItems = FXCollections.observableArrayList(Arrays.asList(
+                resources.getString("all"), resources.getString("this_week"), resources.getString("this_month")));
         filterComboBox.setItems(filterItems);
-        filterComboBox.setValue("All");
+        filterComboBox.setValue(resources.getString("all"));
         setFilter();
 
     }
@@ -150,7 +154,7 @@ public class AppointmentTableController implements Initializable {
         Appointment appointment = appointmentModel.getSelectedAppointment();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
 
-        String headerText = "Are you sure you want to delete this appointment?";
+        String headerText = resources.getString("appointment_deletion_confirmation");
         String contentText = appointment.getTitle() + " (" + formatter.format(appointment.getStartDateTime()) + " - " +
                 formatter.format(appointment.getEndDateTime()) + ") ";
 
@@ -163,7 +167,7 @@ public class AppointmentTableController implements Initializable {
                 System.out.println("Deleted appointment");
                 appointmentModel.removeSelectedCustomer();
                 Stage stage = (Stage) deleteButton.getScene().getWindow();
-                Toast toast = new Toast(rb.getString("success"), rb.getString("deleted_appointment") + " " + appointment.getId(), Severity.SUCCESS);
+                Toast toast = new Toast(resources.getString("success"), resources.getString("deleted_appointment") + " " + appointment.getId(), Severity.SUCCESS);
                 toast.show(stage);
             }
         } else if(confirmation.isPresent() && confirmation.get() == ButtonType.CANCEL) {
@@ -190,7 +194,7 @@ public class AppointmentTableController implements Initializable {
                 Message message = DAOEvent.getMessage();
                 if(message.equals(Message.SUCCESS)) {
                     System.out.println("Success");
-                    Toast toast = new Toast(rb.getString("success"), rb.getString("adjust_appointment_time"), Severity.SUCCESS);
+                    Toast toast = new Toast(resources.getString("success"), resources.getString("adjust_appointment_time"), Severity.SUCCESS);
                     toast.show(stage);
                 }
             });
@@ -299,26 +303,19 @@ public class AppointmentTableController implements Initializable {
 
                 ZonedDateTime startDateTime = appointment.getStartDateTime();
 
-                switch (newFilter) {
-                    case "All" -> {
-                        return true;
-                    }
-                    case "This Week" -> {
-                        ZonedDateTime startOfWeek = ZonedDateTime.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY)).truncatedTo(java.time.temporal.ChronoUnit.DAYS);
-                        ZonedDateTime endOfWeek = startOfWeek.plusDays(6).plusHours(23).plusMinutes(59).plusSeconds(59);
+                if(newFilter.equals(resources.getString("all"))) {
+                    return true;
+                } else if (newFilter.equals(resources.getString("this_week"))) {
+                    ZonedDateTime startOfWeek = ZonedDateTime.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY)).truncatedTo(java.time.temporal.ChronoUnit.DAYS);
+                    ZonedDateTime endOfWeek = startOfWeek.plusDays(6).plusHours(23).plusMinutes(59).plusSeconds(59);
 
-                        if(!startDateTime.isBefore(startOfWeek) && !startDateTime.isAfter(endOfWeek)) {
-                            return true;
-                        }
-                    }
-                    case "This Month" -> {
-                        ZonedDateTime startOfMonth = ZonedDateTime.now().with(TemporalAdjusters.firstDayOfMonth()).truncatedTo(java.time.temporal.ChronoUnit.DAYS);
-                        ZonedDateTime endOfMonth = ZonedDateTime.now().with(TemporalAdjusters.lastDayOfMonth()).plusHours(23).plusMinutes(59).plusSeconds(59);
+                    return !startDateTime.isBefore(startOfWeek) && !startDateTime.isAfter(endOfWeek);
 
-                        if(!startDateTime.isBefore(startOfMonth) && !startDateTime.isAfter(endOfMonth)) {
-                            return true;
-                        }
-                    }
+                } else if (newFilter.equals(resources.getString("this_month"))) {
+                    ZonedDateTime startOfMonth = ZonedDateTime.now().with(TemporalAdjusters.firstDayOfMonth()).truncatedTo(java.time.temporal.ChronoUnit.DAYS);
+                    ZonedDateTime endOfMonth = ZonedDateTime.now().with(TemporalAdjusters.lastDayOfMonth()).plusHours(23).plusMinutes(59).plusSeconds(59);
+
+                    return !startDateTime.isBefore(startOfMonth) && !startDateTime.isAfter(endOfMonth);
                 }
 
                 return false;

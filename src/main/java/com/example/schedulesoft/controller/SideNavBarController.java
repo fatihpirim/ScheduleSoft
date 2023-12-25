@@ -15,13 +15,16 @@ import java.util.ResourceBundle;
 public class SideNavBarController implements Initializable {
 
     @FXML
+    ResourceBundle resources;
+
+    @FXML
     Button customersMenuItem;
     @FXML
     Button appointmentsMenuItem;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void initialize(URL url, ResourceBundle resources) {
+        this.resources = resources;
     }
 
     @FXML

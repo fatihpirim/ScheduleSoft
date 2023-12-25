@@ -32,7 +32,7 @@ public class AppointmentFormController implements Initializable {
     Label zoneIdLabel;
 
     @FXML
-    ResourceBundle rb;
+    ResourceBundle resources;
 
     @FXML
     TextField titleField;
@@ -72,7 +72,10 @@ public class AppointmentFormController implements Initializable {
     private final UserService userService = new UserService();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resources) {
+
+        this.resources = resources;
+
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
         // An appointment is selected (Edit)
@@ -192,7 +195,7 @@ public class AppointmentFormController implements Initializable {
 
         if(appointmentIsSaved) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
-            Toast toast = new Toast(rb.getString("success"), rb.getString("saved_appointment"), Severity.SUCCESS);
+            Toast toast = new Toast(resources.getString("success"), resources.getString("saved_appointment"), Severity.SUCCESS);
             toast.show(stage);
 
             PanelManager.changePanelTo(View.AppointmentTable);

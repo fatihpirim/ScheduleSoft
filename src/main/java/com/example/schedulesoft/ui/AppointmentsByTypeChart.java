@@ -11,18 +11,22 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class AppointmentsByTypeChart {
 
+    private final ResourceBundle resources;
     private final CategoryAxis xAxis = new CategoryAxis();
     private final NumberAxis yAxis = new NumberAxis();
     private final BarChart<String,Number> chart = new BarChart<String,Number>(xAxis,yAxis);
 
-    public AppointmentsByTypeChart() {
+    public AppointmentsByTypeChart(ResourceBundle resources) {
 
-        chart.setTitle("Appointments By Type");
-        xAxis.setLabel("Type");
-        yAxis.setLabel("No. of Appointments");
+        this.resources = resources;
+
+        chart.setTitle(resources.getString("appointments_by_type"));
+        xAxis.setLabel(resources.getString("type"));
+        yAxis.setLabel(resources.getString("no_of_appointments"));
 
         chart.setLegendVisible(false);
 

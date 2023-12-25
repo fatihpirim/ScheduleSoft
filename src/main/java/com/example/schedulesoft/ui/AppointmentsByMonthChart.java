@@ -2,6 +2,7 @@ package com.example.schedulesoft.ui;
 
 import com.example.schedulesoft.domain.Appointment;
 import com.example.schedulesoft.service.AppointmentService;
+import com.example.schedulesoft.util.AppConfig;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -9,26 +10,31 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
 
 import java.time.ZonedDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class AppointmentsByMonthChart {
 
+    private final ResourceBundle resources;
     private final CategoryAxis xAxis = new CategoryAxis();
     private final NumberAxis yAxis = new NumberAxis();
     private final BarChart<String,Number> chart = new BarChart<String,Number>(xAxis,yAxis);
 
     private final ZonedDateTime currentDateTime;
 
-    public AppointmentsByMonthChart() {
+    public AppointmentsByMonthChart(ResourceBundle resources) {
+
+        this.resources = resources;
 
         this.currentDateTime = ZonedDateTime.now();
 
-        chart.setTitle("Appointments By Month");
-        xAxis.setLabel("Month");
+        chart.setTitle(resources.getString("appointments_by_month"));
+        xAxis.setLabel(resources.getString("month"));
         xAxis.setStyle("-fx-tick-label-rotation: 45;");
-        yAxis.setLabel("No. of Appointments");
+        yAxis.setLabel(resources.getString("no_of_appointments"));
 
         chart.setLegendVisible(false);
 
@@ -38,8 +44,9 @@ public class AppointmentsByMonthChart {
         HashMap<String, Integer> monthToNumberOfAppointments = getMonthToNumberOfAppointments();
         for(ZonedDateTime monthZDT: months) {
             String month = monthZDT.getMonth().toString();
+            String translatedMonth = monthZDT.getMonth().getDisplayName(TextStyle.FULL, AppConfig.getResourceBundle().getLocale());
             int numberOfAppointments = monthToNumberOfAppointments.get(month);
-            series1.getData().add(new XYChart.Data<>(month, numberOfAppointments));
+            series1.getData().add(new XYChart.Data<>(translatedMonth, numberOfAppointments));
         }
 
         chart.getData().add(series1);

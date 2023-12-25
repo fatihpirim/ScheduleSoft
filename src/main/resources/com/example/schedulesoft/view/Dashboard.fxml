@@ -3,13 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -47,34 +43,6 @@
                   <ComboBox fx:id="chartComboBox" prefWidth="150.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: beige;" HBox.hgrow="ALWAYS">
-               <children>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label fx:id="successLabel" prefHeight="17.0" prefWidth="97.0" text="Success:">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="successNoLabel" prefHeight="17.0" prefWidth="99.0" text="SuccessNo" GridPane.columnIndex="1" />
-                        <Label fx:id="failureLabel" prefHeight="17.0" prefWidth="97.0" text="Failure:" GridPane.columnIndex="2">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="failureNoLabel" prefHeight="17.0" prefWidth="120.0" text="FailureNo" GridPane.columnIndex="3" />
-                     </children>
-                  </GridPane>
-               </children></HBox>
          </children>
       </HBox>
       <VBox prefHeight="570.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS">
@@ -85,7 +53,6 @@
             <HBox prefHeight="255.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
                   <VBox fx:id="chartContainer" prefWidth="500.0" HBox.hgrow="ALWAYS" />
-                  <ScrollPane fx:id="loginActivityScrollPane" prefWidth="300.0" style="-fx-background-color: blue;" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" style="-fx-background-color: beige;" VBox.vgrow="NEVER">
@@ -95,13 +62,13 @@
             </HBox>
             <TableView fx:id="contactScheduleTable" prefHeight="285.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="53.0" text="id" />
-                <TableColumn fx:id="titleCol" prefWidth="104.0" text="title" />
-                  <TableColumn fx:id="typeCol" prefWidth="129.0" text="type" />
-                  <TableColumn fx:id="descriptionCol" prefWidth="140.0" text="desc" />
-                  <TableColumn fx:id="startCol" prefWidth="138.0" text="start" />
-                  <TableColumn fx:id="endCol" prefWidth="159.0" text="end" />
-                  <TableColumn fx:id="customerIdCol" prefWidth="76.0" text="customer id" />
+                <TableColumn fx:id="idCol" prefWidth="53.0" text="%id" />
+                <TableColumn fx:id="titleCol" prefWidth="104.0" text="%title" />
+                  <TableColumn fx:id="typeCol" prefWidth="129.0" text="%type" />
+                  <TableColumn fx:id="descriptionCol" prefWidth="140.0" text="%description" />
+                  <TableColumn fx:id="startCol" prefWidth="138.0" text="%start" />
+                  <TableColumn fx:id="endCol" prefWidth="159.0" text="%end" />
+                  <TableColumn fx:id="customerIdCol" prefWidth="76.0" text="%customer_id" />
               </columns>
             </TableView>
          </children>

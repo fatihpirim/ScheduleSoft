@@ -77,7 +77,9 @@ public class CustomerTableController implements Initializable {
     private final DivisionService divisionService = new DivisionService();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resources) {
+
+        this.resources = resources;
 
         PanelManager.changePanelTo(View.CustomerForm);
 
@@ -137,7 +139,7 @@ public class CustomerTableController implements Initializable {
         if(customerHasNoAppointments) {
             System.out.println("The customer " + customer.getName() + " has no appointments.");
 
-            String headerText = "Are you sure you want to delete this customer?";
+            String headerText = resources.getString("customer_deletion_confirmation");
             String contentText = customer.getName() + " with id: " + customer.getId();
 
             Optional<ButtonType> confirmation = showConfirmationAlert(headerText, contentText);
@@ -150,7 +152,8 @@ public class CustomerTableController implements Initializable {
                     System.out.println("Deleted customer");
                     customerModel.removeSelectedCustomer();
                     Stage stage = (Stage) deleteButton.getScene().getWindow();
-                    Toast toast = new Toast("Success", "Deleted customer with id " + customer.getId(), Severity.SUCCESS);
+                    Toast toast = new Toast(resources.getString("success"), resources.getString("deleted_customer") + " " +
+                            customer.getId(), Severity.SUCCESS);
                     toast.show(stage);
                 }
 
@@ -159,13 +162,13 @@ public class CustomerTableController implements Initializable {
             }
 
         } else {
-            System.out.println("The customer " + customer.getName() + " has the following appointments:\n" + appointments);
+            System.out.println(customer.getName() + " " + resources.getString("has_following_appts") +"\n" + appointments);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
 
-            String headerText = "Are you sure you want to delete this customer?";
+            String headerText = resources.getString("are_you_sure");
             StringBuilder contentText = new StringBuilder();
-            contentText.append(customer.getName() + " with id: " + customer.getId() +"\n\n");
-            contentText.append("Deleting the customer will delete all of their appointments: \n\n");
+            contentText.append(customer.getName() + " "+ resources.getString("with_id") + " " + customer.getId() +"\n\n");
+            contentText.append(resources.getString("deleting_the_customer_will_delete_appts") + " \n\n");
             appointments.forEach(appointment -> {
                 String formattedAppointment = appointment.getTitle() + " (" + formatter.format(appointment.getStartDateTime()) + " - " +
                         formatter.format(appointment.getEndDateTime()) + ") \n";

@@ -52,7 +52,9 @@ public class AdjustTimeDialogController implements Initializable {
     private final boolean appointmentIsSelected = appointmentModel.getSelectedAppointment() != null;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resources) {
+
+        this.resources = resources;
 
         titleLabel.setText(appointmentModel.getSelectedAppointment().getTitle());
         populateFields();

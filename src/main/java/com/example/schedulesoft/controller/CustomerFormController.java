@@ -65,7 +65,9 @@ public class CustomerFormController implements Initializable {
     private final DivisionService divisionService = new DivisionService();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resources) {
+
+        this.resources = resources;
 
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
@@ -154,7 +156,8 @@ public class CustomerFormController implements Initializable {
             boolean customerWasSaved = customerService.saveCustomer(selectedCustomer);
             if(customerWasSaved) {
                 Stage stage = (Stage) saveButton.getScene().getWindow();
-                Toast toast = new Toast("Success", "Updated customer with id " + selectedCustomer.getId(), Severity.SUCCESS);
+                Toast toast = new Toast(resources.getString("success"), resources.getString("updated_customer")  + " " +
+                        selectedCustomer.getId(), Severity.SUCCESS);
                 toast.show(stage);
 
                 PanelManager.changePanelTo(View.CustomerTable);
@@ -170,7 +173,7 @@ public class CustomerFormController implements Initializable {
             boolean customerWasSaved = customerService.saveCustomer(newCustomer);
             if(customerWasSaved) {
                 Stage stage = (Stage) saveButton.getScene().getWindow();
-                Toast toast = new Toast("Success", "Added customer " + name, Severity.SUCCESS);
+                Toast toast = new Toast(resources.getString("success"), resources.getString("added_customer") + " " + name, Severity.SUCCESS);
                 toast.show(stage);
 
                 PanelManager.changePanelTo(View.CustomerTable);

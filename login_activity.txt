@@ -180,3 +180,105 @@ Timestamp:         2023-12-23 14:50:17.4834112    America/New_York
 Result:            SUCCESS                        
 
 
+Username:          admin                         
+Login Attempt On:  12/25/2023 09:02               America/Denver       
+Timestamp:         2023-12-25 09:02:17.1958345    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 09:09               America/Denver       
+Timestamp:         2023-12-25 09:09:36.4070626    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 09:33               America/Denver       
+Timestamp:         2023-12-25 09:33:25.939742     America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 09:37               America/Denver       
+Timestamp:         2023-12-25 09:37:45.8671256    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          a                             
+Login Attempt On:  12/25/2023 09:43               America/Denver       
+Timestamp:         2023-12-25 09:43:37.1052616    America/Denver       
+Result:            FAILURE                        
+
+
+Username:          a                             
+Login Attempt On:  12/25/2023 09:43               America/Denver       
+Timestamp:         2023-12-25 09:43:42.7375532    America/Denver       
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 09:43               America/Denver       
+Timestamp:         2023-12-25 09:43:50.6415523    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 09:59               America/Denver       
+Timestamp:         2023-12-25 09:59:49.0265934    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:36               America/Denver       
+Timestamp:         2023-12-25 10:36:36.074092     America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:37               America/Denver       
+Timestamp:         2023-12-25 10:37:19.7678137    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:40               America/Denver       
+Timestamp:         2023-12-25 10:40:43.9026716    America/Denver       
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:40               America/Denver       
+Timestamp:         2023-12-25 10:40:47.7797464    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:43               America/Denver       
+Timestamp:         2023-12-25 10:43:41.6671679    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:51               America/Denver       
+Timestamp:         2023-12-25 10:51:48.5626314    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:52               America/Denver       
+Timestamp:         2023-12-25 10:52:59.1436991    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 10:56               America/Denver       
+Timestamp:         2023-12-25 10:56:23.2939374    America/Denver       
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 11:09               America/Denver       
+Timestamp:         2023-12-25 11:09:10.6083088    America/Denver       
+Result:            SUCCESS                        
+
+
