@@ -864,3 +864,55 @@ Timestamp:         2023-12-25 16:47:03.6761486    America/New_York
 Result:            SUCCESS                        
 
 
+Login Attempt On:  12/25/2023 18:26               America/New_York     
+Timestamp:         2023-12-25 18:26:53.4041279    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 18:26               America/New_York     
+Timestamp:         2023-12-25 18:26:56.7644328    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 18:27               America/New_York     
+Timestamp:         2023-12-25 18:27:04.4038386    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 18:27               America/New_York     
+Timestamp:         2023-12-25 18:27:42.8108941    America/New_York     
+Result:            SUCCESS                        
+
+
+Login Attempt On:  12/25/2023 18:27               America/New_York     
+Timestamp:         2023-12-25 18:27:53.4328291    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          a                             
+Login Attempt On:  12/25/2023 18:27               America/New_York     
+Timestamp:         2023-12-25 18:27:55.9791037    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          a                             
+Login Attempt On:  12/25/2023 18:28               America/New_York     
+Timestamp:         2023-12-25 18:28:02.3198533    America/New_York     
+Result:            FAILURE                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 18:28               America/New_York     
+Timestamp:         2023-12-25 18:28:11.0973568    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/25/2023 18:31               America/New_York     
+Timestamp:         2023-12-25 18:31:38.350624     America/New_York     
+Result:            SUCCESS                        
+
+

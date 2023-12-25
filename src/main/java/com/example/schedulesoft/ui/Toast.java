@@ -80,7 +80,7 @@ public class Toast {
 
         fadeIn(stage);
 
-        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(6));
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
         pauseTransition.setOnFinished(event -> {
             fadeOut(stage);
         });
