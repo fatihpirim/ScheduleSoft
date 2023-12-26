@@ -18,28 +18,28 @@
     -fx-background-color: #ECF1F3;
 }
 
-.cancel-button {
+.save-button {
     -fx-background-color: #EF233C;
     -fx-text-fill: #edf2f4;
     -fx-background-radius: 6;
 }
 
-.cancel-button:hover {
+.save-button:hover {
     -fx-background-color: #F3364D; /* Set the background color on hover */
 }
 
-.cancel-button:pressed {
+.save-button:pressed {
     -fx-border-color: #D90429;
     -fx-border-width: 2;
     -fx-border-radius: 6;
 }
 
-.save-button {
+.cancel-button {
     -fx-background-color: #8E9BAF;
     -fx-text-fill: #2A2C41;
     -fx-background-radius: 6;
 }
 
-.save-button:hover {
+.cancel-button:hover {
     -fx-background-color: #7F8A9A;
 }

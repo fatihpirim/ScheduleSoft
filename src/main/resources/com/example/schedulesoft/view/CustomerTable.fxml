@@ -57,7 +57,7 @@
                         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDelete" text="%delete" />
                      </children>
                   </HBox>
-                  <VBox prefHeight="550.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS">
+                  <VBox prefHeight="550.0" VBox.vgrow="ALWAYS">
                      <children>
                         <TableView fx:id="customerTable" prefHeight="530.0" VBox.vgrow="ALWAYS">
                           <columns>

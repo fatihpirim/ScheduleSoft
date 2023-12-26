@@ -10,26 +10,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.AppointmentTableController">
+<VBox prefHeight="700.0" prefWidth="800.0" styleClass="appointment-table-container" stylesheets="@../css/AppointmentTable.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.AppointmentTableController">
    <children>
-      <HBox prefHeight="100.0">
+      <HBox prefHeight="100.0" styleClass="top-panel" VBox.vgrow="NEVER">
          <children>
-            <VBox prefWidth="600.0" style="-fx-background-color: orange;" HBox.hgrow="NEVER">
+            <VBox alignment="BOTTOM_LEFT" prefWidth="600.0" HBox.hgrow="NEVER">
                <children>
-                  <Label prefHeight="40.0" text="%appointments">
+                  <Label prefHeight="48.0" prefWidth="194.0" text="%appointments">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
                   </Label>
                </children>
             </VBox>
-            <HBox alignment="TOP_RIGHT" prefWidth="200.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS">
+            <HBox alignment="TOP_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="zoneIdLabel" alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="143.0" text="zone id" HBox.hgrow="NEVER">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="zoneIdLabel" alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="143.0" styleClass="zone-id-label" text="zone id" HBox.hgrow="NEVER" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -37,59 +36,70 @@
             </HBox>
          </children>
       </HBox>
-          <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: turquoise;">
-              <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="650.0" HBox.hgrow="ALWAYS">
-               <children>
-                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAdd" text="%add">
-                            <HBox.margin>
-                                <Insets left="5.0" right="5.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEdit" text="%edit">
-                            <HBox.margin>
-                                <Insets right="5.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDelete" text="%delete">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="adjustButton" mnemonicParsing="false" onAction="#onAdjust" text="%adjust" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="150.0" HBox.hgrow="NEVER">
-               <children>
-                  <ComboBox fx:id="filterComboBox" prefWidth="120.0">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-            </HBox>
-              </children>
-          </HBox>
-      <VBox prefHeight="550.0" VBox.vgrow="ALWAYS">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
+      <VBox VBox.vgrow="ALWAYS">
          <children>
-                <TableView fx:id="appointmentTable" prefHeight="550.0" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="idCol" prefWidth="54.0" text="ID" />
-                        <TableColumn fx:id="titleCol" text="%title" />
-                        <TableColumn fx:id="descriptionCol" prefWidth="83.0" text="%description" />
-                        <TableColumn fx:id="locationCol" prefWidth="63.0" text="%location" />
-                        <TableColumn fx:id="contactCol" prefWidth="64.0" text="%contact" />
-                        <TableColumn fx:id="typeCol" prefWidth="77.0" text="%type" />
-                        <TableColumn fx:id="startCol" prefWidth="106.0" text="%start" />
-                  <TableColumn fx:id="endCol" prefWidth="113.0" text="%end" />
-                  <TableColumn fx:id="customerIdCol" prefWidth="82.0" text="%customer_id" />
-                  <TableColumn fx:id="userIdCol" prefWidth="67.0" text="%user_id" />
-                    </columns>
-                </TableView>
+            <VBox styleClass="main-container" VBox.vgrow="ALWAYS">
+               <children>
+                      <HBox alignment="CENTER_LEFT" prefHeight="50.0" VBox.vgrow="NEVER">
+                          <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="650.0" HBox.hgrow="ALWAYS">
+                           <children>
+                                    <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAdd" text="%add">
+                                        <HBox.margin>
+                                            <Insets left="5.0" right="5.0" />
+                                        </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEdit" text="%edit">
+                                        <HBox.margin>
+                                            <Insets right="5.0" />
+                                        </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDelete" text="%delete">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="adjustButton" mnemonicParsing="false" onAction="#onAdjust" text="%adjust" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="150.0" HBox.hgrow="NEVER">
+                           <children>
+                              <ComboBox fx:id="filterComboBox" prefWidth="120.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                          </children>
+                      </HBox>
+                  <VBox prefHeight="550.0" VBox.vgrow="ALWAYS">
+                     <children>
+                            <TableView fx:id="appointmentTable" prefHeight="530.0" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="idCol" prefWidth="54.0" text="ID" />
+                                    <TableColumn fx:id="titleCol" text="%title" />
+                                    <TableColumn fx:id="descriptionCol" prefWidth="83.0" text="%description" />
+                                    <TableColumn fx:id="locationCol" prefWidth="63.0" text="%location" />
+                                    <TableColumn fx:id="contactCol" prefWidth="64.0" text="%contact" />
+                                    <TableColumn fx:id="typeCol" prefWidth="77.0" text="%type" />
+                                    <TableColumn fx:id="startCol" prefWidth="106.0" text="%start" />
+                              <TableColumn fx:id="endCol" prefWidth="113.0" text="%end" />
+                              <TableColumn fx:id="customerIdCol" prefWidth="82.0" text="%customer_id" />
+                              <TableColumn fx:id="userIdCol" prefWidth="67.0" text="%user_id" />
+                                </columns>
+                            </TableView>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </VBox>
    </children>
 </VBox>

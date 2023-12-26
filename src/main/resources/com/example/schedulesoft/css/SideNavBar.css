@@ -26,11 +26,12 @@
 }
 
 .logout-button {
-    -fx-background-color: #ef233c;
-    -fx-text-fill: #edf2f4;
+   -fx-background-color: #8E9BAF;
+   -fx-text-fill: #2A2C41;
+    -fx-background-radius: 6;
 }
 
 .logout-button:hover {
-    -fx-background-color: #F3364D;
+    -fx-background-color: #7F8A9A;
 }
 

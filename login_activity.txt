@@ -994,3 +994,27 @@ Timestamp:         2023-12-25 19:28:30.8280144    America/New_York
 Result:            SUCCESS                        
 
 
+Username:          admin                         
+Login Attempt On:  12/26/2023 10:33               America/New_York     
+Timestamp:         2023-12-26 10:33:24.5602985    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/26/2023 10:34               America/New_York     
+Timestamp:         2023-12-26 10:34:58.2335094    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/26/2023 10:36               America/New_York     
+Timestamp:         2023-12-26 10:36:16.6969519    America/New_York     
+Result:            SUCCESS                        
+
+
+Username:          admin                         
+Login Attempt On:  12/26/2023 11:05               America/New_York     
+Timestamp:         2023-12-26 11:05:57.4682093    America/New_York     
+Result:            SUCCESS                        
+
+
