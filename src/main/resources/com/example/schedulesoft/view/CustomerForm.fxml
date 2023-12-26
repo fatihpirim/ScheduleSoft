@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox stylesheets="@../css/CustomerForm.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerFormController">
+<HBox stylesheets="@../css/Form.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerFormController">
    <children>
-      <VBox prefHeight="700.0" prefWidth="600.0" styleClass="customer-table-container" HBox.hgrow="ALWAYS">
+      <VBox prefHeight="700.0" prefWidth="600.0" styleClass="form-container" HBox.hgrow="ALWAYS">
          <children>
             <VBox alignment="BOTTOM_LEFT" prefHeight="100.0" styleClass="top-panel">
                <VBox.margin>

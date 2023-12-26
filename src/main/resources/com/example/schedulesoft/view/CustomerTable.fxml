@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox styleClass="customer-table-container" stylesheets="@../css/CustomerTable.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerTableController">
+<VBox styleClass="table-container" stylesheets="@../css/Table.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.CustomerTableController">
    <children>
       <HBox prefHeight="100.0" styleClass="top-panel" VBox.vgrow="NEVER">
          <children>

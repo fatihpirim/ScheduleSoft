@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="700.0" prefWidth="800.0" styleClass="appointment-table-container" stylesheets="@../css/AppointmentTable.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.AppointmentTableController">
+<VBox prefHeight="700.0" prefWidth="800.0" styleClass="table-container" stylesheets="@../css/Table.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schedulesoft.controller.AppointmentTableController">
    <children>
       <HBox prefHeight="100.0" styleClass="top-panel" VBox.vgrow="NEVER">
          <children>
