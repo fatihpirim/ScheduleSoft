@@ -18,10 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -300,9 +297,20 @@ public class CustomerFormController implements Initializable {
             errorMessage.append(e.getMessage());
         }
 
-        System.out.println(errorMessage);
+        if(!errorMessage.toString().isEmpty()) {
+            System.out.println(errorMessage);
+            showErrorAlert(errorMessage.toString());
+        }
 
         return errorMessage.toString().isEmpty();
+    }
+
+    private void showErrorAlert(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Please fix the following errors:");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
     }
 
 
