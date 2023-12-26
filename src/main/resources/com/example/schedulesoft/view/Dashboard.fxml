@@ -15,7 +15,7 @@
          <children>
             <VBox alignment="BOTTOM_LEFT" prefWidth="600.0" HBox.hgrow="NEVER">
                <children>
-                  <Label prefHeight="48.0" prefWidth="194.0" styleClass="title" text="Dashboard">
+                  <Label prefHeight="48.0" prefWidth="194.0" styleClass="title" text="%dashboard">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

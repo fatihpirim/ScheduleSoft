@@ -9,7 +9,7 @@ public class AppConfig {
 
     private static final ZoneId systemZoneId = ZoneId.systemDefault();
 
-    private static String language = "en"; // change this to test language
+    private static String language = "fr"; // change this to test language
 
     private static final List<String> supportedLanguages = new ArrayList<>(Arrays.asList("en", "fr"));
 
