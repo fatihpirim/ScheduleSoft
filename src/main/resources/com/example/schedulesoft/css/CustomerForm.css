@@ -1,0 +1,45 @@
+.customer-table-container{
+   -fx-background-color: #ECF1F3;
+   -fx-border-color: #DEDFDE;
+   -fx-border-width: 1;
+}
+
+.top-panel {
+     -fx-background-color: #ECF1F3;
+     -fx-border-color: #DEDFDE;
+     -fx-border-width: 1 0 1 1;
+}
+
+.zone-id-label {
+    -fx-text-fill: #f3364d;
+}
+
+.right-side-panel {
+    -fx-background-color: #ECF1F3;
+}
+
+.cancel-button {
+    -fx-background-color: #EF233C;
+    -fx-text-fill: #edf2f4;
+    -fx-background-radius: 6;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #F3364D; /* Set the background color on hover */
+}
+
+.cancel-button:pressed {
+    -fx-border-color: #D90429;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+}
+
+.save-button {
+    -fx-background-color: #8E9BAF;
+    -fx-text-fill: #2A2C41;
+    -fx-background-radius: 6;
+}
+
+.save-button:hover {
+    -fx-background-color: #7F8A9A;
+}
