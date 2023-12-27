@@ -7,12 +7,15 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Creates a bar chart displaying the number of appointments under each appointment type
+ * This is a UI class that creates a UI object that can be used a re-usable component.
+ */
 public class AppointmentsByTypeChart {
 
     private final ResourceBundle resources;
@@ -42,15 +45,27 @@ public class AppointmentsByTypeChart {
         chart.getData().add(series1);
     }
 
+    /**
+     * Gets all appointments and applies a stream on it that maps each appointment to a type and filters distinct types.
+     * @return list of all appointment types
+     */
     public List<String> getTypes() {
         return getAppointments().stream().map(Appointment::getType).distinct().toList();
     }
 
+    /**
+     * @return all persisted appointments
+     */
     private List<Appointment> getAppointments() {
         AppointmentService appointmentService = new AppointmentService();
         return appointmentService.getAllAppointments();
     }
 
+    /**
+     *
+     * @param type type 0 or more appointments will have
+     * @return all appointments with the specified type
+     */
     private List<Appointment> getAppointmentsWithType(String type) {
 
         List<Appointment> appointments = getAppointments();
@@ -66,11 +81,19 @@ public class AppointmentsByTypeChart {
         return appointmentsWithType;
     }
 
+    /**
+     *
+     * @param type type 0 or more appointments will have
+     * @return number of appointments with the specified type
+     */
     private int getNoOfAppointmentsWithType(String type) {
         List<Appointment> appointmentsWithType = getAppointmentsWithType(type);
         return appointmentsWithType.size();
     }
 
+    /**
+     * @return a map of each type as a key and the number of appointments associated with it as a value
+     */
     private HashMap<String, Integer> getTypeToNoOfAppointments() {
 
         HashMap<String, Integer> typeToNumberOfAppointments = new HashMap<>();
@@ -85,6 +108,9 @@ public class AppointmentsByTypeChart {
         return typeToNumberOfAppointments;
     }
 
+    /**
+     * @return the chart object
+     */
     public BarChart<String,Number> create() {
         return chart;
     }

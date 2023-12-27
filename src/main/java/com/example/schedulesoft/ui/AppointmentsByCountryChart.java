@@ -18,6 +18,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Creates a bar chart displaying the number of appointments associated with each country.
+ * This is a UI class that creates a UI object that can be used a re-usable component.
+ *
+ * <p>
+ *     This is the extra report asked for in the requirements.
+ * </p>
+ */
 public class AppointmentsByCountryChart {
 
     private final ResourceBundle resources;
@@ -49,15 +57,31 @@ public class AppointmentsByCountryChart {
 
     }
 
+    /**
+     * @return all persisted appointments
+     */
     private List<Appointment> getAppointments() {
         AppointmentService appointmentService = new AppointmentService();
         return appointmentService.getAllAppointments();
     }
+
+    /**
+     * @return all persisted countries
+     */
     private List<String> getCountries() {
         CountryService countryService = new CountryService();
         return countryService.getAllCountries().stream().map(Country::getName).toList();
     }
 
+    /**
+     *
+     * Customer id is read from appointment and used to fetch Customer from database.
+     * The division id is read from the customer and used to fetch Division from database.
+     * The country id is read from the division and used to fetch the Country from the database.
+     *
+     * @param appointment appointment with a customer in a country
+     * @return country associated with appointments
+     */
     private Country getCountry(Appointment appointment) {
 
         CustomerService customerService = new CustomerService();
@@ -73,6 +97,11 @@ public class AppointmentsByCountryChart {
 
         return countryService.getCountryById(customerDivisionCountryId);
     }
+
+    /**
+     * @param country country which has 0 or more appointments associated with it
+     * @return all appointments associated with the country
+     */
     private List<Appointment> getAppointmentsWithCountry(String country) {
 
         List<Appointment> appointments = getAppointments();
@@ -90,11 +119,19 @@ public class AppointmentsByCountryChart {
 
         return appointmentsWithCountry;
     }
+
+    /**
+     * @param country country which has 0 or more appointments associated with it
+     * @return the number of appointments associated with the country
+     */
     private int getNoOfAppointmentsWithCountry(String country) {
         List<Appointment> appointmentsWithCountry = getAppointmentsWithCountry(country);
         return appointmentsWithCountry.size();
     }
 
+    /**
+     * @return a map of each country as a key and the number of appointments associated with it as a value
+     */
     private HashMap<String, Integer> getCountryToNumberOfAppointments() {
 
         HashMap<String, Integer> countryToNumberOfAppointments = new HashMap<>();
@@ -106,9 +143,12 @@ public class AppointmentsByCountryChart {
             countryToNumberOfAppointments.put(country, numberOfAppointments);
         }
 
-        return  countryToNumberOfAppointments;
+        return countryToNumberOfAppointments;
     }
 
+    /**
+     * @return the chart object
+     */
     public BarChart<String,Number> create() {
         return chart;
     }

@@ -7,7 +7,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
 
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
@@ -16,6 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Creates a bar chart displaying the number of appointments in each month, starting from the current month and following with the next 11 months.
+ * This is a UI class that creates a UI object that can be used a re-usable component.
+ */
 public class AppointmentsByMonthChart {
 
     private final ResourceBundle resources;
@@ -24,6 +27,7 @@ public class AppointmentsByMonthChart {
     private final BarChart<String,Number> chart = new BarChart<String,Number>(xAxis,yAxis);
 
     private final ZonedDateTime currentDateTime;
+
 
     public AppointmentsByMonthChart(ResourceBundle resources) {
 
@@ -52,6 +56,9 @@ public class AppointmentsByMonthChart {
         chart.getData().add(series1);
     }
 
+    /**
+     * @return a list containing a ZonedDateTime object at the start of the current month and the following 11 months.
+     */
     private List<ZonedDateTime> getMonths() {
 
         int currentMonth = currentDateTime.getMonthValue();
@@ -68,11 +75,18 @@ public class AppointmentsByMonthChart {
         return monthsList;
     }
 
+    /**
+     * @return all persisted appointments
+     */
     private List<Appointment> getAppointments() {
         AppointmentService appointmentService = new AppointmentService();
         return appointmentService.getAllAppointments();
     }
 
+    /**
+     * @param month month with appointments
+     * @return all appointments in the month
+     */
     private List<Appointment> getAppointmentsInMonth(ZonedDateTime month) {
 
         // Get all appointments
@@ -92,11 +106,19 @@ public class AppointmentsByMonthChart {
         return appointmentsInMonth;
     }
 
+    /**
+     *
+     * @param month month with appointments
+     * @return number of appointments in the month
+     */
     private int getNumberOfAppointmentsInMonth(ZonedDateTime month) {
         List<Appointment> appointmentsInMonth = getAppointmentsInMonth(month);
         return appointmentsInMonth.size();
     }
 
+    /**
+     * @return a map of each month as a key and the number of appointments associated with it as a value
+     */
     private HashMap<String, Integer> getMonthToNumberOfAppointments() {
 
         HashMap<String, Integer> monthToNumberOfAppointments = new HashMap<>();
@@ -110,6 +132,9 @@ public class AppointmentsByMonthChart {
         return monthToNumberOfAppointments;
     }
 
+    /**
+     * @return the chart object
+     */
     public BarChart<String,Number> create() {
         return chart;
     }
