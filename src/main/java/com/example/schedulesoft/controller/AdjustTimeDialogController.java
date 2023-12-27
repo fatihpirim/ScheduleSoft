@@ -104,7 +104,7 @@ public class AdjustTimeDialogController implements Initializable {
                 appointmentIsSaved = appointmentService.saveAppointment(selectedAppointment);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                showErrorAlert(e.getMessage());
+                showErrorAlert("Error saving appointment time.\nField empty or time is overlapping");
             }
 
             if(appointmentIsSaved) {

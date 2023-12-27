@@ -6,6 +6,7 @@ import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.model.ContactScheduleModel;
 import com.example.schedulesoft.service.AppointmentService;
 import com.example.schedulesoft.service.ContactService;
+import com.example.schedulesoft.ui.AppointmentsByCountryChart;
 import com.example.schedulesoft.ui.AppointmentsByMonthChart;
 import com.example.schedulesoft.ui.AppointmentsByTypeChart;
 import com.example.schedulesoft.util.AppConfig;
@@ -77,12 +78,14 @@ public class DashboardController implements Initializable {
         zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
 
         // Chart Control & UI
-        ObservableList<String> chartComboBoxItems = FXCollections.observableArrayList(Arrays.asList(resources.getString("by_month"), resources.getString("by_type")));
+        ObservableList<String> chartComboBoxItems = FXCollections.observableArrayList(Arrays.asList(
+                resources.getString("by_month"), resources.getString("by_type"), resources.getString("by_country")));
         chartComboBox.setItems(chartComboBoxItems);
         chartComboBox.setValue(resources.getString("by_month"));
 
         AppointmentsByMonthChart appointmentByMonthChart = new AppointmentsByMonthChart(resources);
         AppointmentsByTypeChart appointmentByTypeChart = new AppointmentsByTypeChart(resources);
+        AppointmentsByCountryChart appointmentsByCountryChart = new AppointmentsByCountryChart(resources);
 
         chartContainer.getChildren().clear();
         chartContainer.getChildren().add(appointmentByMonthChart.create());
@@ -94,6 +97,9 @@ public class DashboardController implements Initializable {
             } else if(newValue.equals(resources.getString("by_type"))) {
                 chartContainer.getChildren().clear();
                 chartContainer.getChildren().add(appointmentByTypeChart.create());
+            } else if(newValue.equals(resources.getString("by_country"))) {
+                chartContainer.getChildren().clear();
+                chartContainer.getChildren().add(appointmentsByCountryChart.create());
             }
         });
 

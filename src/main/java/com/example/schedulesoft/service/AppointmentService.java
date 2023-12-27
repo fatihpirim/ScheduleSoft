@@ -89,27 +89,27 @@ public class AppointmentService {
 
             boolean appointmentIsOverlapping = appointmentInterval.isOverlapping(otherInterval);
 
-            if(appointmentIsOverlapping) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+            if(appointmentIsOverlapping && appointment.getId() != otherAppointment.getId()) {
 
-                // If the overlapping appointment is the same appointment
-                System.out.println("Check 1: " + appointment.getId() + " == " + otherAppointment.getId());
-                if(appointment.getId() == otherAppointment.getId()) {
-                    System.out.println("Same appointment. New time interval is valid.");
-                    return true;
-                }
-                // If the overlapping appointment is with the same customer
-                System.out.println("Check 2: " + appointment.getCustomerId() + " == " + otherAppointment.getCustomerId());
+                System.out.println(appointment.getTitle() + " is overlapping with " + otherAppointment.getTitle());
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+                ZonedDateTime start = otherAppointment.getStartDateTime().withZoneSameInstant(ZoneId.systemDefault());
+                ZonedDateTime end = otherAppointment.getEndDateTime().withZoneSameInstant(ZoneId.systemDefault());
+
                 if (appointment.getCustomerId() == otherAppointment.getCustomerId()) {
-                    throw new Exception("The selected customer has an existing appointment (starting at " + formatter.format(otherAppointment.getStartDateTime())  +
-                            " and ending at " + formatter.format(otherAppointment.getEndDateTime()) + ") that is overlapping with this appointment");
+                    System.out.println("StarDateTime" + otherAppointment.getStartDateTime());
+
+                    throw new Exception("The selected customer has an existing appointment (starting at " + formatter.format(start)  +
+                            " and ending at " + formatter.format(end) + ") that is overlapping with this appointment");
                 }
                 // If the overlapping appointment is with the same user
-                System.out.println("Check 3: " + appointment.getUserId() + " == " + otherAppointment.getUserId());
                 if (appointment.getUserId() == otherAppointment.getUserId()) {
-                    throw new Exception("The selected user has an existing appointment (starting at " + formatter.format(otherAppointment.getStartDateTime())  +
-                            " and ending at " + formatter.format(otherAppointment.getEndDateTime()) + ") that is overlapping with this appointment");
+                    throw new Exception("The selected user has an existing appointment (starting at " + formatter.format(start)  +
+                            " and ending at " + formatter.format(end) + ") that is overlapping with this appointment");
                 }
+            } else {
+                System.out.println(appointment.getTitle() + " is NOT overlapping or Same as " + otherAppointment.getTitle());
             }
         }
         return true;

@@ -33,13 +33,13 @@ public class AppointmentsByTypeChart {
         XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 
         List<String> types = getTypes();
-        HashMap<String, Integer> typeToNumberOfAppointments = getTypeToNumberOfAppointments();
+        HashMap<String, Integer> typeToNumberOfAppointments = getTypeToNoOfAppointments();
         for(String type: types) {
             int numberOfAppointments = typeToNumberOfAppointments.get(type);
             series1.getData().add(new XYChart.Data<>(type, numberOfAppointments));
         }
 
-        chart.getData().addAll(series1);
+        chart.getData().add(series1);
     }
 
     public List<String> getTypes() {
@@ -71,7 +71,7 @@ public class AppointmentsByTypeChart {
         return appointmentsWithType.size();
     }
 
-    private HashMap<String, Integer> getTypeToNumberOfAppointments() {
+    private HashMap<String, Integer> getTypeToNoOfAppointments() {
 
         HashMap<String, Integer> typeToNumberOfAppointments = new HashMap<>();
 
