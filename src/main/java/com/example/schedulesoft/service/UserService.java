@@ -12,16 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Intermediary between controllers (and other objects) and the user data access object (DAO).
+ */
 public class UserService {
     private final UserDAO userDAO = new UserDAO();
 
     public UserService() {
     }
 
+    /**
+     * @param id user id
+     * @return User with id
+     */
     public User getUserById(int id) {
         return UserMapper.toUser(userDAO.getById(id));
     }
 
+    /**
+     * @return all users in database
+     */
     public ArrayList<User> getAllUsers() {
 
         List<UserDTO> userDTOs = userDAO.getAll();

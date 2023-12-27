@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Intermediary between controllers (and other objects) and the country data access object (DAO).
+ */
 public class CountryService {
 
     private final CountryDAO countryDAO = new CountryDAO();
@@ -19,12 +22,20 @@ public class CountryService {
     public CountryService() {
     }
 
+    /**
+     *
+     * @param id country id
+     * @return Country with the id
+     */
     public Country getCountryById(int id) {
 
         return CountryMapper.toCountry(countryDAO.getById(id));
 
     }
 
+    /**
+     * @return all countries in database
+     */
     public ArrayList<Country> getAllCountries() {
 
         List<CountryDTO> countryDTOs = countryDAO.getAll();

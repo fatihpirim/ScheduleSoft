@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Intermediary between controllers (and other objects) and the division data access object (DAO).
+ */
 public class DivisionService {
 
     private final DivisionDAO divisionDAO = new DivisionDAO();
@@ -19,10 +22,18 @@ public class DivisionService {
     public DivisionService() {
     }
 
+    /**
+     *
+     * @param id division id
+     * @return Division with id
+     */
     public Division getDivisionById(int id) {
         return DivisionMapper.toDivision(divisionDAO.getById(id));
     }
 
+    /**
+     * @return all divisions in database
+     */
     public ArrayList<Division> getAllDivisions() {
 
         List<DivisionDTO> divisionDTOs = divisionDAO.getAll();
@@ -32,6 +43,11 @@ public class DivisionService {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     *
+     * @param countryId country id
+     * @return all divisions with country id in database
+     */
     public ArrayList<Division> getAllDivisionsByCountryId(int countryId) {
 
         List<DivisionDTO> divisionDTOs = divisionDAO.getAll();

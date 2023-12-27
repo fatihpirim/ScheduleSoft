@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Intermediary between controllers (and other objects) and the customer data access object (DAO).
+ */
 public class CustomerService {
 
     private final CustomerDAO customerDAO = new CustomerDAO();
@@ -18,7 +21,13 @@ public class CustomerService {
     public CustomerService() {
     }
 
-    // save inserts or updates customer depending on if hte customer is in the table or not
+    /**
+     * Maps Customer object to dto
+     * If the Customer does not have an id, adds customer to database
+     * If the customer DOES have an id, updates the existing customer in the database
+     * @param customer Customer being saved
+     * @return true if saved successfully
+     */
     public boolean saveCustomer(Customer customer) {
 
         CustomerDTO customerDTO = CustomerMapper.toDto(customer);
@@ -48,7 +57,12 @@ public class CustomerService {
         }
     }
 
-    // deletes customer if it is in the table
+    /**
+     * Maps Customer to DTO
+     * Deletes customer from database
+     * @param customer Customer being deleted
+     * @return true if deleted successfully
+     */
     public boolean deleteCustomer(Customer customer) {
 
         CustomerDTO customerDTO = CustomerMapper.toDto(customer);
@@ -66,12 +80,19 @@ public class CustomerService {
 
     }
 
+    /**
+     * @param id customer id
+     * @return Customer with id
+     */
     public Customer getCustomerById(int id) {
 
         return CustomerMapper.toCustomer(customerDAO.getById(id));
 
     }
 
+    /**
+     * @return get all customers in database
+     */
     public ArrayList<Customer> getAllCustomers() {
 
         List<CustomerDTO> customerDTOs = customerDAO.getAll();

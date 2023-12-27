@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Intermediary between controllers (and other objects) and the appointment data access object (DAO).
+ */
 public class AppointmentService {
 
     private final AppointmentDAO appointmentDAO = new AppointmentDAO();
@@ -22,6 +25,16 @@ public class AppointmentService {
     public AppointmentService() {
     }
 
+    /**
+     *
+     * Map the Appointment object to DTO.
+     * Check if the appointment start and end time (interval) is valid.
+     * If the appointment doesn't have an ID, it is not persisted and will be added to database
+     * If the appointment DOES have an ID, it is persisted already and will be updated in database
+     *
+     * @param appointment appointment to be added/updated
+     * @return true if saved successfully
+     */
     public boolean saveAppointment(Appointment appointment) throws Exception {
 
         AppointmentDTO appointmentDTO = AppointmentMapper.toDto(appointment);
@@ -53,6 +66,12 @@ public class AppointmentService {
         }
     }
 
+    /**
+     * Map to dto
+     * Delete from database
+     * @param appointment appointment to be deleted
+     * @return true if deleted successfully
+     */
     public boolean deleteAppointment(Appointment appointment) {
         AppointmentDTO appointmentDTO = AppointmentMapper.toDto(appointment);
 
@@ -68,6 +87,9 @@ public class AppointmentService {
         }
     }
 
+    /**
+     * @return all appointments persisted in database
+     */
     public ArrayList<Appointment> getAllAppointments() {
         List<AppointmentDTO> appointmentDTOs = appointmentDAO.getAll();
 
@@ -77,6 +99,27 @@ public class AppointmentService {
 
     }
 
+    /**
+     *
+     * This class determines if an appointment time interval (time between appointment start and end) is valid.
+     *
+     * <p>
+     *    Create interval object using param Appointment. Get all appointments and check against each appointments Interval.
+     *    <br>
+     *    If the appointment interval being checked against is overlapping and is not the same appointment
+     *    Check if the other appointment is with the same customer, if it is the Interval is NOT valid
+     *    Check if the other appointment is with the same user, if it is, the Interval is NOT valid
+     *    <br>
+     *    Cases where the appointment interval is valid:
+     *    - No overlap with any appointments
+     *    - Overlap, but only with the same appointment being updated
+     *    - Overlap, but with an appointment with a different customer
+     *    - Overlap, but with an appointment with a different user
+     * </p>
+     *
+     * @param appointment appointment with time interval being validated
+     * @return true if appointment interval is valid
+     */
     public boolean appointmentIntervalIsValid(Appointment appointment) throws Exception {
 
         ZonedDateTime startDateTime = appointment.getStartDateTime();
@@ -115,6 +158,13 @@ public class AppointmentService {
         return true;
     }
 
+    /**
+     *
+     * This method is primarily used to check if there is an upcoming appointment within a time frame (15 minutes of log in)
+     *
+     * @param interval time frame in which an appointment may or may not be occurring
+     * @return Appointment - if there is an appointment within the time frame
+     */
     public Appointment getAppointmentWithinInterval(Interval interval) throws Exception {
 
         ZonedDateTime startDateTime = interval.getStartDateTime();

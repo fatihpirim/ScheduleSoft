@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Intermediary between controllers (and other objects) and the contact data access object (DAO).
+ */
 public class ContactService {
 
     private final ContactDAO contactDAO = new ContactDAO();
@@ -19,11 +22,19 @@ public class ContactService {
     public ContactService() {
     }
 
+    /**
+     *
+     * @param id contact id
+     * @return Contact with the id
+     */
     public Contact getContactById(int id) {
 
         return ContactMapper.toContact(contactDAO.getById(id));
     }
 
+    /**
+     * @return all contacts in database
+     */
     public ArrayList<Contact> getAllContacts() {
 
         List<ContactDTO> contactDTOs = contactDAO.getAll();
