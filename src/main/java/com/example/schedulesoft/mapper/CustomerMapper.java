@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * This class maps Customer object to Customer DTO and vice versa
+ */
 public class CustomerMapper {
 
     public static CustomerDTO toDto(Customer customer)  {

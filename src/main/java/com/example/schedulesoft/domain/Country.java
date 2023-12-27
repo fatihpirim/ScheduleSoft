@@ -4,6 +4,9 @@ import javafx.beans.property.*;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Class representing a country
+ */
 public class Country {
     private final IntegerProperty id;
     private final StringProperty name;

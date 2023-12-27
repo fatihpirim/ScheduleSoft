@@ -2,6 +2,9 @@ package com.example.schedulesoft.dto;
 
 import java.sql.Timestamp;
 
+/**
+ * Encapsulates country data as read from the SQL database
+ */
 public class CountryDTO {
     private int id;
     private String name;

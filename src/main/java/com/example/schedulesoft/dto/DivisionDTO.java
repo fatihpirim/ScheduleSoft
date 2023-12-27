@@ -2,6 +2,9 @@ package com.example.schedulesoft.dto;
 
 import java.sql.Timestamp;
 
+/**
+ * Encapsulates division data as read from the SQL database
+ */
 public class DivisionDTO {
     private int id;
     private String name;

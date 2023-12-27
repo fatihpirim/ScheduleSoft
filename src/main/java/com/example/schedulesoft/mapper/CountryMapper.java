@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * This class maps Country object to Country DTO and vice versa
+ */
 public class CountryMapper {
 
     public static CountryDTO toDto(Country country)  {

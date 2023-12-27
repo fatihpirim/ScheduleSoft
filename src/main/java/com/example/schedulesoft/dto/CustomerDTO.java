@@ -2,6 +2,9 @@ package com.example.schedulesoft.dto;
 
 import java.sql.Timestamp;
 
+/**
+ * Encapsulates customer data as read from the SQL database and as it will be written to the SQL database
+ */
 public class CustomerDTO {
 
     private int id;

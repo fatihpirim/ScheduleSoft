@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * This class maps Division object to Division DTO and vice versa
+ */
 public class DivisionMapper {
     public static DivisionDTO toDTO(Division division) {
         int id = division.getId();

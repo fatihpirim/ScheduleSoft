@@ -3,6 +3,9 @@ package com.example.schedulesoft.mapper;
 import com.example.schedulesoft.domain.Contact;
 import com.example.schedulesoft.dto.ContactDTO;
 
+/**
+ * This class maps Contact object to Contact DTO and vice versa
+ */
 public class ContactMapper {
 
     public static ContactDTO toDTO(Contact contact) {

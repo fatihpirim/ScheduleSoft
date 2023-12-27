@@ -8,6 +8,9 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * This class maps User object to User DTO and vice versa
+ */
 public class UserMapper {
 
     public static UserDTO toDto(User user) throws InvalidIdException {

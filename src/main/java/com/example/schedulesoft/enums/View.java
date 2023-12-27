@@ -1,5 +1,9 @@
 package com.example.schedulesoft.enums;
 
+/**
+ * Enum to represent different Views (fxml files)
+ * This enum was mainly created to extract away long file path strings
+ */
 public enum View {
     Dashboard(View.rootPath+"/Dashboard.fxml"),
     CustomerTable(View.rootPath+"/CustomerTable.fxml"),

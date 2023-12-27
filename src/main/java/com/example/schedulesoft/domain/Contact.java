@@ -5,6 +5,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Class representing a contact
+ */
 public class Contact  {
     private final IntegerProperty id;
     private final StringProperty name;

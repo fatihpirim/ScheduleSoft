@@ -1,5 +1,8 @@
 package com.example.schedulesoft.dto;
 
+/**
+ * Encapsulates contact data as read from the SQL database
+ */
 public class ContactDTO {
     private int id;
     private String name;

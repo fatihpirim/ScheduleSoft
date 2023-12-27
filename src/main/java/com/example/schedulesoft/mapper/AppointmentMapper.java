@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * This class maps Appointment object to Appointment DTO and vice versa
+ */
 public class AppointmentMapper {
 
     public static AppointmentDTO toDto(Appointment appointment) {

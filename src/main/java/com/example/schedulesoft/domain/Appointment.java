@@ -4,6 +4,9 @@ import javafx.beans.property.*;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Class representing an appointment
+ */
 public class Appointment {
 
     private final IntegerProperty id;

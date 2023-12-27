@@ -2,6 +2,9 @@ package com.example.schedulesoft.domain;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Class representing a User
+ */
 public class User {
 
     private int id;

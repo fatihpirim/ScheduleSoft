@@ -4,6 +4,9 @@ import javafx.beans.property.*;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Class representing a customer
+ */
 public class Customer {
 
     private final IntegerProperty id;

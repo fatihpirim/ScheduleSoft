@@ -1,27 +1,20 @@
 package com.example.schedulesoft.domain;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+/**
+ * Class representing a time frame / interval between two ZonedDateTime objects.
+ */
 public class Interval {
     private final ZonedDateTime startDateTime;
     private final ZonedDateTime endDateTime;
 
-    public static void main(String[] args) throws Exception {
-        ZonedDateTime zdt1 = ZonedDateTime.of(2020, 10, 1,8,0,0,0, ZoneId.systemDefault());
-        ZonedDateTime zdt2 = ZonedDateTime.of(2020, 10, 1,8,0,0,0, ZoneId.systemDefault());
-
-        ZonedDateTime zdt3 = ZonedDateTime.of(2020, 10, 1,8,0,0,0, ZoneId.systemDefault());
-        ZonedDateTime zdt4 = ZonedDateTime.of(2020, 10, 1,8,0,0,0, ZoneId.systemDefault());
-
-        Interval i1 = new Interval(zdt1, zdt2);
-        Interval i2 = new Interval(zdt3, zdt4);
-
-        System.out.println(i1.isOverlapping(i2) );
-
-    }
-
+    /**
+     * @param startDateTime start date time
+     * @param endDateTime end date time (cannot be before start date time)
+     * @throws Exception is thrown is end date time is before start date time
+     */
     public Interval(ZonedDateTime startDateTime, ZonedDateTime endDateTime) throws Exception {
         this.startDateTime = startDateTime;
 
@@ -39,15 +32,14 @@ public class Interval {
         return endDateTime;
     }
 
+    /**
+     *
+     * Checks if the Interval is overlapping with the interval given in the param
+     *
+     * @param otherInterval interval being compared against
+     * @return true if interval is overlapping with other interval
+     */
     public boolean isOverlapping(Interval otherInterval) {
-        // cases where there is no overlap:
-        // this end time is before another appointments start time
-        // this end time is equal to another appointments start time
-        // another appointments end time is before this start time
-        // another appointments end time is equal to this appointments start time
-
-//        System.out.println("This interval: " + getStartDateTime() + " <-> " + getEndDateTime() );
-//        System.out.println("Other interval: " + otherInterval.getStartDateTime() + " <-> " + otherInterval.getEndDateTime());
 
         if (this.endDateTime.isBefore(otherInterval.getStartDateTime()) || otherInterval.getEndDateTime().isBefore(this.startDateTime)) {
             return false;

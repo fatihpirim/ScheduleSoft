@@ -4,6 +4,9 @@ import javafx.beans.property.*;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Class representing a division
+ */
 public class Division {
     private final IntegerProperty id;
     private final StringProperty name;
