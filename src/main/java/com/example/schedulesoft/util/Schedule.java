@@ -4,17 +4,18 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Utility class for getting business hours.
+ */
 public class Schedule {
-
-    public static void main(String[] args) {
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(2020, 5, 29, 12, 0, 0, 0, ZoneId.of("UTC"));
-        ZonedDateTime convertedZDT = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault());
-
-        System.out.println(zonedDateTime);
-        System.out.println(convertedZDT);
-    }
-
+    /**
+     *
+     * @param date the date in which the business hours take place (selected in date picker)
+     * @param startTime start time of business hours
+     * @param endTime end time of business hours
+     * @param zoneOfBusiness zone to which the business hours need to be adjusted to
+     * @return a list of ZonedDateTime objects for all available start and end times within business hours
+     */
     public static List<ZonedDateTime> getBusinessHours(LocalDate date, String startTime, String endTime, String zoneOfBusiness) {
 
         ZoneId zoneId = ZoneId.of(zoneOfBusiness);
@@ -25,7 +26,7 @@ public class Schedule {
         while(true) {
             if(!startZDT .equals(endZDT) ) {
                 businessHours.add(startZDT);
-                startZDT = startZDT.plusMinutes(30);
+                startZDT = startZDT.plusMinutes(30); // ZonedDateTime objects will have a 30-minute increment between them
             } else {
                 businessHours.add(endZDT);
                 break;

@@ -13,8 +13,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Course: Software II C195
+ * @author Muzaffer Fatih Pirim
+ */
 public class Main extends Application {
-
+    /**
+     *
+     * Sets the default View to the Login page.
+     * Configures dimension limits of the app window.
+     * Kills all processes if window is closed.
+     * Sets language of app to system language
+     *
+     * @param stage The primary stage for the application
+     * @throws IOException Throws I/O Exception if the FXMLLoader cannot find resource
+     */
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -38,6 +51,17 @@ public class Main extends Application {
         });
     }
 
+    /**
+     * Entry point for the app.
+     *
+     * <p>
+     * Opens database connection.
+     * Launches app.
+     * Closes database connection when the application thread is killed.
+     * </p>
+     *
+     * @param args N/A
+     */
     public static void main(String[] args) {
         Database.getConnection();
         launch();

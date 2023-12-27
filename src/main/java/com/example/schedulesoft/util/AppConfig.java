@@ -5,22 +5,48 @@ import com.example.schedulesoft.exception.UnsupportedLanguageException;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * Utility class for configuring global settings in app such as language and locale.
+ *
+ */
 public class AppConfig {
 
-    private static final ZoneId systemZoneId = ZoneId.systemDefault();
+    /**
+     * Class member holding the app zone id.
+     */
+    private static final ZoneId appZoneId = ZoneId.systemDefault();
 
-    private static String language = "en"; // change this to test language
+    /**
+     * Class member holding the app language.
+     */
+    private static String language = Locale.getDefault().getLanguage();
 
+    /**
+     * Class member holding the languages supported by the app.
+     */
     private static final List<String> supportedLanguages = new ArrayList<>(Arrays.asList("en", "fr"));
 
-    public static ZoneId getSystemZoneId() {
-        return AppConfig.systemZoneId;
+    /**
+     * @return system zone id
+     */
+    public static ZoneId getAppZoneId() {
+        return AppConfig.appZoneId;
     }
 
+    /**
+     * @return app language
+     */
     public static String getLanguage() {
         return AppConfig.language;
     }
 
+    /**
+     *
+     * Currently unused. Implement language changing feature in the future.
+     *
+     * @param language new language to change the app to
+     * @throws UnsupportedLanguageException is thrown if language is set to an unsupported language
+     */
     public static void setLanguage(String language) throws UnsupportedLanguageException {
         if(supportedLanguages.contains(language)) {
             AppConfig.language = language;
@@ -30,6 +56,9 @@ public class AppConfig {
         }
     }
 
+    /**
+     * @return the app resource bundle based on language and locale
+     */
     public static ResourceBundle getResourceBundle() {
         String language = AppConfig.getLanguage();
         Locale locale = new Locale(language);

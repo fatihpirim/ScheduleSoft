@@ -93,7 +93,7 @@ public class AppointmentTableController implements Initializable {
 
         this.resources = resources;
 
-        zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
+        zoneIdLabel.setText(AppConfig.getAppZoneId().toString());
 
         setCellValueFactoryOfColumns();
 

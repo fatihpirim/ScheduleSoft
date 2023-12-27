@@ -76,7 +76,7 @@ public class AppointmentFormController implements Initializable {
 
         this.resources = resources;
 
-        zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
+        zoneIdLabel.setText(AppConfig.getAppZoneId().toString());
 
         // An appointment is selected (Edit)
         if(appointmentIsSelected) {

@@ -10,6 +10,9 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Utility class that logs log-in activity to a text file. Implemented using Singleton pattern, as is recommended for Logger classes.
+ */
 public class UserActivityLogger {
 
     private static UserActivityLogger instance;
@@ -24,6 +27,10 @@ public class UserActivityLogger {
         return instance;
     }
 
+    /**
+     * Creates a report and writes it to the login_activity.txt file in the root directory.
+     * @param message Message enum signifying if the log-in was a success or failure
+     */
     public void logLoginAttempt(Message message) {
 
         String report = createLogInAttemptReport(message);
@@ -31,6 +38,13 @@ public class UserActivityLogger {
         writeToLogFile(report, System.getProperty("user.dir")+"/login_activity.txt");
     }
 
+    /**
+     * Creates a report and writes it to the login_activity.txt file in the root directory.
+     * Additionally, records a username.
+     *
+     * @param message Message enum signifying if the log-in was a success or failure
+     * @param username Username entered in form
+     */
     public void logLoginAttempt(Message message, String username) {
 
         String report = createLogInAttemptReport(message, username);
@@ -38,6 +52,10 @@ public class UserActivityLogger {
         writeToLogFile(report, System.getProperty("user.dir")+"/login_activity.txt");
     }
 
+    /**
+     * @param message Message enum (SUCCESS or FAILURE)
+     * @return report as a string
+     */
     private String createLogInAttemptReport(Message message) {
         ZonedDateTime loginAttemptDateTime = ZonedDateTime.now();
         String dateTime = loginAttemptDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
@@ -59,6 +77,12 @@ public class UserActivityLogger {
         return line1 + line2 + line3;
     }
 
+    /**
+     *
+     * @param message Message enum (SUCCESS or FAILURE)
+     * @param username username associated with log-in attempt
+     * @return report as a string
+     */
     private String createLogInAttemptReport(Message message, String username) {
         String report = createLogInAttemptReport(message);
 
@@ -67,6 +91,10 @@ public class UserActivityLogger {
         return line0 + report;
     }
 
+    /**
+     * @param report log-in attempt report
+     * @param filePath file to write the report to
+     */
     private void writeToLogFile(String report, String filePath) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
             writer.println(report);

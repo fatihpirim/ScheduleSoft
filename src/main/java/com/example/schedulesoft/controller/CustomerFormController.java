@@ -66,7 +66,7 @@ public class CustomerFormController implements Initializable {
 
         this.resources = resources;
 
-        zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
+        zoneIdLabel.setText(AppConfig.getAppZoneId().toString());
 
         Customer selectedCustomer = customerModel.getSelectedCustomer();
 

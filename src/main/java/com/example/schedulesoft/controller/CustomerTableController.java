@@ -83,7 +83,7 @@ public class CustomerTableController implements Initializable {
 
         PanelManager.changePanelTo(View.CustomerForm);
 
-        zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
+        zoneIdLabel.setText(AppConfig.getAppZoneId().toString());
 
         setCellValueFactoryOfColumns(); // method extraction
 

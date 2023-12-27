@@ -2,7 +2,6 @@ package com.example.schedulesoft.controller;
 
 import com.example.schedulesoft.domain.Appointment;
 import com.example.schedulesoft.domain.Contact;
-import com.example.schedulesoft.model.AppointmentModel;
 import com.example.schedulesoft.model.ContactScheduleModel;
 import com.example.schedulesoft.service.AppointmentService;
 import com.example.schedulesoft.service.ContactService;
@@ -18,15 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
@@ -75,7 +68,7 @@ public class DashboardController implements Initializable {
 
         this.resources = resources;
 
-        zoneIdLabel.setText(AppConfig.getSystemZoneId().toString());
+        zoneIdLabel.setText(AppConfig.getAppZoneId().toString());
 
         // Chart Control & UI
         ObservableList<String> chartComboBoxItems = FXCollections.observableArrayList(Arrays.asList(
