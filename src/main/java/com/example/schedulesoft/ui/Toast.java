@@ -20,8 +20,17 @@ import javafx.util.Duration;
 
 public class Toast {
 
+    /**
+     * Container of the toast
+     */
     private final StackPane container;
 
+    /**
+     * Constructor for Toast UI
+     * @param title title of toast
+     * @param message message (content) of toast
+     * @param severity severity of toast
+     */
     public Toast(String title, String message, Severity severity) {
         container = new StackPane();
 
