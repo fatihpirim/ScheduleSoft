@@ -1,6 +1,5 @@
 package com.example.schedulesoft.dao;
 
-import com.example.schedulesoft.dto.ContactDTO;
 import com.example.schedulesoft.dto.UserDTO;
 import com.example.schedulesoft.exception.UsernameNotFoundException;
 import com.example.schedulesoft.util.Database;
@@ -9,8 +8,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulating the details of accessing users in the database and performing (only) read operations on them
+ * <p>
+ * All operations are associated with the "users" table in the database
+ * </p>
+ */
 public class UserDAO implements ReadOnlyDAO<UserDTO> {
 
+    /**
+     * Gets user with matching id from database
+     *
+     * @param id id of user
+     * @return user with id
+     */
     @Override
     public UserDTO getById(int id) {
         String query = "SELECT * FROM client_schedule.users WHERE User_Id = ?";
@@ -39,6 +50,14 @@ public class UserDAO implements ReadOnlyDAO<UserDTO> {
         return null;
     }
 
+    /**
+     *
+     * Gets user with matching username from database
+     *
+     * @param username username of user
+     * @return user with username
+     * @throws UsernameNotFoundException thrown if the username does not exist in the database
+     */
     public UserDTO getByUsername(String username) throws UsernameNotFoundException {
         String query = "SELECT * FROM client_schedule.users WHERE User_Name = ?";
 
@@ -66,6 +85,10 @@ public class UserDAO implements ReadOnlyDAO<UserDTO> {
         }
     }
 
+    /**
+     * Gets all users from the database
+     * @return all users
+     */
     @Override
     public List<UserDTO> getAll() {
         String query = "SELECT * FROM client_schedule.users";

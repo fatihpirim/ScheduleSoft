@@ -7,7 +7,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulating the details of accessing appointments in the database and performing read and write operations on them
+ * <p>
+ * All operations are associated with the "appointments" table in the database
+ * </p>
+ */
 public class AppointmentDAO implements ReadWriteDAO<AppointmentDTO> {
+
+    /**
+     * Gets appointment with matching id from database
+     *
+     * @param id id of appointment
+     * @return appointment with id
+     */
     @Override
     public AppointmentDTO getById(int id) {
 
@@ -45,6 +58,10 @@ public class AppointmentDAO implements ReadWriteDAO<AppointmentDTO> {
 
     }
 
+    /**
+     * Gets all appointments from the database
+     * @return all appointments
+     */
     @Override
     public List<AppointmentDTO> getAll() {
         String query = "SELECT * FROM client_schedule.appointments";
@@ -81,6 +98,11 @@ public class AppointmentDAO implements ReadWriteDAO<AppointmentDTO> {
         }
     }
 
+    /**
+     * Inserts/adds new appointment to the database
+     * @param appointmentDTO appointment being inserted
+     * @return 1 if inserted successfully
+     */
     @Override
     public int insert(AppointmentDTO appointmentDTO) {
         String query = "INSERT INTO client_schedule.appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) " +
@@ -109,6 +131,11 @@ public class AppointmentDAO implements ReadWriteDAO<AppointmentDTO> {
 
     }
 
+    /**
+     * Updates/edits existing appointment in the database
+     * @param appointmentDTO appointment being updated
+     * @return 1 if updated successfully
+     */
     @Override
     public int update(AppointmentDTO appointmentDTO)  {
 
@@ -141,6 +168,11 @@ public class AppointmentDAO implements ReadWriteDAO<AppointmentDTO> {
         }
     }
 
+    /**
+     * Deletes appointment from database
+     * @param appointmentDTO appointment being deleted
+     * @return 1 if deleted successfully
+     */
     @Override
     public int delete(AppointmentDTO appointmentDTO) {
         String query = "DELETE FROM client_schedule.appointments WHERE Appointment_ID = ?";

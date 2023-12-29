@@ -25,6 +25,9 @@ import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * Controller managing the interactions between the customer form (view) and the customer model and table (back-end)
+ */
 public class CustomerFormController implements Initializable {
 
     @FXML
@@ -116,6 +119,9 @@ public class CustomerFormController implements Initializable {
         });
     }
 
+    /**
+     * Attempts to save the customer in database
+     */
     @FXML
     private void onSave(Event event) {
         System.out.println("Clicked Save");
@@ -179,6 +185,9 @@ public class CustomerFormController implements Initializable {
 
     }
 
+    /**
+     * Exits out of the form
+     */
     @FXML
     private void onCancel(Event event) {
         System.out.println("Clicked Cancel");
@@ -189,6 +198,10 @@ public class CustomerFormController implements Initializable {
         PanelManager.changePanelTo(View.CustomerTable);
     }
 
+    /**
+     * Validates first name
+     * @throws Exception throws exception if invalid
+     */
     private void validateFirstName() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(firstNameField.getText().length() > 24) {
@@ -203,6 +216,10 @@ public class CustomerFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates last name
+     * @throws Exception throws exception if invalid
+     */
     private void validateLastName() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(lastNameField.getText().length() > 24) {
@@ -217,6 +234,10 @@ public class CustomerFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates address
+     * @throws Exception throws exception if invalid
+     */
     private void validateAddress() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(addressField.getText().length() > 99) {
@@ -231,6 +252,10 @@ public class CustomerFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates postal code
+     * @throws Exception throws exception if invalid
+     */
     private void validatePostalCode() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(postalCodeField.getText().length() > 49) {
@@ -245,6 +270,10 @@ public class CustomerFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates phone number
+     * @throws Exception throws exception if invalid
+     */
     private void validatePhoneNumber() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(postalCodeField.getText().length() > 20) {
@@ -262,7 +291,10 @@ public class CustomerFormController implements Initializable {
         }
     }
 
-
+    /**
+     * Validates all forms
+     * @return returns true if the error message string length is 0
+     */
     private boolean validateAllForms() {
 
         StringBuilder errorMessage = new StringBuilder();
@@ -305,6 +337,10 @@ public class CustomerFormController implements Initializable {
         return errorMessage.toString().isEmpty();
     }
 
+    /**
+     * Shows an alert window with given error message
+     * @param errorMessage message indicating errors in fields
+     */
     private void showErrorAlert(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

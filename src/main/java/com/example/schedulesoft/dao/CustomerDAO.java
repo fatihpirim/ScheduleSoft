@@ -2,14 +2,26 @@ package com.example.schedulesoft.dao;
 
 import com.example.schedulesoft.dto.CustomerDTO;
 import com.example.schedulesoft.util.Database;
-import javafx.beans.property.IntegerProperty;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulating the details of accessing customers in the database and performing read and write operations on them
+ * <p>
+ * All operations are associated with the "customers" table in the database
+ * </p>
+ */
 public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
 
+
+    /**
+     * Gets customer with matching id from database
+     *
+     * @param id id of customer
+     * @return customer with id
+     */
     @Override
     public CustomerDTO getById(int id)  {
 
@@ -43,6 +55,10 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
         return null;
     }
 
+    /**
+     * Gets all customers from the database
+     * @return all customers
+     */
     @Override
     public List<CustomerDTO> getAll() {
 
@@ -77,6 +93,11 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
         }
     }
 
+    /**
+     * Inserts/adds new customer to the database
+     * @param customerDTO customer being inserted
+     * @return 1 if inserted successfully
+     */
     @Override
     public int insert(CustomerDTO customerDTO) {
 
@@ -101,6 +122,11 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
         }
     }
 
+    /**
+     * Updates/edits existing customer in the database
+     * @param customerDTO customer being updated
+     * @return 1 if updated successfully
+     */
     @Override
     public int update(CustomerDTO customerDTO)  {
 
@@ -128,6 +154,11 @@ public class CustomerDAO implements ReadWriteDAO<CustomerDTO> {
         }
     }
 
+    /**
+     * Deletes customer from database
+     * @param customerDTO customer being deleted
+     * @return 1 if deleted successfully
+     */
     @Override
     public int delete(CustomerDTO customerDTO) {
 

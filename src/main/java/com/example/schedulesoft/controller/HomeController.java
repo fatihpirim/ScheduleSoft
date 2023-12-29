@@ -8,6 +8,9 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller that sets default page and panel
+ */
 public class HomeController implements Initializable {
 
     @FXML

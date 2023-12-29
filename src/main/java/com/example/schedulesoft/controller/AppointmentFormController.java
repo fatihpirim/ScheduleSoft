@@ -26,6 +26,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Controller managing the interactions between the appointment form (view) and the appointment model and table (back-end)
+ */
 public class AppointmentFormController implements Initializable {
 
     @FXML
@@ -134,6 +137,10 @@ public class AppointmentFormController implements Initializable {
 
     }
 
+    /**
+     * Saves the appointment
+     * @param event clicked save button
+     */
     @FXML
     private void onSave(Event event) {
         System.out.println("Clicked Save");
@@ -204,6 +211,10 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    /**
+     * Clears the form entries and closes the panel
+     * @param event cancel is clicked
+     */
     @FXML
     private void onCancel(Event event) {
         System.out.println("Clicked Cancel");
@@ -213,7 +224,10 @@ public class AppointmentFormController implements Initializable {
 
     }
 
-
+    /**
+     * Populates fields in the form with existing appointment data, if the appointment already exists
+     * Fields are populated only when an appointment is being updated/edited
+     */
     private void populateFields() {
 
         Appointment selectedAppointment = appointmentModel.getSelectedAppointment();
@@ -249,6 +263,10 @@ public class AppointmentFormController implements Initializable {
         appointmentIdField.setText(String.valueOf(selectedAppointment.getId()));
     }
 
+    /**
+     * Disables the weekends on a date picker ui
+     * @param datePicker date picker in which in the weekends are being disables
+     */
     private void disableWeekends(DatePicker datePicker) {
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
@@ -262,6 +280,9 @@ public class AppointmentFormController implements Initializable {
         });
     }
 
+    /**
+     * Gets the start times that are available (to be selected) based on the current selected end time
+     */
     private void setStartTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();
 
@@ -279,6 +300,9 @@ public class AppointmentFormController implements Initializable {
 
     }
 
+    /**
+     * Gets the end times that are available (to be selected) based on the current selected start time
+     */
     private void setEndTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();
 
@@ -294,6 +318,10 @@ public class AppointmentFormController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
+    /**
+     * Formats the items (date times objects) in the combo box
+     * @param timeComboBox combo box being formatted
+     */
     private void formatTimeComboBoxItems(ComboBox<ZonedDateTime> timeComboBox) {
         timeComboBox.setConverter(new StringConverter<>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
@@ -312,6 +340,12 @@ public class AppointmentFormController implements Initializable {
 
     // Validators
 
+    /**
+     *
+     * @param textField text field being validated
+     * @param textFieldName name of the text field (in other words what to attribute error to if field is invalid)
+     * @throws Exception thrown if the text field is invalid
+     */
     private void validateTextField(TextField textField, String textFieldName) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(textField.getText().length() > 49) {
@@ -326,6 +360,10 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates contact
+     * @throws Exception thrown if contact is invalid
+     */
     private void validateContact() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(contactComboBox.getValue() == null) {
@@ -336,6 +374,12 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates date
+     * @param datePicker date picker being validated
+     * @param datePickerName name of the date picker
+     * @throws Exception thrown if the date is invalid
+     */
     private void validateDate(DatePicker datePicker, String datePickerName) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(datePicker.getValue() == null) {
@@ -346,6 +390,10 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates appointment time
+     * @throws Exception thrown if time is invalid
+     */
     private void validateTime() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(startTimeComboBox.getValue() == null ) {
@@ -364,6 +412,10 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates customer id
+     * @throws Exception thrown if customer id is invalid
+     */
     private void validateCustomerId() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(customerIdComboBox.getValue() == null) {
@@ -374,6 +426,10 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates user id
+     * @throws Exception thrown if user id is invalid
+     */
     private void validateUserId() throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         if(userIdComboBox.getValue() == null) {
@@ -384,6 +440,10 @@ public class AppointmentFormController implements Initializable {
         }
     }
 
+    /**
+     * Validates all forms
+     * @return true is all forms are valid
+     */
     private boolean validateAllForms() {
 
         StringBuilder errorMessage = new StringBuilder();
@@ -449,6 +509,10 @@ public class AppointmentFormController implements Initializable {
         return errorMessage.toString().isEmpty();
     }
 
+    /**
+     * Displays an error dialog box displaying an error message
+     * @param errorMessage message to be displayed on the error dialog
+     */
     private void showErrorAlert(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

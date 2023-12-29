@@ -29,6 +29,9 @@ import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * Controller managing the interactions between the login page (view) and the user model and table (back-end)
+ */
 public class LoginController implements Initializable {
 
     @FXML
@@ -48,6 +51,9 @@ public class LoginController implements Initializable {
 
     private ResourceBundle resources;
 
+    /**
+     * Instance of logger, which is being used to log log-in activity
+     */
     UserActivityLogger logger = UserActivityLogger.getInstance();
 
     @Override
@@ -58,6 +64,11 @@ public class LoginController implements Initializable {
         zoneIdLabel.setText(AppConfig.getAppZoneId().toString());
     }
 
+    /**
+     * Reads username and password fields and attempts to authenticate the user
+     * @param event login button is clicked
+     * @throws Exception thrown if user failed to log in
+     */
     @FXML
     private void onLogin(Event event) throws Exception {
 
@@ -105,14 +116,23 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     * @return true if username is not valid (empty)
+     */
     private boolean usernameIsNotValid() {
         return usernameField.getText().isEmpty();
     }
 
+    /**
+     * @return true if password is not valid (empty)
+     */
     private boolean passwordIsNotValid() {
         return passwordField.getText().isEmpty();
     }
 
+    /**
+     * @return true if all username and password fields are valid
+     */
     private boolean allFieldsAreValid() {
 
         clearErrors();
@@ -134,6 +154,10 @@ public class LoginController implements Initializable {
        }
     }
 
+    /**
+     * Displays errors on top of the username and password text fields
+     * @param message error message
+     */
     private void displayError(String message) {
         System.out.println(message);
         Text text = new Text(resources.getString(message)+"\n");
@@ -142,6 +166,9 @@ public class LoginController implements Initializable {
         errorTextFlow.setVisible(true);
     }
 
+    /**
+     * Clears the error from on top of the username and password text fields
+     */
     private void clearErrors() {
         errorTextFlow.getChildren().clear();
         errorTextFlow.setVisible(false);

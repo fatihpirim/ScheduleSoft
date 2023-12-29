@@ -3,6 +3,10 @@ package com.example.schedulesoft.auth;
 import com.example.schedulesoft.domain.User;
 import java.util.Objects;
 
+/**
+ * Class that holds a user (generally one that is authenticated).
+ * The class contains simple getters and setters
+ */
 public class UserSession {
 
     private final User user;

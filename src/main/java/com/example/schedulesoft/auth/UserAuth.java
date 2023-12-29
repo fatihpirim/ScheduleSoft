@@ -6,10 +6,22 @@ import com.example.schedulesoft.exception.UsernameNotFoundException;
 import com.example.schedulesoft.mapper.UserMapper;
 import com.example.schedulesoft.domain.User;
 
+/**
+ * Class responsible for handling user authentication during log in
+ */
 public class UserAuth {
 
+    /**
+     * Reference to session holder which will hold the user session (if the user is authenticated)
+     */
     private static final SessionHolder sessionHolder = SessionHolder.getInstance();
 
+    /**
+     * Authenticates user using username and password
+     * @param username username of user
+     * @param password password of user
+     * @return success if authenticated
+     */
     public static boolean authenticate(String username, String password)  {
 
         UserDAO userDAO = new UserDAO();
@@ -36,6 +48,11 @@ public class UserAuth {
         return false;
     }
 
+    /**
+     * De-authenticates (logs out) the logged-in user
+     * @return success if de-authenticated (logged out) successfully
+     * @throws Exception thrown if the session holder is not holding a user session to begin with
+     */
     public static boolean deauthenticate() throws Exception {
 
         if(sessionHolder.containsSession()) {
@@ -44,7 +61,7 @@ public class UserAuth {
             System.out.println(username + " has been logged out successfully");
             return true;
         } else {
-            throw new Exception("Session holder should contain a session if deauthentication is possible");
+            throw new Exception("Session holder should contain a session if de-authentication is possible");
         }
     }
 

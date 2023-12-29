@@ -15,6 +15,9 @@ import javafx.scene.text.Font;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller that changes views
+ */
 public class SideNavBarController implements Initializable {
 
     @FXML
@@ -39,6 +42,10 @@ public class SideNavBarController implements Initializable {
         userLabel.setText(SessionHolder.getInstance().getSession().getUser().getUsername());
     }
 
+    /**
+     * Changes view to dashboard panel
+     * @param event dashboard button clicked
+     */
     @FXML
     private void onDashboardClick(Event event) {
         System.out.println("Clicked Dashboard");
@@ -46,6 +53,10 @@ public class SideNavBarController implements Initializable {
         PanelManager.changePanelTo(View.Dashboard);
     }
 
+    /**
+     * Changes view to customer table panel
+     * @param event customers button clicked
+     */
     @FXML
     private void onCustomersClick(Event event) {
         System.out.println("Clicked Customers");
@@ -53,6 +64,10 @@ public class SideNavBarController implements Initializable {
         PanelManager.changePanelTo(View.CustomerTable);
     }
 
+    /**
+     * Changes view to appointment table panel
+     * @param event appointments button clicked
+     */
     @FXML
     private void onAppointmentsClick(Event event) {
         System.out.println("Clicked Appointments");
@@ -60,6 +75,10 @@ public class SideNavBarController implements Initializable {
         PanelManager.changePanelTo(View.AppointmentTable);
     }
 
+    /**
+     * Logs out user and changes view to log in page
+     * @param event log out button clicked
+     */
     @FXML
     private void onLogout(Event event) throws Exception {
         System.out.println("Clicked logout");

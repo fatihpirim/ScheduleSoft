@@ -1,6 +1,5 @@
 package com.example.schedulesoft.dao;
 
-import com.example.schedulesoft.dto.CountryDTO;
 import com.example.schedulesoft.dto.DivisionDTO;
 import com.example.schedulesoft.util.Database;
 
@@ -8,7 +7,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulating the details of accessing divisions in the database and performing (only) read operations on them
+ * <p>
+ * All operations are associated with the "first_level_divisions" table in the database
+ * </p>
+ */
 public class DivisionDAO implements ReadOnlyDAO<DivisionDTO> {
+
+    /**
+     * Gets division with matching id from database
+     *
+     * @param id id of division
+     * @return division with id
+     */
     @Override
     public DivisionDTO getById(int id) {
         String query = "SELECT * FROM client_schedule.first_level_divisions WHERE Division_ID = ?";
@@ -36,6 +48,10 @@ public class DivisionDAO implements ReadOnlyDAO<DivisionDTO> {
         return null;
     }
 
+    /**
+     * Gets all divisions from the database
+     * @return all divisions
+     */
     @Override
     public List<DivisionDTO> getAll()  {
         String query = "SELECT * FROM client_schedule.first_level_divisions";

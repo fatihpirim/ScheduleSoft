@@ -27,6 +27,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Controller managing the interactions between the adjust time dialog box (view) and the appointment model and table (back-end)
+ */
 public class AdjustTimeDialogController implements Initializable {
 
     @FXML
@@ -49,6 +52,9 @@ public class AdjustTimeDialogController implements Initializable {
     private final AppointmentService appointmentService = new AppointmentService();
     private final AppointmentModel appointmentModel = AppointmentModel.getInstance();
 
+    /**
+     * Holds a reference to whether an appointment is currently selected in the model
+     */
     private final boolean appointmentIsSelected = appointmentModel.getSelectedAppointment() != null;
 
     @Override
@@ -80,6 +86,11 @@ public class AdjustTimeDialogController implements Initializable {
 
     }
 
+    /**
+     * Saves appointment with new adjusted time to database
+     *
+     * @param event save button is clicked
+     */
     @FXML
     private void onSave(Event event) {
         System.out.println("Clicked save");
@@ -120,6 +131,10 @@ public class AdjustTimeDialogController implements Initializable {
         }
     }
 
+    /**
+     * Cancels the adjust time request and closes dialog window
+     * @param event cancel button is clicked
+     */
     @FXML
     private void onCancel(Event event) {
         System.out.println("Clicked cancel");
@@ -127,6 +142,9 @@ public class AdjustTimeDialogController implements Initializable {
         closeDialog();
     }
 
+    /**
+     * Populates all fields with current, existing data
+     */
     private void populateFields() {
 
         Appointment selectedAppointment = appointmentModel.getSelectedAppointment();
@@ -150,6 +168,10 @@ public class AdjustTimeDialogController implements Initializable {
 
     }
 
+    /**
+     * Disables the weekends on a date picker ui
+     * @param datePicker date picker in which in the weekends are being disables
+     */
     private void disableWeekends(DatePicker datePicker) {
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
@@ -163,6 +185,9 @@ public class AdjustTimeDialogController implements Initializable {
         });
     }
 
+    /**
+     * Gets the start times that are available (to be selected) based on the current selected end time
+     */
     private void setStartTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();
 
@@ -180,6 +205,9 @@ public class AdjustTimeDialogController implements Initializable {
 
     }
 
+    /**
+     * Gets the end times that are available (to be selected) based on the current selected start time
+     */
     private void setEndTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();
 
@@ -195,6 +223,10 @@ public class AdjustTimeDialogController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
+    /**
+     * Formats the items (date times objects) in the combo box
+     * @param timeComboBox combo box being formatted
+     */
     private void formatTimeComboBoxItems(ComboBox<ZonedDateTime> timeComboBox) {
         timeComboBox.setConverter(new StringConverter<>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
@@ -211,6 +243,10 @@ public class AdjustTimeDialogController implements Initializable {
         });
     }
 
+    /**
+     * Shows an error dialog
+     * @param errorMessage message to be displayed in the error dialog box
+     */
     private void showErrorAlert(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -219,6 +255,9 @@ public class AdjustTimeDialogController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Closes the adjust time dialog box
+     */
     private void closeDialog() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();

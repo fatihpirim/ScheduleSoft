@@ -26,6 +26,9 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Controller managing the interactions between the dashboard panel (view) and various models (back-end)
+ */
 public class DashboardController implements Initializable {
 
     @FXML
@@ -63,6 +66,13 @@ public class DashboardController implements Initializable {
 
     private final ContactService contactService = new ContactService();
 
+    /**
+     * The initialize method does most of the heavy lifting in this class
+     * <p>
+     * Creates and displays charts with respective data
+     * Populates contact schedule table with associated data
+     * </p>
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
 
@@ -121,6 +131,9 @@ public class DashboardController implements Initializable {
         setCellFactoryOfColumns();
     }
 
+    /**
+     * Sets the cell value factory for the columns in the contact schedule table
+     */
     private void setCellValueFactoryOfColumns() {
 
         idCol.setCellValueFactory(appointment -> {
@@ -159,6 +172,9 @@ public class DashboardController implements Initializable {
         });
     }
 
+    /**
+     * Sets the cell factory for the columns in the contact schedule table
+     */
     private void setCellFactoryOfColumns() {
         startCol.setCellFactory(tc -> new TableCell<>() {
 

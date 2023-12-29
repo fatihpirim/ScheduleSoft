@@ -7,8 +7,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulating the details of accessing contacts in the database and performing (only) read operations on them
+ * <p>
+ * All operations are associated with the "contacts" table in the database
+ * </p>
+ */
 public class ContactDAO implements ReadOnlyDAO<ContactDTO> {
 
+    /**
+     * Gets contact with matching id from database
+     *
+     * @param id id of contact
+     * @return contact with id
+     */
     @Override
     public ContactDTO getById(int id) {
         String query = "SELECT * FROM client_schedule.contacts WHERE Contact_ID = ?";
@@ -32,6 +44,10 @@ public class ContactDAO implements ReadOnlyDAO<ContactDTO> {
         return null;
     }
 
+    /**
+     * Gets all contacts from the database
+     * @return all contacts
+     */
     @Override
     public List<ContactDTO> getAll() {
         String query = "SELECT * FROM client_schedule.contacts";

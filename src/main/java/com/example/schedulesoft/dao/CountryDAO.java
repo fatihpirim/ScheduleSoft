@@ -7,7 +7,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulating the details of accessing countries in the database and performing (only) read operations on them
+ * <p>
+ * All operations are associated with the "countries" table in the database
+ * </p>
+ */
 public class CountryDAO implements ReadOnlyDAO<CountryDTO>{
+
+    /**
+     * Gets country with matching id from database
+     *
+     * @param id id of country
+     * @return country with id
+     */
     @Override
     public CountryDTO getById(int id)  {
         String query = "SELECT * FROM client_schedule.countries WHERE Country_ID = ?";
@@ -34,6 +47,10 @@ public class CountryDAO implements ReadOnlyDAO<CountryDTO>{
         return null;
     }
 
+    /**
+     * Gets all countries from the database
+     * @return all countries
+     */
     @Override
     public List<CountryDTO> getAll()  {
         String query = "SELECT * FROM client_schedule.countries";

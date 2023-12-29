@@ -26,6 +26,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
+/**
+ * Controller managing the interactions between the customer table (view) and the customer model and table (back-end)
+ */
 /*
     The customerTable is re-initialized with the most up-to-date data
     since going back and forth between the CustomerForm re-initializes
@@ -111,6 +114,9 @@ public class CustomerTableController implements Initializable {
 
     }
 
+    /**
+     * Sets selected customer to null in model and changes view to customer form
+     */
     @FXML
     private void onAdd() {
         System.out.println("Clicked Add (customer)");
@@ -120,6 +126,9 @@ public class CustomerTableController implements Initializable {
         PanelManager.changePanelTo(View.CustomerForm);
     }
 
+    /**
+     * Changes view to customer form
+     */
     @FXML
     private void onEdit() {
         System.out.println("Clicked Edit (customer)");
@@ -127,6 +136,14 @@ public class CustomerTableController implements Initializable {
         PanelManager.changePanelTo(View.CustomerForm);
     }
 
+    /**
+     * Attempts to delete the selected customer in table from the database
+     *
+     * <p>
+     *     An alert dialog box will be shown indicating that the customer's appointments will be deleted if the customer is deleted
+     *     If the users selects "OK", the customer's appointments will be deleted along with the customer
+     * </p>
+     */
     @FXML
     private void onDelete() {
         System.out.println("Clicked Delete (customer)");
@@ -202,6 +219,9 @@ public class CustomerTableController implements Initializable {
         }
     }
 
+    /**
+     * Sets the cell value factory for the customer table columns
+     */
     private void setCellValueFactoryOfColumns() {
 
         idCol.setCellValueFactory(customer -> {
@@ -247,12 +267,22 @@ public class CustomerTableController implements Initializable {
 
     }
 
+    /**
+     * Gets all the appointments of the given customer
+     * @param customer customer with 0 or more appointments
+     * @return a list of all the customer's appointments
+     */
     private List<Appointment> getAppointments(Customer customer) {
         return appointmentService.getAllAppointments().stream()
                 .filter(appointment -> appointment.getCustomerId() == customer.getId())
                 .toList();
     }
 
+    /**
+     * Confirmation alert shown to user when deleting a customer
+     * @param headerText header text for alert
+     * @param contentText body text for alert
+     */
     private Optional<ButtonType> showConfirmationAlert(String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(headerText);

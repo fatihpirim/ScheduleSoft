@@ -39,6 +39,9 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller managing the interactions between the appointment table (view) and the appointment model and table (back-end)
+ */
 public class AppointmentTableController implements Initializable {
 
     @FXML
@@ -130,6 +133,10 @@ public class AppointmentTableController implements Initializable {
 
     }
 
+    /**
+     * Sets selected appointment to null and changes view to appointment form
+     * @param event add button is clicked
+     */
     @FXML
     private void onAdd(ActionEvent event) {
         System.out.println("Clicked Add (appointment)");
@@ -140,6 +147,9 @@ public class AppointmentTableController implements Initializable {
 
     }
 
+    /**
+     * Changes view to appointment form
+     */
     @FXML
     private void onEdit() {
         System.out.println("Clicked Edit (appointment)");
@@ -147,6 +157,9 @@ public class AppointmentTableController implements Initializable {
         PanelManager.changePanelTo(View.AppointmentForm);
     }
 
+    /**
+     * Deletes the selected appointment
+     */
     @FXML
     private void onDelete() {
         System.out.println("Clicked Delete (appointment)");
@@ -175,6 +188,10 @@ public class AppointmentTableController implements Initializable {
         }
     }
 
+    /**
+     * Brings up adjust time dialog box for the selected appointment
+     * @param event adjust button is clicked
+     */
     @FXML
     private void onAdjust(ActionEvent event) {
 
@@ -204,6 +221,9 @@ public class AppointmentTableController implements Initializable {
         }
     }
 
+    /**
+     * Sets the cell value factory for the appointment table columns
+     */
     private void setCellValueFactoryOfColumns() {
 
         idCol.setCellValueFactory(appointment -> {
@@ -258,6 +278,10 @@ public class AppointmentTableController implements Initializable {
         });
     }
 
+    /**
+     * Sets the cell factory for the appointment table columns
+     * Used to display start and end times in appointment rows based on locale
+     */
     private void setCellFactoryOfColumns() {
         startCol.setCellFactory(tc -> new TableCell<>() {
 
@@ -295,6 +319,9 @@ public class AppointmentTableController implements Initializable {
         return alert.showAndWait();
     }
 
+    /**
+     * Filters appointments on appointment table based on all appointments, appointments this week, and appointments this month
+     */
     private void setFilter() {
         FilteredList<Appointment> filteredAppointments = new FilteredList<>(AppointmentModel.getInstance().getAppointments(), a -> true);
         filterComboBox.valueProperty().addListener((observable, oldFilter, newFilter) -> {
