@@ -24,6 +24,11 @@ public class Main extends Application {
      * Configures dimension limits of the app window.
      * Kills all processes if window is closed.
      * Sets language of app to system language
+     * <p>
+     * event handling lambda used to terminate the application thread and the JVM
+     * this lambda was added to so that all toast messages will disappear if app is closed
+     * it provides a more concise syntax for event handling logic
+     * </p>
      *
      * @param stage The primary stage for the application
      * @throws IOException Throws I/O Exception if the FXMLLoader cannot find resource
@@ -45,6 +50,8 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
+        // lambda used to terminate the application thread and the JVM
+        // this lambda was added to so that all toast messages will disappear if app is closed
         stage.setOnCloseRequest(event -> {
             Platform.exit();
             System.exit(0);

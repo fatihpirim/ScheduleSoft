@@ -44,6 +44,7 @@ public class DivisionService {
     }
 
     /**
+     * Uses lambda to filter divisions by country id. Concise way of filtering data.
      *
      * @param countryId country id
      * @return all divisions with country id in database

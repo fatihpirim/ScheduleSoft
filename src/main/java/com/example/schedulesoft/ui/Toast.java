@@ -49,6 +49,11 @@ public class Toast {
 
     }
 
+    /**
+     * Gets the background for the toast
+     * @param severity indicates severity and associated color
+     * @return background to be used by toast container
+     */
     private Background getBackground(Severity severity) {
         Color primaryBackgroundColor = Color.WHITE;
         Color secondaryBackgroundColor = severity.getColor().deriveColor(0, 1, 1, 0.5);
@@ -61,6 +66,15 @@ public class Toast {
     }
 
 
+    /**
+     *
+     * Shows the toast on the stage
+     *
+     * <p>
+     *     Uses lambda to handle event of pause transition
+     * </p>
+     * @param parentStage stage the toast will be shown on
+     */
     public void show(Stage parentStage) {
 
         Stage stage = new Stage(StageStyle.TRANSPARENT);
@@ -88,6 +102,10 @@ public class Toast {
         pauseTransition.play();
     }
 
+    /**
+     * Fades the toast in
+     * @param stage stage of toast
+     */
     private void fadeIn(Stage stage) {
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), stage.getScene().getRoot());
@@ -98,6 +116,14 @@ public class Toast {
         fadeTransition.play();
     }
 
+    /**
+     * Fades the toast out
+     *
+     * <p>
+     *     Lambda handles event when the transition finishes
+     * </p>
+     * @param stage stage of toast
+     */
     private void fadeOut(Stage stage) {
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), stage.getScene().getRoot());

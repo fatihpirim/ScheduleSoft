@@ -72,6 +72,15 @@ public class DashboardController implements Initializable {
      * Creates and displays charts with respective data
      * Populates contact schedule table with associated data
      * </p>
+     *
+     * There are multiple lambdas in initialize method
+     *
+     * <p>
+     *     lambda 1: Used for listening to the value property of the chart combo box. Makes event handling more concise.
+     *     lambda 2: Used for filtering through only the selected contact's appointments
+     *     lambda 3: Used for listening to the value property of contact combo box. Makes event handling more concise.
+     *     lambda 4: Identical to lambda 2
+     * </p>
      */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
@@ -93,6 +102,7 @@ public class DashboardController implements Initializable {
         chartContainer.getChildren().clear();
         chartContainer.getChildren().add(appointmentByMonthChart.create());
 
+        // lambda 1
         chartComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals(resources.getString("by_month"))) {
                 chartContainer.getChildren().clear();
@@ -114,12 +124,15 @@ public class DashboardController implements Initializable {
         contactComboBox.setItems(contacts);
         contactComboBox.setValue(contacts.get(0));
 
+        // lambda 2
         contactScheduleModel.setAppointments(appointmentService.getAllAppointments().stream().
                 filter(appointment -> appointment.getContactId() == contactComboBox.getValue().getId())
                 .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
         contactScheduleTable.setItems(contactScheduleModel.getAppointments());
 
+        // lambda 3
         contactComboBox.valueProperty().addListener((observable, oldContact, newContact) -> {
+            // lambda 4
             contactScheduleModel.setAppointments(appointmentService.getAllAppointments().stream().
                     filter(appointment -> appointment.getContactId() == contactComboBox.getValue().getId())
                     .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList)));
@@ -133,6 +146,9 @@ public class DashboardController implements Initializable {
 
     /**
      * Sets the cell value factory for the columns in the contact schedule table
+     * <p>
+     *     lambda sets the cell value factory for each column in contact schedule table
+     * </p>
      */
     private void setCellValueFactoryOfColumns() {
 
@@ -174,6 +190,10 @@ public class DashboardController implements Initializable {
 
     /**
      * Sets the cell factory for the columns in the contact schedule table
+     *
+     * <p>
+     *     Lambda sets the cell factory for the columns in the contact schedule table
+     * </p>
      */
     private void setCellFactoryOfColumns() {
         startCol.setCellFactory(tc -> new TableCell<>() {

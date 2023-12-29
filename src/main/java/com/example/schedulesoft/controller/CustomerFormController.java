@@ -64,6 +64,12 @@ public class CustomerFormController implements Initializable {
     private final CountryService countryService = new CountryService();
     private final DivisionService divisionService = new DivisionService();
 
+    /**
+     * Initializes controller
+     *
+     * lambda used for listening to change in country combo box
+     * lambda is used because it makes event handling more concise
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
 

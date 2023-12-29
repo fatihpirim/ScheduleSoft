@@ -74,6 +74,14 @@ public class AppointmentFormController implements Initializable {
     private final CustomerService customerService = new CustomerService();
     private final UserService userService = new UserService();
 
+    /**
+     * Initializes the controller
+     * <p>
+     * contains listeners which listen to changes in the start and end date properties (respectively)
+     * the listeners handle events using a lambda expression
+     * the lambda is used because it provides concise syntax for handling events
+     * </p>
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
 
@@ -110,6 +118,7 @@ public class AppointmentFormController implements Initializable {
         startDatePicker.setEditable(false);
 
         // Update time options when date is changed
+        // lambda
         startDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> {
             setStartTimeItems();
             setEndTimeItems();
@@ -118,6 +127,7 @@ public class AppointmentFormController implements Initializable {
         });
 
         // Change time combo box items so that a start-time after an end-time is never available in combo box
+        // lambda
         startTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndTimeItems());
         endTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartTimeItems());
 
@@ -227,6 +237,11 @@ public class AppointmentFormController implements Initializable {
     /**
      * Populates fields in the form with existing appointment data, if the appointment already exists
      * Fields are populated only when an appointment is being updated/edited
+     *
+     * <p>
+     *     A lambda is used to get business hours on the day before and convert each ZDT to user's time zone
+     *     This is done to make the code more concise
+     * </p>
      */
     private void populateFields() {
 
@@ -265,6 +280,9 @@ public class AppointmentFormController implements Initializable {
 
     /**
      * Disables the weekends on a date picker ui
+     * <p>
+     *     Lambda is used get a DateCell without having to initialize it somewhere else
+     * </p>
      * @param datePicker date picker in which in the weekends are being disables
      */
     private void disableWeekends(DatePicker datePicker) {
@@ -282,6 +300,10 @@ public class AppointmentFormController implements Initializable {
 
     /**
      * Gets the start times that are available (to be selected) based on the current selected end time
+     * <p>
+     *     A lambda is used to convert to user's time zone and filter the available end times
+     *     It is used because it makes the code more concise
+     * </p>
      */
     private void setStartTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();
@@ -302,6 +324,10 @@ public class AppointmentFormController implements Initializable {
 
     /**
      * Gets the end times that are available (to be selected) based on the current selected start time
+     * <p>
+     *     A lambda is used to convert to user's time zone and filter the available start times
+     *     It is used because it makes the code more concise
+     * </p>
      */
     private void setEndTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();

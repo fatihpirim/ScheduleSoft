@@ -79,6 +79,13 @@ public class CustomerTableController implements Initializable {
     private final CountryService countryService = new CountryService();
     private final DivisionService divisionService = new DivisionService();
 
+    /**
+     * Initializes the controller
+     * <p>
+     *     Lambda expression attached to listener to handle events (row being selected in table)
+     * </p>
+     *
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
 
@@ -143,6 +150,11 @@ public class CustomerTableController implements Initializable {
      *     An alert dialog box will be shown indicating that the customer's appointments will be deleted if the customer is deleted
      *     If the users selects "OK", the customer's appointments will be deleted along with the customer
      * </p>
+     *
+     * <p>
+     *     lambda 1: used for formatting all of the customer's appointments
+     *     lambda 2: used for deleting all the customer's appointments
+     * </p>
      */
     @FXML
     private void onDelete() {
@@ -186,6 +198,8 @@ public class CustomerTableController implements Initializable {
             StringBuilder contentText = new StringBuilder();
             contentText.append(customer.getName() + " "+ resources.getString("with_id") + " " + customer.getId() +"\n\n");
             contentText.append(resources.getString("deleting_the_customer_will_delete_appts") + " \n\n");
+
+            // lambda 1
             appointments.forEach(appointment -> {
                 String formattedAppointment = appointment.getTitle() + " (" + formatter.format(appointment.getStartDateTime()) + " - " +
                         formatter.format(appointment.getEndDateTime()) + ") \n";
@@ -198,6 +212,7 @@ public class CustomerTableController implements Initializable {
                 System.out.println("Deleting " + customer.getName() + " with id: " + customer.getId() +"\n");
                 System.out.println("Deleting the customers appointments as well");
 
+                // lambda 2
                 appointments.forEach(appointment -> {
                     System.out.println("Deleting " + appointment);
                     boolean appointmentDeleted = appointmentService.deleteAppointment(appointment);
@@ -221,6 +236,10 @@ public class CustomerTableController implements Initializable {
 
     /**
      * Sets the cell value factory for the customer table columns
+     *
+     * <p>
+     *     Lambda setting the cell value factory for each column in table
+     * </p>
      */
     private void setCellValueFactoryOfColumns() {
 
@@ -269,6 +288,10 @@ public class CustomerTableController implements Initializable {
 
     /**
      * Gets all the appointments of the given customer
+     *
+     * <p>
+     *     Lambda attached to stream used for filtering through only the customer's appointments
+     * </p>
      * @param customer customer with 0 or more appointments
      * @return a list of all the customer's appointments
      */

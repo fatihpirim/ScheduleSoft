@@ -57,6 +57,14 @@ public class AdjustTimeDialogController implements Initializable {
      */
     private final boolean appointmentIsSelected = appointmentModel.getSelectedAppointment() != null;
 
+    /**
+     * Initializes the controller
+     * <p>
+     * contains listeners which listen to changes in the start and end date properties (respectively)
+     * the listeners handle events using a lambda expression
+     * the lambda is used because it provides concise syntax for handling events
+     * </p>
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
 
@@ -71,6 +79,7 @@ public class AdjustTimeDialogController implements Initializable {
         disableWeekends(startDatePicker);
         startDatePicker.setEditable(false);
 
+        // lambda is used
         startDatePicker.valueProperty().addListener((observable, oldDate, newDate) -> {
             setStartTimeItems();
             setEndTimeItems();
@@ -78,7 +87,9 @@ public class AdjustTimeDialogController implements Initializable {
             endTimeComboBox.setDisable(false);
         });
 
+        // lambda is used
         startTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setEndTimeItems());
+        // lambda is used
         endTimeComboBox.valueProperty().addListener((observable, oldTime, newTime) -> setStartTimeItems());
 
         formatTimeComboBoxItems(startTimeComboBox);
@@ -144,6 +155,10 @@ public class AdjustTimeDialogController implements Initializable {
 
     /**
      * Populates all fields with current, existing data
+     * <p>
+     *     a stream with a lambda expression is used to convert ZonedDateTime objects to the user's time zone and collect them in a list
+     *     a lambda, rather than a for loop, is used to preform these operations because it is more concise
+     * </p>
      */
     private void populateFields() {
 
@@ -170,6 +185,9 @@ public class AdjustTimeDialogController implements Initializable {
 
     /**
      * Disables the weekends on a date picker ui
+     * <p>
+     *  A lambda is used to create a DateCell because it is more concise
+     * </p>
      * @param datePicker date picker in which in the weekends are being disables
      */
     private void disableWeekends(DatePicker datePicker) {
@@ -187,6 +205,10 @@ public class AdjustTimeDialogController implements Initializable {
 
     /**
      * Gets the start times that are available (to be selected) based on the current selected end time
+     * <p>
+     *     A lambda is used to convert to user's time zone and filter the available end times
+     *     It is used because it makes the code more concise
+     * </p>
      */
     private void setStartTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();
@@ -207,6 +229,10 @@ public class AdjustTimeDialogController implements Initializable {
 
     /**
      * Gets the end times that are available (to be selected) based on the current selected start time
+     * <p>
+     *     A lambda is used to convert to user's time zone and filter the available start times
+     *     It is used because it makes the code more concise
+     * </p>
      */
     private void setEndTimeItems() {
         LocalDate selectedDate = startDatePicker.getValue();

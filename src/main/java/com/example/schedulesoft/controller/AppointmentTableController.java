@@ -91,6 +91,9 @@ public class AppointmentTableController implements Initializable {
 
     private final ContactService contactService = new ContactService();
 
+    /**
+     * Lambda used for handling event in appointment table (selecting a row)
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
 
@@ -108,9 +111,10 @@ public class AppointmentTableController implements Initializable {
         deleteButton.setVisible(false);
         adjustButton.setVisible(false);
 
+        // lambda
         appointmentTable.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
 
-            // cool use of ternary operator
+            // use of ternary operator
             System.out.println("Currently selected: " +  ((newSelection != null) ? newSelection.getId() + " " + newSelection.getType() : "N/A") + ". Previously selected: " +
                     ((oldSelection != null) ? oldSelection.getId() + " " + oldSelection.getType() : "N/A"));
 
@@ -190,6 +194,10 @@ public class AppointmentTableController implements Initializable {
 
     /**
      * Brings up adjust time dialog box for the selected appointment
+     *
+     * <p>
+     *     Lambda used for handling DAO event. Makes event handling more concise.
+     * </p>
      * @param event adjust button is clicked
      */
     @FXML
@@ -223,6 +231,8 @@ public class AppointmentTableController implements Initializable {
 
     /**
      * Sets the cell value factory for the appointment table columns
+     *
+     * A lambda is used for setting each cell value factory of each column
      */
     private void setCellValueFactoryOfColumns() {
 
@@ -281,6 +291,10 @@ public class AppointmentTableController implements Initializable {
     /**
      * Sets the cell factory for the appointment table columns
      * Used to display start and end times in appointment rows based on locale
+     *
+     * <p>
+     *     Lambda expression is used get a TableCell more concisely for setting cell factory
+     * </p>
      */
     private void setCellFactoryOfColumns() {
         startCol.setCellFactory(tc -> new TableCell<>() {
@@ -321,6 +335,9 @@ public class AppointmentTableController implements Initializable {
 
     /**
      * Filters appointments on appointment table based on all appointments, appointments this week, and appointments this month
+     * <p>
+     *     Lambda is used for filtering appointments
+     * </p>
      */
     private void setFilter() {
         FilteredList<Appointment> filteredAppointments = new FilteredList<>(AppointmentModel.getInstance().getAppointments(), a -> true);
