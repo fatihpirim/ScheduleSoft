@@ -1,0 +1,15 @@
+module:com.example.schedulesoft
+com.example.schedulesoft
+com.example.schedulesoft.auth
+com.example.schedulesoft.controller
+com.example.schedulesoft.dao
+com.example.schedulesoft.domain
+com.example.schedulesoft.dto
+com.example.schedulesoft.enums
+com.example.schedulesoft.event
+com.example.schedulesoft.exception
+com.example.schedulesoft.mapper
+com.example.schedulesoft.model
+com.example.schedulesoft.service
+com.example.schedulesoft.ui
+com.example.schedulesoft.util
