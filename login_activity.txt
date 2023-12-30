@@ -1249,3 +1249,14 @@ Timestamp:         2023-12-29 12:38:00.4540957    America/New_York
 Result:            SUCCESS                        
 
 
+Username:          admin                         
+Login Attempt On:  12/29/2023 14:00               America/New_York     
+Timestamp:         2023-12-29 14:00:36.7469455    America/New_York     
+Result:            SUCCESS                        
+
+
+Login Attempt On:  12/29/2023 14:31               America/New_York     
+Timestamp:         2023-12-29 14:31:56.5763444    America/New_York     
+Result:            FAILURE                        
+
+
